@@ -10,7 +10,7 @@ Build a **local Python service that selects a category from the supplied taxonom
 
 The matching engine is vendor-independent. Google is the first planned source; future sources such as a vendor-supplied `meta_category_list` use the same engine through source adapters and taxonomy-scoped artifacts. A Meta file has not been supplied or inspected, so its format, identifiers, and hierarchy are not assumed here.
 
-The implementation stack is Python 3.11, uv, FastAPI, Pydantic, SQLite with `sqlite-vec`, NumPy, BM25S, RapidFuzz, Sentence Transformers, and PyTorch. Use `BAAI/bge-base-en-v1.5` for embeddings and `cross-encoder/ms-marco-MiniLM-L6-v2` for reranking. Run one application worker on the existing Mac initially.
+The implementation stack is Python 3.11, uv, FastAPI, Pydantic, SQLite with `sqlite-vec`, NumPy, BM25S, RapidFuzz, Sentence Transformers, and PyTorch. Use `BAAI/bge-base-en-v1.5` for embeddings and the pinned `cross-encoder/nli-deberta-v3-small` category-entailment rank-fusion profile for the current development matcher. FastAPI/Pydantic integration remains a later sprint. Run one application worker on the existing Mac initially.
 
 Build a **modular monolith with explicit interfaces and dependency injection**. Future features, retrieval methods, models, and storage providers must be addable through focused modules with stable contracts. The initial single-process deployment is a resource setting, not a restriction on the architecture. Section 4.6 defines the required module boundaries, change workflows, and capacity-growth path.
 
@@ -148,7 +148,7 @@ The largest accuracy gap is **missing labeled input/output data**, not missing G
 | Embedding model | `BAAI/bge-base-en-v1.5` through Sentence Transformers | Retrieve candidates with similar meaning |
 | Vector storage and search | SQLite + `sqlite-vec`, normalized float32 BLOBs | Persist vectors and execute exact cosine-distance retrieval |
 | Numeric conversion | NumPy | Normalize and serialize model output and validate numerical equivalence |
-| Reranker | `cross-encoder/ms-marco-MiniLM-L6-v2` through Sentence Transformers | Rank query/category pairs |
+| Reranker | `cross-encoder/nli-deberta-v3-small` through Sentence Transformers | Category entailment ranks fused with retrieval ranks |
 | Model execution | PyTorch, initially CPU float32 | Predictable baseline on the observed machine |
 | Verification | pytest, HTTPX, SciPy | Functional tests, API tests, precision confidence bounds |
 | Quality checks | Ruff | Formatting and static linting |
@@ -159,7 +159,15 @@ BM25S provides local BM25 retrieval, and RapidFuzz supplies spelling-distance an
 
 The embedding model produces 768-dimensional vectors. Sprint 2 development comparisons selected plain query encoding, omitting the initial retrieval instruction; stored category text also has no instruction. The active artifact records this choice. [BGE model card](https://huggingface.co/BAAI/bge-base-en-v1.5)
 
-The selected experimental reranker is an English MS MARCO passage-ranking model. Sprint 1 and Sprint 2 draft comparisons showed worse aggregate category ranking, so it remains disabled by default. Its raw scores are ranking signals, not correctness probabilities. [MiniLM reranker model card](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2)
+The initial MiniLM passage reranker worsened development ranking. The current
+development configuration instead uses the NLI model with category-entailment
+pair formatting and rank fusion. It scores the first 100 candidates and combines
+model/retrieval ranks with weights 3:1 and rank constant 10. The selected profile
+and immutable revision are stored in `config/category_ranking.json` and the
+artifact. Raw entailment margins and fused scores are ranking signals, not
+correctness probabilities. This improves draft development ranking but is not
+independently qualified. See [measured findings](reports/sprint_2/improvement/FINDINGS.md)
+and the [NLI model card](https://huggingface.co/cross-encoder/nli-deberta-v3-small).
 
 Store and search vectors through the SQLite adapter using `sqlite-vec`. Keep NumPy for model-output conversion and correctness checks. Exact vector search is appropriate for this corpus size; it does not require an additional database service. Sentence Transformers documents direct similarity search for small corpora. [Semantic search documentation](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html)
 
@@ -179,7 +187,7 @@ taxonomy key + input category + optional context
     -> if unresolved: BM25 + fuzzy + semantic candidate retrieval
     -> deduplicate by category ID + reciprocal rank fusion
     -> include relevant immediate parents
-    -> optional experimental cross-encoder reranking
+    -> selected category-entailment rank fusion, or explicit retrieval-only mode
     -> ambiguity, context, and specificity checks
     -> calibrated decision
     -> matched | needs_clarification | no_match | unsupported_language
@@ -261,14 +269,26 @@ RRF combines ranks without equating incompatible raw scores. [RRF definition](ht
 
 ### 4.4 Reranking and hierarchy handling
 
-For each candidate, construct a pair:
+For each of the first 100 candidates, the selected profile constructs a pair:
 
 ```text
-query: input category plus any supplied context
-candidate: Category: <canonical label>. Path: <canonical full path>.
+premise: These products are <retrieval query>.
+hypothesis: These products are <canonical label>.
 ```
 
-Batch the pairs through the cross-encoder and sort by descending score. Keep the first three results for the decision policy and response alternatives. Record first and second scores, their margin, retrieval ranks, and parent/child relationships.
+Batch the pairs through the cross-encoder and rank by entailment logit minus
+log-sum-exp of the two other logits. Fuse those ranks with retrieval ranks:
+`1/(10 + retrieval_rank) + 3/(10 + entailment_rank)`. Candidates outside the
+scored prefix retain their retrieval term. Apply the unique eligible whole-label
+spelling priority without converting it into a verified alias. Record raw model
+margins, fused scores, retrieval ranks, and parent/child relationships. Preserve
+the full shortlist; return alternatives according to the response limit.
+
+Canonical ID/path/label lookup and approved aliases run first. Conservative
+literal general-category wrappers can also resolve a canonical label directly.
+The current adapter preserves parent constraints and the existing infant-apparel
+exclusion, but remaining broad-parent/related-product ranking failures still need
+work before qualification. Retrieve-only mode is available through `--no-rerank`.
 
 Choose a category at the specificity supported by the input. For example, `phone accessories` supports Mobile Phone Accessories; it does not justify Mobile Phone Cases. An unclear competition between sibling or parent/child categories produces clarification unless a reviewed rule or validated decision threshold resolves it.
 
@@ -653,8 +673,8 @@ An independently reviewed subset must resolve labeling disagreements before eval
 ### Step 7 — Implement and verify reranking
 
 1. Load one cross-encoder instance for the process.
-2. Score candidate pairs in batches of 8 under inference mode.
-3. Preserve raw scores, top-result margin, and retrieval evidence.
+2. Score the configured prefix of candidate pairs in batches of 8 under inference mode.
+3. Fuse model and retrieval ranks; preserve raw scores, top-result margin, and retrieval evidence.
 4. Check parent/child competition and explicit parent constraints.
 5. Compare reranked top-1 performance with fused retrieval on development data.
 6. Freeze candidate formatting and model revisions before calibration.
@@ -920,6 +940,7 @@ The implementation can proceed with the fixed decisions above. The following evi
 
 This document specifies the intended full application. The initial CLI prototype and
 local SQLite/vector integration have since been implemented; broader service work,
-trusted evaluation, calibration, migrations, and release qualification remain.
+trusted evaluation, qualified calibration, migrations, and release qualification remain.
 See [Sprint 2 status](reports/sprint_2/STATUS.md) for the current implementation and
-[findings](reports/sprint_2/FINDINGS.md) for measured diagnostic results.
+[latest findings](reports/sprint_2/improvement/FINDINGS.md) for measured diagnostic
+results, remaining ranking regressions, and the failed no-observed-swap resource check.

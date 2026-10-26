@@ -6,9 +6,10 @@ from pathlib import Path
 import bm25s
 import numpy as np
 from rapidfuzz import fuzz, process
+from rapidfuzz.distance import DamerauLevenshtein
 
 from category_matcher.domain import Category, Hit
-from category_matcher.normalization import retrieval_terms
+from category_matcher.normalization import retrieval_terms, search_text
 
 METHODS = ("exact", "fuzzy", "bm25", "semantic", "hybrid")
 RETRIEVAL_CONFIG = {
@@ -22,6 +23,8 @@ RETRIEVAL_CONFIG = {
     "branch_weights": {"bm25": 1, "fuzzy": 1, "semantic": 5},
     "semantic_query_instruction": "",
     "bm25_representation": "label_only",
+    "spelling_min_characters": 5,
+    "spelling_distance": 1,
 }
 
 
@@ -48,6 +51,31 @@ class LexicalRetriever:
             raise ValueError("BM25 category mapping differs from the canonical store")
         self.choices = [(retrieval_terms(c.label), c.category_id) for c in categories.values()]
         self.choices.extend((retrieval_terms(a["alias"]), a["category_id"]) for a in aliases)
+        self.spelling_choices = [(search_text(c.label), c.category_id) for c in categories.values()]
+        self.spelling_choices.extend((search_text(a["alias"]), a["category_id"]) for a in aliases)
+        self.vocabulary = {word for term, _ in self.choices for word in term.split()}
+
+    def spelling(self, query: str, allowed: set[str], minimum_characters: int) -> dict:
+        key = search_text(query)
+        # A valid taxonomy word (e.g. "cases") must not be changed to "vases".
+        tokens = retrieval_terms(query).split()
+        if not tokens or all(word in self.vocabulary for word in tokens):
+            return {"candidates": [], "eligible": False, "ambiguous": False}
+        choices = [(term, cid) for term, cid in self.spelling_choices if cid in allowed]
+        matches = process.extract(
+            key,
+            [term for term, _ in choices],
+            scorer=DamerauLevenshtein.distance,
+            score_cutoff=1,
+            limit=None,
+        )
+        ids = sorted({choices[index][1] for _, distance, index in matches if distance == 1})
+        return {
+            "candidates": ids,
+            "eligible": len(key.replace(" ", "")) >= minimum_characters,
+            "ambiguous": len(ids) > 1,
+            "distance": 1 if ids else None,
+        }
 
     def bm25(self, query: str, allowed: set[str], limit: int) -> list[Hit]:
         results, scores = self.index.retrieve(

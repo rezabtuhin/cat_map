@@ -3,7 +3,7 @@
 import re
 
 from category_matcher.domain import Category
-from category_matcher.normalization import exact_key, search_text
+from category_matcher.normalization import exact_key, retrieval_terms, search_text
 
 INFANT_CUES = {"baby", "babies", "toddler", "toddlers", "infant", "infants", "newborn", "newborns"}
 ATTRIBUTE_WORDS = {"eco", "friendly", "sustainable", "recycled", "recyclable", "ethical"}
@@ -39,3 +39,55 @@ def unsupported_audience_ids(query: str, categories: dict[str, Category]) -> set
 def is_attribute_only(text: str) -> bool:
     words = set(search_text(text).split())
     return bool(words) and words <= ATTRIBUTE_WORDS
+
+
+def explicit_broad_category(
+    text: str, categories: dict[str, Category], allowed: set[str]
+) -> str | None:
+    """Resolve an explicitly broad label, not an inferred common ancestor."""
+    normalized = search_text(text)
+    explicit = normalized.endswith(" in general") or (
+        normalized.startswith("general ") and normalized.endswith(" category")
+    )
+    if not explicit:
+        return None
+    for key in literal_broad_variants(text):
+        exact = [
+            cid
+            for cid, category in categories.items()
+            if cid in allowed and exact_key(category.label) == key
+        ]
+        if exact:
+            return exact[0] if len(exact) == 1 else None
+    words = set(retrieval_terms(text).split()) - {"category", "device", "equipment", "item"}
+    matches = [
+        c
+        for cid, c in categories.items()
+        if cid in allowed and set(retrieval_terms(c.label).split()) == words
+    ]
+    if not matches:
+        return None
+    shallowest = min(c.depth for c in matches)
+    best = [c for c in matches if c.depth == shallowest]
+    return best[0].category_id if len(best) == 1 else None
+
+
+def literal_broad_variants(text: str) -> list[str]:
+    normalized = exact_key(text)
+    if normalized.endswith(" in general"):
+        normalized = normalized.removesuffix(" in general").strip()
+    elif normalized.startswith("general ") and normalized.endswith(" category"):
+        normalized = normalized.removeprefix("general ").removesuffix(" category").strip()
+    else:
+        return []
+    variants = [normalized]
+    for suffix in (" products", " goods", " equipment", " devices", " items"):
+        if normalized.endswith(suffix):
+            variants.append(normalized.removesuffix(suffix).strip())
+            break
+    return variants
+
+
+def literal_broad_label(text: str) -> str:
+    variants = literal_broad_variants(text)
+    return variants[-1] if variants else ""

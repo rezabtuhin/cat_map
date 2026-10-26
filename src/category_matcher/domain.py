@@ -38,6 +38,7 @@ class MatchResult:
     policy_id: str | None = None
     decision_preview: dict | None = None
     clarification: str | None = None
+    query_analysis: dict = field(default_factory=dict)
 
 
 class CandidateReranker(Protocol):

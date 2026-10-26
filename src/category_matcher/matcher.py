@@ -12,7 +12,9 @@ from category_matcher.domain import CandidateReranker, Hit, MatchResult
 from category_matcher.encoder import BGEEncoder
 from category_matcher.normalization import exact_key
 from category_matcher.query import (
+    explicit_broad_category,
     is_attribute_only,
+    literal_broad_variants,
     retrieval_text,
     split_context,
     unsupported_audience_ids,
@@ -36,7 +38,8 @@ class Matcher:
         self.config = self.manifest["retrieval"]
         self.encoder: BGEEncoder | None = None
         self.reranker = reranker
-        self.reranker_metadata = reranker_metadata
+        self.reranker_metadata = reranker_metadata or self.manifest.get("ranking_model")
+        self.default_rerank = self.manifest.get("ranking_model") is not None
         self.policy: DecisionPolicy | None = None
         aliases = json.loads((bundle / "aliases.json").read_text())
         self.exact: dict[str, set[str]] = defaultdict(set)
@@ -78,10 +81,13 @@ class Matcher:
         context: str = "",
         query_vector: np.ndarray | None = None,
         force_retrieval: bool = False,
-        rerank: bool = False,
+        rerank: bool | None = None,
+        retrieve: bool = True,
     ) -> MatchResult:
         if method not in METHODS:
             raise ValueError(f"Unknown retrieval method: {method}")
+        if rerank is None:
+            rerank = self.default_rerank and method == "hybrid"
         text = text.strip()
         context = context.strip()
         if not text and category_id is None:
@@ -137,6 +143,22 @@ class Matcher:
             return result
         if method == "exact":
             return result
+        broad = explicit_broad_category(text, self.store.categories, allowed)
+        if broad is not None and (not context_parts or canonical_context):
+            result.reason_code = "explicit_broad_category"
+            result.candidates = [{**self._record(broad), "rank": 1, "source": "explicit_broad"}]
+            result.query_analysis = {"broad_category": broad}
+            if any(self.exact.get(key, set()) == {broad} for key in literal_broad_variants(text)):
+                result.status = "matched"
+                result.method = "explicit_broad"
+                result.category = self._record(broad)
+                result.reason_code = "canonical_label_with_explicit_general_wrapper"
+                return result
+            # This uses retrieval normalization, so retain provisional status.
+            if rerank:
+                result.method += "+rerank"
+                result.ranking_model = self.reranker_metadata
+            return self.policy.apply(result) if self.policy else result
         if is_attribute_only(text) and parent_id and canonical_context:
             result.reason_code = "attribute_only_use_broad_context_provisionally"
             result.candidates = [{**self._record(parent_id), "rank": 1, "source": "context_only"}]
@@ -144,11 +166,24 @@ class Matcher:
                 result.method += "+rerank"
                 result.ranking_model = self.reranker_metadata
             return self.policy.apply(result) if self.policy is not None else result
+        if not retrieve:
+            result.reason_code = "retrieval_required"
+            return result
         query = self.retrieval_query(raw_text, context)
         excluded = unsupported_audience_ids(
             retrieval_text(raw_text, context), self.store.categories
         )
         allowed -= excluded
+        spelling = self.lexical.spelling(text, allowed, self.config["spelling_min_characters"])
+        if spelling["candidates"]:
+            spelling["interpretations"] = [self._record(cid) for cid in spelling["candidates"]]
+            result.query_analysis["spelling"] = spelling
+            if spelling["ambiguous"]:
+                result.clarification = (
+                    "Please clarify the category: "
+                    + ", ".join(self.store.categories[cid].label for cid in spelling["candidates"])
+                    + "."
+                )
         branches: dict[str, list[Hit]] = {}
         if method in {"bm25", "hybrid"}:
             branches["bm25"] = self.lexical.bm25(query, allowed, self.config["bm25_limit"])
@@ -178,8 +213,16 @@ class Matcher:
             if method == "hybrid"
             else next(iter(branches.values()))[: self.config["fusion_limit"]]
         )
+        if spelling["eligible"] and len(spelling["candidates"]) == 1:
+            # Protect the unique edit-near category before optional neural scoring,
+            # retaining the configured pool bound and the original semantic scores.
+            cid = spelling["candidates"][0]
+            if cid not in {hit.category_id for hit in hits}:
+                hits = [Hit(cid, 0.0, "spelling", 1)] + hits
+            hits.sort(key=lambda hit: hit.category_id != cid)
+            hits = hits[: self.config["fusion_limit"]]
         hits = expand_parents(hits, self.store.categories, allowed, self.config["parent_limit"])
-        for hit in hits:
+        for final_rank, hit in enumerate(hits, 1):
             evidence = {
                 name: {"rank": h.rank, "raw_score": h.score, "higher_is_better": True}
                 for name, branch in branches.items()
@@ -189,7 +232,7 @@ class Matcher:
             result.candidates.append(
                 {
                     **self._record(hit.category_id),
-                    "rank": hit.rank,
+                    "rank": final_rank,
                     "source": hit.source,
                     "score": hit.score,
                     "evidence": evidence,
@@ -197,9 +240,19 @@ class Matcher:
             )
         if rerank:
             if self.reranker is None:
-                raise ValueError("Download and configure a reranker before enabling reranking")
+                if self.reranker_metadata is None:
+                    raise ValueError("Download and configure a reranker before enabling reranking")
+                from category_matcher.reranker import CrossEncoderReranker
+
+                self.reranker = CrossEncoderReranker(self.reranker_metadata)
             result.candidates = self.reranker.rank(query, result.candidates)
             result.method += "+rerank"
             result.reason_code = "uncalibrated_reranking"
             result.ranking_model = self.reranker_metadata
+        if spelling["eligible"] and len(spelling["candidates"]) == 1:
+            cid = spelling["candidates"][0]
+            result.candidates.sort(key=lambda candidate: candidate["id"] != cid)
+            for index, candidate in enumerate(result.candidates, 1):
+                candidate["rank"] = index
+            result.reason_code = "unique_close_spelling_candidate_provisional"
         return self.policy.apply(result) if self.policy is not None else result

@@ -125,3 +125,23 @@ def test_partial_or_unreviewed_qualification_never_enables_policy(tmp_path):
     write_policy(path, copy.deepcopy(doc))
     with pytest.raises(ValueError, match="not independently"):
         DecisionPolicy.load(path, artifact_version="test-artifact")
+
+
+def test_competing_spelling_interpretations_require_clarification_even_at_high_scores():
+    doc = document()
+    doc["policy_id"] = "unit-test-policy"
+    policy = DecisionPolicy(doc, experimental=True)
+    answer = result(score=0.99, margin=0.9)
+    answer.query_analysis = {
+        "spelling": {
+            "ambiguous": True,
+            "interpretations": [
+                {"id": "toys", "label": "Toys"},
+                {"id": "tops", "label": "Shirts & Tops"},
+            ],
+        }
+    }
+    preview = policy.apply(answer)
+    assert preview.status == "provisional" and preview.category is None
+    assert preview.decision_preview["status"] == "needs_clarification"
+    assert "Toys, Shirts & Tops" in preview.clarification

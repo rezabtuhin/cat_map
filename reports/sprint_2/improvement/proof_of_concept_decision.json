@@ -1,0 +1,40 @@
+{
+  "artifact_version": "eed281a45624da69-e7bf07b4426d",
+  "decision": "revise",
+  "automatic_semantic_acceptance_enabled": false,
+  "primary_non_exact": {
+    "examples": 160,
+    "resolvable_examples": 120,
+    "top1_correct": 93,
+    "top3_correct": 105,
+    "recall20_correct": 114,
+    "shortlist_correct": 118,
+    "automatic_matches": 14,
+    "correct_automatic_matches": 14,
+    "incorrect_automatic_matches": 0,
+    "resolvable_automatic_matches": 14,
+    "top1_accuracy": 0.775,
+    "top3_recall": 0.875,
+    "candidate_recall_at_20": 0.95,
+    "final_shortlist_recall": 0.9833333333333333,
+    "automatic_match_precision": 1.0,
+    "resolvable_automatic_coverage": 0.11666666666666667,
+    "unresolvable_examples": 40,
+    "unresolvable_false_acceptances": 0
+  },
+  "calibration_point_targets_met": false,
+  "independent_qualification_passed": false,
+  "resource_checks": {
+    "at_least_200_requests": true,
+    "p95_under_3_seconds": true,
+    "peak_under_3GB": true,
+    "no_observed_system_swapouts": false
+  },
+  "resource_targets_passed": false,
+  "remaining_work": [
+    "Human review of labels and independently collected calibration/holdout inputs",
+    "Reduce broad-parent and related-product ranking errors, including the hoodie example",
+    "Repeat resource qualification under recorded memory conditions; investigate swap",
+    "Meet accuracy/coverage and resource gates before the Sprint 3 API"
+  ]
+}

@@ -21,7 +21,11 @@ The first validation must answer:
 At planning time, the project contained only the category source and planning documents.
 Implementation has now started. Track current work in
 [Sprint 2 status](reports/sprint_2/STATUS.md) and
-[measured diagnostic findings](reports/sprint_2/FINDINGS.md).
+[latest measured diagnostic findings](reports/sprint_2/improvement/FINDINGS.md).
+The current Sprint 2 revision selects NLI entailment rank fusion after the initial
+MiniLM comparison failed. It reaches 77.5% top-1 on reused draft non-exact inputs.
+Trusted label review, independent qualification, remaining ranking regressions,
+and the observed swap activity still require work before Sprint 3.
 The sprint descriptions below define planned scope and acceptance criteria.
 
 ## 2. Sprint cadence and scope
@@ -124,7 +128,7 @@ Determine whether the complete planned approach is accurate enough and practical
 | ID | Work | Verification |
 |---|---|---|
 | S2-01 | Complete the initial 600-example dataset | 200 development, 200 calibration, and 200 untouched test examples |
-| S2-02 | Add `cross-encoder/ms-marco-MiniLM-L6-v2` reranking | Same candidate sets can be evaluated with and without reranking |
+| S2-02 | Compare cross-encoder ranking; current profile uses `cross-encoder/nli-deberta-v3-small` rank fusion | Same candidate sets can be evaluated with and without reranking; keep the measured configuration |
 | S2-03 | Add scope, parent/child, and ambiguity checks | Broad terms do not gain unsupported child qualifiers |
 | S2-04 | Implement acceptance, clarification, no-match, and declared-language outcomes | Uncertain inputs remain unassigned |
 | S2-05 | Calibrate score/margin/support thresholds on calibration data | Versioned policy records selected values and evidence |

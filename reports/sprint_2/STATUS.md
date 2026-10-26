@@ -1,5 +1,13 @@
 # Sprint 2 implementation status
 
+**Current update:** see [the improvement findings](improvement/FINDINGS.md) and
+[updated decision](improvement/proof_of_concept_decision.json). The selected
+default now uses NLI rank fusion, reaching 77.5% draft non-exact top-1 versus
+58.3% previously. Quality qualification is pending; the latest full-model run
+passes latency/process-memory targets but fails the no-observed-swap target.
+Automatic semantic acceptance remains disabled. The snapshot below describes
+the earlier retrieval-only default and is retained as historical evidence.
+
 **Decision: revise.** Local resource targets pass. The matching-quality gate has
 not passed, and trusted calibration/test evidence is still missing. Automatic
 semantic acceptance remains disabled.

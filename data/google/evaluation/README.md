@@ -11,6 +11,13 @@ The test proposals have not been scored. They are not an independently collected
 reviewed test set. Do not rename them or change their role metadata and claim that
 an independent real-world holdout has been collected.
 
+`development.audited.draft.jsonl` is a separate, still-unreviewed derivative of the
+original development data. It proposes six label/ambiguity changes after a failure
+audit. It does not replace the original primary benchmark. The
+[audit](../../../reports/sprint_2/improvement/label_audit.json) and
+[findings](../../../reports/sprint_2/improvement/FINDINGS.md) distinguish those
+proposals from human review. Do not use this derivative as an independent split.
+
 Before using these records as trusted labels, a category reviewer must check each
 query against the source taxonomy, correct acceptable IDs or expected status, and
 set `review_status` to `approved`, with nonempty `reviewer` and `reviewed_at` fields.
