@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "google-category-matcher"
+version = "0.1.0"
+description = "Local, evaluated category retrieval over the Google product taxonomy"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+  "bm25s>=0.2,<0.4",
+  "numpy>=2,<3",
+  "rapidfuzz>=3,<4",
+  "sentence-transformers>=5,<6",
+  "sqlite-vec>=0.1.6,<0.2",
+  "torch>=2.5,<3",
+  "transformers>=4.41,<5",
+]
+
+[project.scripts]
+category-matcher = "category_matcher.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/category_matcher"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = [".cache", ".venv", "models", "artifacts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+

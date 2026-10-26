@@ -1,0 +1,3586 @@
+{
+  "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+  "ranking_model": {
+    "name": "cross-encoder/ms-marco-MiniLM-L6-v2",
+    "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+    "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--cross-encoder--ms-marco-MiniLM-L6-v2/snapshots/233902d25c440f23af6f7d6e94d2946bac0bee0a"
+  },
+  "load_and_warmup_seconds": 4.375937875000091,
+  "process_peak_resident_mib": 795.6875,
+  "notes": [
+    "User-confirmed mappings are regression/training examples, not a holdout.",
+    "Three positive labels are drafts; only the baby-tops rejection is confirmed.",
+    "Reranking is experimental and does not authorize semantic auto-acceptance.",
+    "Five inputs are insufficient for a latency or quality release claim."
+  ],
+  "examples": [
+    {
+      "query": "Clothing",
+      "review_status": "approved",
+      "expected_ids": [
+        "1604"
+      ],
+      "explicitly_rejected_ids": [],
+      "query_encoding_ms": 38.42437500043161,
+      "retrieval_plus_reranking_ms": 0.19987500036222627,
+      "baseline": {
+        "status": "matched",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "exact",
+        "category": {
+          "id": "1604",
+          "label": "Clothing",
+          "path": "Apparel & Accessories > Clothing"
+        },
+        "candidates": [
+          {
+            "id": "1604",
+            "label": "Clothing",
+            "path": "Apparel & Accessories > Clothing",
+            "source": "exact",
+            "rank": 1
+          }
+        ],
+        "reason_code": "canonical_lookup",
+        "ranking_model": null
+      },
+      "experimental_reranked": {
+        "status": "matched",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "exact",
+        "category": {
+          "id": "1604",
+          "label": "Clothing",
+          "path": "Apparel & Accessories > Clothing"
+        },
+        "candidates": [
+          {
+            "id": "1604",
+            "label": "Clothing",
+            "path": "Apparel & Accessories > Clothing",
+            "source": "exact",
+            "rank": 1
+          }
+        ],
+        "reason_code": "canonical_lookup",
+        "ranking_model": null
+      }
+    },
+    {
+      "query": "Tops",
+      "review_status": "approved",
+      "expected_ids": [
+        "212"
+      ],
+      "explicitly_rejected_ids": [],
+      "query_encoding_ms": 38.386584000363655,
+      "retrieval_plus_reranking_ms": 0.2080409994960064,
+      "baseline": {
+        "status": "matched",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "approved_alias",
+        "category": {
+          "id": "212",
+          "label": "Shirts & Tops",
+          "path": "Apparel & Accessories > Clothing > Shirts & Tops"
+        },
+        "candidates": [
+          {
+            "id": "212",
+            "label": "Shirts & Tops",
+            "path": "Apparel & Accessories > Clothing > Shirts & Tops",
+            "source": "approved_alias",
+            "rank": 1
+          }
+        ],
+        "reason_code": "reviewed_alias",
+        "ranking_model": null
+      },
+      "experimental_reranked": {
+        "status": "matched",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "approved_alias",
+        "category": {
+          "id": "212",
+          "label": "Shirts & Tops",
+          "path": "Apparel & Accessories > Clothing > Shirts & Tops"
+        },
+        "candidates": [
+          {
+            "id": "212",
+            "label": "Shirts & Tops",
+            "path": "Apparel & Accessories > Clothing > Shirts & Tops",
+            "source": "approved_alias",
+            "rank": 1
+          }
+        ],
+        "reason_code": "reviewed_alias",
+        "ranking_model": null
+      }
+    },
+    {
+      "query": "Hoodies & Sweatshirts|Clothing",
+      "review_status": "pending_review",
+      "expected_ids": [
+        "212"
+      ],
+      "explicitly_rejected_ids": [
+        "5410"
+      ],
+      "query_encoding_ms": 38.61349999988306,
+      "retrieval_plus_reranking_ms": 115.3708749998259,
+      "baseline": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "hybrid",
+        "category": null,
+        "candidates": [
+          {
+            "id": "212",
+            "label": "Shirts & Tops",
+            "path": "Apparel & Accessories > Clothing > Shirts & Tops",
+            "rank": 1,
+            "source": "rrf",
+            "score": 0.047891458495966696,
+            "evidence": {
+              "bm25": {
+                "rank": 4,
+                "raw_score": 0.14343518018722534,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 1,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 3,
+                "raw_score": 0.624724805355072,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5388",
+            "label": "Traditional & Ceremonial Clothing",
+            "path": "Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing",
+            "rank": 2,
+            "source": "rrf",
+            "score": 0.04177838290741516,
+            "evidence": {
+              "bm25": {
+                "rank": 10,
+                "raw_score": 0.1378338783979416,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 2,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 28,
+                "raw_score": 0.5597217679023743,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "2745",
+            "label": "Undershirts",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Undershirts",
+            "rank": 3,
+            "source": "rrf",
+            "score": 0.040446881885238054,
+            "evidence": {
+              "bm25": {
+                "rank": 28,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 5,
+                "raw_score": 63.52941176470588,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 13,
+                "raw_score": 0.5809054374694824,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "2302",
+            "label": "Robes",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear > Robes",
+            "rank": 4,
+            "source": "rrf",
+            "score": 0.03793644724396772,
+            "evidence": {
+              "bm25": {
+                "rank": 25,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 14,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 19,
+                "raw_score": 0.5732721090316772,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5909",
+            "label": "Snow Pants & Suits",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Snow Pants & Suits",
+            "rank": 5,
+            "source": "rrf",
+            "score": 0.03750815394651011,
+            "evidence": {
+              "bm25": {
+                "rank": 13,
+                "raw_score": 0.13519415259361267,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 18,
+                "raw_score": 53.02325581395348,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 31,
+                "raw_score": 0.557983934879303,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "215",
+            "label": "Hosiery",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Hosiery",
+            "rank": 6,
+            "source": "rrf",
+            "score": 0.03742643124665596,
+            "evidence": {
+              "bm25": {
+                "rank": 24,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 10,
+                "raw_score": 55.38461538461539,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 29,
+                "raw_score": 0.5593413412570953,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "208",
+            "label": "Sleepwear & Loungewear",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear",
+            "rank": 7,
+            "source": "rrf",
+            "score": 0.03149801587301587,
+            "evidence": {
+              "bm25": {
+                "rank": 3,
+                "raw_score": 0.14343518018722534,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 4,
+                "raw_score": 0.6195967793464661,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "8248",
+            "label": "Saris & Lehengas",
+            "path": "Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing > Saris & Lehengas",
+            "rank": 8,
+            "source": "rrf",
+            "score": 0.030621785881252923,
+            "evidence": {
+              "bm25": {
+                "rank": 2,
+                "raw_score": 0.14517350494861603,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 9,
+                "raw_score": 55.60975609756098,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5598",
+            "label": "Coats & Jackets",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Coats & Jackets",
+            "rank": 9,
+            "source": "rrf",
+            "score": 0.030536130536130537,
+            "evidence": {
+              "bm25": {
+                "rank": 6,
+                "raw_score": 0.1405787616968155,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 5,
+                "raw_score": 0.6182830929756165,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "213",
+            "label": "Underwear & Socks",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks",
+            "rank": 10,
+            "source": "rrf",
+            "score": 0.030090497737556562,
+            "evidence": {
+              "bm25": {
+                "rank": 5,
+                "raw_score": 0.14343518018722534,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 8,
+                "raw_score": 0.5973232090473175,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "207",
+            "label": "Shorts",
+            "path": "Apparel & Accessories > Clothing > Shorts",
+            "rank": 11,
+            "source": "rrf",
+            "score": 0.028958333333333336,
+            "evidence": {
+              "fuzzy": {
+                "rank": 4,
+                "raw_score": 75.00000000000001,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 15,
+                "raw_score": 0.5749762952327728,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "204",
+            "label": "Pants",
+            "path": "Apparel & Accessories > Clothing > Pants",
+            "rank": 12,
+            "source": "rrf",
+            "score": 0.02862400327131466,
+            "evidence": {
+              "fuzzy": {
+                "rank": 13,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 7,
+                "raw_score": 0.6007867753505707,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1831",
+            "label": "Vests",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Vests",
+            "rank": 13,
+            "source": "rrf",
+            "score": 0.026709401709401708,
+            "evidence": {
+              "fuzzy": {
+                "rank": 12,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 18,
+                "raw_score": 0.5735122859477997,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1594",
+            "label": "Suits",
+            "path": "Apparel & Accessories > Clothing > Suits",
+            "rank": 14,
+            "source": "rrf",
+            "score": 0.02664576802507837,
+            "evidence": {
+              "fuzzy": {
+                "rank": 6,
+                "raw_score": 60.00000000000001,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 27,
+                "raw_score": 0.5602618157863617,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1772",
+            "label": "Lingerie",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Lingerie",
+            "rank": 15,
+            "source": "rrf",
+            "score": 0.026631393298059962,
+            "evidence": {
+              "bm25": {
+                "rank": 21,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 10,
+                "raw_score": 0.5913995504379272,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "2963",
+            "label": "Petticoats & Pettipants",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Petticoats & Pettipants",
+            "rank": 16,
+            "source": "rrf",
+            "score": 0.02629443272196072,
+            "evidence": {
+              "bm25": {
+                "rank": 1,
+                "raw_score": 0.14744773507118225,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 41,
+                "raw_score": 0.5424374938011169,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5713",
+            "label": "Loungewear",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear > Loungewear",
+            "rank": 17,
+            "source": "rrf",
+            "score": 0.026262626262626265,
+            "evidence": {
+              "bm25": {
+                "rank": 30,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 6,
+                "raw_score": 0.6030785739421844,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5250",
+            "label": "Jumpsuits & Rompers",
+            "path": "Apparel & Accessories > Clothing > One-Pieces > Jumpsuits & Rompers",
+            "rank": 18,
+            "source": "rrf",
+            "score": 0.02625745950554135,
+            "evidence": {
+              "bm25": {
+                "rank": 9,
+                "raw_score": 0.1378338783979416,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 25,
+                "raw_score": 0.56222864985466,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1604",
+            "label": "Clothing",
+            "path": "Apparel & Accessories > Clothing",
+            "rank": 19,
+            "source": "rrf",
+            "score": 0.025827404887101765,
+            "evidence": {
+              "bm25": {
+                "rank": 46,
+                "raw_score": 0.1121758222579956,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 1,
+                "raw_score": 0.6368691325187683,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "3188",
+            "label": "Bicycle Shorts & Briefs",
+            "path": "Apparel & Accessories > Clothing > Activewear > Bicycle Activewear > Bicycle Shorts & Briefs",
+            "rank": 20,
+            "source": "rrf",
+            "score": 0.025657894736842105,
+            "evidence": {
+              "bm25": {
+                "rank": 16,
+                "raw_score": 0.13020680844783783,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 20,
+                "raw_score": 51.458333333333336,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "2580",
+            "label": "Pajamas",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear > Pajamas",
+            "rank": 21,
+            "source": "rrf",
+            "score": 0.02557875991581674,
+            "evidence": {
+              "bm25": {
+                "rank": 27,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 11,
+                "raw_score": 0.5913237929344177,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "2562",
+            "label": "Underwear",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Underwear",
+            "rank": 22,
+            "source": "rrf",
+            "score": 0.02478580171358629,
+            "evidence": {
+              "bm25": {
+                "rank": 26,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 16,
+                "raw_score": 0.5746056139469147,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1675",
+            "label": "Garters",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Lingerie Accessories > Garters",
+            "rank": 23,
+            "source": "rrf",
+            "score": 0.024722804914593947,
+            "evidence": {
+              "bm25": {
+                "rank": 34,
+                "raw_score": 0.12193335592746735,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 11,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5513",
+            "label": "Nightgowns",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear > Nightgowns",
+            "rank": 24,
+            "source": "rrf",
+            "score": 0.024222968043192763,
+            "evidence": {
+              "bm25": {
+                "rank": 29,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 17,
+                "raw_score": 0.5742526650428772,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1578",
+            "label": "Shapewear",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Shapewear",
+            "rank": 25,
+            "source": "rrf",
+            "score": 0.024127906976744187,
+            "evidence": {
+              "bm25": {
+                "rank": 20,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 26,
+                "raw_score": 0.5617648363113403,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "209",
+            "label": "Socks",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Socks",
+            "rank": 26,
+            "source": "rrf",
+            "score": 0.024099883855981417,
+            "evidence": {
+              "bm25": {
+                "rank": 22,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 24,
+                "raw_score": 0.5636437833309174,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "214",
+            "label": "Bras",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Bras",
+            "rank": 27,
+            "source": "rrf",
+            "score": 0.024096385542168676,
+            "evidence": {
+              "bm25": {
+                "rank": 23,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 23,
+                "raw_score": 0.5653615295886993,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5183",
+            "label": "Pant Suits",
+            "path": "Apparel & Accessories > Clothing > Suits > Pant Suits",
+            "rank": 28,
+            "source": "rrf",
+            "score": 0.024016282225237447,
+            "evidence": {
+              "fuzzy": {
+                "rank": 7,
+                "raw_score": 60.00000000000001,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 50,
+                "raw_score": 0.5290568172931671,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5490",
+            "label": "Leotards & Unitards",
+            "path": "Apparel & Accessories > Clothing > One-Pieces > Leotards & Unitards",
+            "rank": 29,
+            "source": "rrf",
+            "score": 0.023430301434776885,
+            "evidence": {
+              "bm25": {
+                "rank": 11,
+                "raw_score": 0.1378338783979416,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 47,
+                "raw_score": 0.5364228785037994,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "2563",
+            "label": "Lingerie Accessories",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Lingerie Accessories",
+            "rank": 30,
+            "source": "rrf",
+            "score": 0.022762345679012343,
+            "evidence": {
+              "bm25": {
+                "rank": 36,
+                "raw_score": 0.12193335592746735,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 21,
+                "raw_score": 0.5674991011619568,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5514",
+            "label": "Rain Pants",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Rain Pants",
+            "rank": 31,
+            "source": "rrf",
+            "score": 0.022591857000993046,
+            "evidence": {
+              "fuzzy": {
+                "rank": 16,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 46,
+                "raw_score": 0.5371852517127991,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5552",
+            "label": "Hunting & Tactical Pants",
+            "path": "Apparel & Accessories > Clothing > Activewear > Hunting Clothing > Hunting & Tactical Pants",
+            "rank": 32,
+            "source": "rrf",
+            "score": 0.02218203737191079,
+            "evidence": {
+              "bm25": {
+                "rank": 19,
+                "raw_score": 0.13020680844783783,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 45,
+                "raw_score": 0.5376976132392883,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1807",
+            "label": "Long Johns",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Long Johns",
+            "rank": 33,
+            "source": "rrf",
+            "score": 0.021395881006864986,
+            "evidence": {
+              "bm25": {
+                "rank": 35,
+                "raw_score": 0.12193335592746735,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 32,
+                "raw_score": 0.5578261911869049,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "7207",
+            "label": "Bra Accessories",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Bra Accessories",
+            "rank": 34,
+            "source": "rrf",
+            "score": 0.020305091733663162,
+            "evidence": {
+              "bm25": {
+                "rank": 39,
+                "raw_score": 0.12193335592746735,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 38,
+                "raw_score": 0.5453608632087708,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5483",
+            "label": "Religious Ceremonial Clothing",
+            "path": "Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing > Religious Ceremonial Clothing",
+            "rank": 35,
+            "source": "rrf",
+            "score": 0.019419306184012067,
+            "evidence": {
+              "bm25": {
+                "rank": 44,
+                "raw_score": 0.11313918232917786,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 42,
+                "raw_score": 0.5411342680454254,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "203",
+            "label": "Outerwear",
+            "path": "Apparel & Accessories > Clothing > Outerwear",
+            "rank": 36,
+            "source": "rrf",
+            "score": 0.016129032258064516,
+            "evidence": {
+              "semantic": {
+                "rank": 2,
+                "raw_score": 0.6332477331161499,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1581",
+            "label": "Skirts",
+            "path": "Apparel & Accessories > Clothing > Skirts",
+            "rank": 37,
+            "source": "rrf",
+            "score": 0.015873015873015872,
+            "evidence": {
+              "fuzzy": {
+                "rank": 3,
+                "raw_score": 75.00000000000001,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "7209",
+            "label": "Breast Petals & Concealers",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Bra Accessories > Breast Petals & Concealers",
+            "rank": 38,
+            "source": "rrf",
+            "score": 0.014925373134328358,
+            "evidence": {
+              "bm25": {
+                "rank": 7,
+                "raw_score": 0.13875314593315125,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5344",
+            "label": "Skorts",
+            "path": "Apparel & Accessories > Clothing > Skorts",
+            "rank": 39,
+            "source": "rrf",
+            "score": 0.014705882352941176,
+            "evidence": {
+              "fuzzy": {
+                "rank": 8,
+                "raw_score": 60.00000000000001,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "7211",
+            "label": "Bra Straps & Extenders",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Bra Accessories > Bra Straps & Extenders",
+            "rank": 40,
+            "source": "rrf",
+            "score": 0.014705882352941176,
+            "evidence": {
+              "bm25": {
+                "rank": 8,
+                "raw_score": 0.13875314593315125,
+                "higher_is_better": true
+              }
+            }
+          }
+        ],
+        "reason_code": "uncalibrated_retrieval",
+        "ranking_model": null
+      },
+      "experimental_reranked": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "hybrid+rerank",
+        "category": null,
+        "candidates": [
+          {
+            "id": "5552",
+            "label": "Hunting & Tactical Pants",
+            "path": "Apparel & Accessories > Clothing > Activewear > Hunting Clothing > Hunting & Tactical Pants",
+            "rank": 1,
+            "source": "rrf",
+            "score": 0.02218203737191079,
+            "evidence": {
+              "bm25": {
+                "rank": 19,
+                "raw_score": 0.13020680844783783,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 45,
+                "raw_score": 0.5376976132392883,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 32,
+            "reranker_score": -7.83640193939209
+          },
+          {
+            "id": "2580",
+            "label": "Pajamas",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear > Pajamas",
+            "rank": 2,
+            "source": "rrf",
+            "score": 0.02557875991581674,
+            "evidence": {
+              "bm25": {
+                "rank": 27,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 11,
+                "raw_score": 0.5913237929344177,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 21,
+            "reranker_score": -8.443222045898438
+          },
+          {
+            "id": "5598",
+            "label": "Coats & Jackets",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Coats & Jackets",
+            "rank": 3,
+            "source": "rrf",
+            "score": 0.030536130536130537,
+            "evidence": {
+              "bm25": {
+                "rank": 6,
+                "raw_score": 0.1405787616968155,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 5,
+                "raw_score": 0.6182830929756165,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 9,
+            "reranker_score": -8.614164352416992
+          },
+          {
+            "id": "204",
+            "label": "Pants",
+            "path": "Apparel & Accessories > Clothing > Pants",
+            "rank": 4,
+            "source": "rrf",
+            "score": 0.02862400327131466,
+            "evidence": {
+              "fuzzy": {
+                "rank": 13,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 7,
+                "raw_score": 0.6007867753505707,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 12,
+            "reranker_score": -8.625224113464355
+          },
+          {
+            "id": "1675",
+            "label": "Garters",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Lingerie Accessories > Garters",
+            "rank": 5,
+            "source": "rrf",
+            "score": 0.024722804914593947,
+            "evidence": {
+              "bm25": {
+                "rank": 34,
+                "raw_score": 0.12193335592746735,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 11,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 23,
+            "reranker_score": -8.732641220092773
+          },
+          {
+            "id": "5909",
+            "label": "Snow Pants & Suits",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Snow Pants & Suits",
+            "rank": 6,
+            "source": "rrf",
+            "score": 0.03750815394651011,
+            "evidence": {
+              "bm25": {
+                "rank": 13,
+                "raw_score": 0.13519415259361267,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 18,
+                "raw_score": 53.02325581395348,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 31,
+                "raw_score": 0.557983934879303,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 5,
+            "reranker_score": -9.153310775756836
+          },
+          {
+            "id": "207",
+            "label": "Shorts",
+            "path": "Apparel & Accessories > Clothing > Shorts",
+            "rank": 7,
+            "source": "rrf",
+            "score": 0.028958333333333336,
+            "evidence": {
+              "fuzzy": {
+                "rank": 4,
+                "raw_score": 75.00000000000001,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 15,
+                "raw_score": 0.5749762952327728,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 11,
+            "reranker_score": -9.162169456481934
+          },
+          {
+            "id": "7209",
+            "label": "Breast Petals & Concealers",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Bra Accessories > Breast Petals & Concealers",
+            "rank": 8,
+            "source": "rrf",
+            "score": 0.014925373134328358,
+            "evidence": {
+              "bm25": {
+                "rank": 7,
+                "raw_score": 0.13875314593315125,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 38,
+            "reranker_score": -9.19601058959961
+          },
+          {
+            "id": "5514",
+            "label": "Rain Pants",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Rain Pants",
+            "rank": 9,
+            "source": "rrf",
+            "score": 0.022591857000993046,
+            "evidence": {
+              "fuzzy": {
+                "rank": 16,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 46,
+                "raw_score": 0.5371852517127991,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 31,
+            "reranker_score": -9.208609580993652
+          },
+          {
+            "id": "215",
+            "label": "Hosiery",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Hosiery",
+            "rank": 10,
+            "source": "rrf",
+            "score": 0.03742643124665596,
+            "evidence": {
+              "bm25": {
+                "rank": 24,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 10,
+                "raw_score": 55.38461538461539,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 29,
+                "raw_score": 0.5593413412570953,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 6,
+            "reranker_score": -9.295354843139648
+          },
+          {
+            "id": "2963",
+            "label": "Petticoats & Pettipants",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Petticoats & Pettipants",
+            "rank": 11,
+            "source": "rrf",
+            "score": 0.02629443272196072,
+            "evidence": {
+              "bm25": {
+                "rank": 1,
+                "raw_score": 0.14744773507118225,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 41,
+                "raw_score": 0.5424374938011169,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 16,
+            "reranker_score": -9.313615798950195
+          },
+          {
+            "id": "1772",
+            "label": "Lingerie",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Lingerie",
+            "rank": 12,
+            "source": "rrf",
+            "score": 0.026631393298059962,
+            "evidence": {
+              "bm25": {
+                "rank": 21,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 10,
+                "raw_score": 0.5913995504379272,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 15,
+            "reranker_score": -9.400660514831543
+          },
+          {
+            "id": "212",
+            "label": "Shirts & Tops",
+            "path": "Apparel & Accessories > Clothing > Shirts & Tops",
+            "rank": 13,
+            "source": "rrf",
+            "score": 0.047891458495966696,
+            "evidence": {
+              "bm25": {
+                "rank": 4,
+                "raw_score": 0.14343518018722534,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 1,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 3,
+                "raw_score": 0.624724805355072,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 1,
+            "reranker_score": -9.406820297241211
+          },
+          {
+            "id": "208",
+            "label": "Sleepwear & Loungewear",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear",
+            "rank": 14,
+            "source": "rrf",
+            "score": 0.03149801587301587,
+            "evidence": {
+              "bm25": {
+                "rank": 3,
+                "raw_score": 0.14343518018722534,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 4,
+                "raw_score": 0.6195967793464661,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 7,
+            "reranker_score": -9.476210594177246
+          },
+          {
+            "id": "2563",
+            "label": "Lingerie Accessories",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Lingerie Accessories",
+            "rank": 15,
+            "source": "rrf",
+            "score": 0.022762345679012343,
+            "evidence": {
+              "bm25": {
+                "rank": 36,
+                "raw_score": 0.12193335592746735,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 21,
+                "raw_score": 0.5674991011619568,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 30,
+            "reranker_score": -9.502779006958008
+          },
+          {
+            "id": "203",
+            "label": "Outerwear",
+            "path": "Apparel & Accessories > Clothing > Outerwear",
+            "rank": 16,
+            "source": "rrf",
+            "score": 0.016129032258064516,
+            "evidence": {
+              "semantic": {
+                "rank": 2,
+                "raw_score": 0.6332477331161499,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 36,
+            "reranker_score": -9.546346664428711
+          },
+          {
+            "id": "213",
+            "label": "Underwear & Socks",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks",
+            "rank": 17,
+            "source": "rrf",
+            "score": 0.030090497737556562,
+            "evidence": {
+              "bm25": {
+                "rank": 5,
+                "raw_score": 0.14343518018722534,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 8,
+                "raw_score": 0.5973232090473175,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 10,
+            "reranker_score": -9.604795455932617
+          },
+          {
+            "id": "2745",
+            "label": "Undershirts",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Undershirts",
+            "rank": 18,
+            "source": "rrf",
+            "score": 0.040446881885238054,
+            "evidence": {
+              "bm25": {
+                "rank": 28,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 5,
+                "raw_score": 63.52941176470588,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 13,
+                "raw_score": 0.5809054374694824,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 3,
+            "reranker_score": -9.642990112304688
+          },
+          {
+            "id": "2302",
+            "label": "Robes",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear > Robes",
+            "rank": 19,
+            "source": "rrf",
+            "score": 0.03793644724396772,
+            "evidence": {
+              "bm25": {
+                "rank": 25,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 14,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 19,
+                "raw_score": 0.5732721090316772,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 4,
+            "reranker_score": -9.688840866088867
+          },
+          {
+            "id": "5513",
+            "label": "Nightgowns",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear > Nightgowns",
+            "rank": 20,
+            "source": "rrf",
+            "score": 0.024222968043192763,
+            "evidence": {
+              "bm25": {
+                "rank": 29,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 17,
+                "raw_score": 0.5742526650428772,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 24,
+            "reranker_score": -9.771156311035156
+          },
+          {
+            "id": "5388",
+            "label": "Traditional & Ceremonial Clothing",
+            "path": "Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing",
+            "rank": 21,
+            "source": "rrf",
+            "score": 0.04177838290741516,
+            "evidence": {
+              "bm25": {
+                "rank": 10,
+                "raw_score": 0.1378338783979416,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 2,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 28,
+                "raw_score": 0.5597217679023743,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 2,
+            "reranker_score": -9.7738618850708
+          },
+          {
+            "id": "2562",
+            "label": "Underwear",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Underwear",
+            "rank": 22,
+            "source": "rrf",
+            "score": 0.02478580171358629,
+            "evidence": {
+              "bm25": {
+                "rank": 26,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 16,
+                "raw_score": 0.5746056139469147,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 22,
+            "reranker_score": -9.774213790893555
+          },
+          {
+            "id": "214",
+            "label": "Bras",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Bras",
+            "rank": 23,
+            "source": "rrf",
+            "score": 0.024096385542168676,
+            "evidence": {
+              "bm25": {
+                "rank": 23,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 23,
+                "raw_score": 0.5653615295886993,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 27,
+            "reranker_score": -9.779626846313477
+          },
+          {
+            "id": "1578",
+            "label": "Shapewear",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Shapewear",
+            "rank": 24,
+            "source": "rrf",
+            "score": 0.024127906976744187,
+            "evidence": {
+              "bm25": {
+                "rank": 20,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 26,
+                "raw_score": 0.5617648363113403,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 25,
+            "reranker_score": -9.798133850097656
+          },
+          {
+            "id": "3188",
+            "label": "Bicycle Shorts & Briefs",
+            "path": "Apparel & Accessories > Clothing > Activewear > Bicycle Activewear > Bicycle Shorts & Briefs",
+            "rank": 25,
+            "source": "rrf",
+            "score": 0.025657894736842105,
+            "evidence": {
+              "bm25": {
+                "rank": 16,
+                "raw_score": 0.13020680844783783,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 20,
+                "raw_score": 51.458333333333336,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 20,
+            "reranker_score": -9.811994552612305
+          },
+          {
+            "id": "1604",
+            "label": "Clothing",
+            "path": "Apparel & Accessories > Clothing",
+            "rank": 26,
+            "source": "rrf",
+            "score": 0.025827404887101765,
+            "evidence": {
+              "bm25": {
+                "rank": 46,
+                "raw_score": 0.1121758222579956,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 1,
+                "raw_score": 0.6368691325187683,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 19,
+            "reranker_score": -9.817420959472656
+          },
+          {
+            "id": "5713",
+            "label": "Loungewear",
+            "path": "Apparel & Accessories > Clothing > Sleepwear & Loungewear > Loungewear",
+            "rank": 27,
+            "source": "rrf",
+            "score": 0.026262626262626265,
+            "evidence": {
+              "bm25": {
+                "rank": 30,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 6,
+                "raw_score": 0.6030785739421844,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 17,
+            "reranker_score": -9.856277465820312
+          },
+          {
+            "id": "5344",
+            "label": "Skorts",
+            "path": "Apparel & Accessories > Clothing > Skorts",
+            "rank": 28,
+            "source": "rrf",
+            "score": 0.014705882352941176,
+            "evidence": {
+              "fuzzy": {
+                "rank": 8,
+                "raw_score": 60.00000000000001,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 39,
+            "reranker_score": -9.857810974121094
+          },
+          {
+            "id": "1831",
+            "label": "Vests",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Vests",
+            "rank": 29,
+            "source": "rrf",
+            "score": 0.026709401709401708,
+            "evidence": {
+              "fuzzy": {
+                "rank": 12,
+                "raw_score": 54.0,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 18,
+                "raw_score": 0.5735122859477997,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 13,
+            "reranker_score": -9.869012832641602
+          },
+          {
+            "id": "1807",
+            "label": "Long Johns",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Long Johns",
+            "rank": 30,
+            "source": "rrf",
+            "score": 0.021395881006864986,
+            "evidence": {
+              "bm25": {
+                "rank": 35,
+                "raw_score": 0.12193335592746735,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 32,
+                "raw_score": 0.5578261911869049,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 33,
+            "reranker_score": -9.887020111083984
+          },
+          {
+            "id": "5490",
+            "label": "Leotards & Unitards",
+            "path": "Apparel & Accessories > Clothing > One-Pieces > Leotards & Unitards",
+            "rank": 31,
+            "source": "rrf",
+            "score": 0.023430301434776885,
+            "evidence": {
+              "bm25": {
+                "rank": 11,
+                "raw_score": 0.1378338783979416,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 47,
+                "raw_score": 0.5364228785037994,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 29,
+            "reranker_score": -9.981447219848633
+          },
+          {
+            "id": "1581",
+            "label": "Skirts",
+            "path": "Apparel & Accessories > Clothing > Skirts",
+            "rank": 32,
+            "source": "rrf",
+            "score": 0.015873015873015872,
+            "evidence": {
+              "fuzzy": {
+                "rank": 3,
+                "raw_score": 75.00000000000001,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 37,
+            "reranker_score": -10.067488670349121
+          },
+          {
+            "id": "7211",
+            "label": "Bra Straps & Extenders",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Bra Accessories > Bra Straps & Extenders",
+            "rank": 33,
+            "source": "rrf",
+            "score": 0.014705882352941176,
+            "evidence": {
+              "bm25": {
+                "rank": 8,
+                "raw_score": 0.13875314593315125,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 40,
+            "reranker_score": -10.092166900634766
+          },
+          {
+            "id": "7207",
+            "label": "Bra Accessories",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Bra Accessories",
+            "rank": 34,
+            "source": "rrf",
+            "score": 0.020305091733663162,
+            "evidence": {
+              "bm25": {
+                "rank": 39,
+                "raw_score": 0.12193335592746735,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 38,
+                "raw_score": 0.5453608632087708,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 34,
+            "reranker_score": -10.176246643066406
+          },
+          {
+            "id": "5483",
+            "label": "Religious Ceremonial Clothing",
+            "path": "Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing > Religious Ceremonial Clothing",
+            "rank": 35,
+            "source": "rrf",
+            "score": 0.019419306184012067,
+            "evidence": {
+              "bm25": {
+                "rank": 44,
+                "raw_score": 0.11313918232917786,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 42,
+                "raw_score": 0.5411342680454254,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 35,
+            "reranker_score": -10.219292640686035
+          },
+          {
+            "id": "5183",
+            "label": "Pant Suits",
+            "path": "Apparel & Accessories > Clothing > Suits > Pant Suits",
+            "rank": 36,
+            "source": "rrf",
+            "score": 0.024016282225237447,
+            "evidence": {
+              "fuzzy": {
+                "rank": 7,
+                "raw_score": 60.00000000000001,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 50,
+                "raw_score": 0.5290568172931671,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 28,
+            "reranker_score": -10.310694694519043
+          },
+          {
+            "id": "8248",
+            "label": "Saris & Lehengas",
+            "path": "Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing > Saris & Lehengas",
+            "rank": 37,
+            "source": "rrf",
+            "score": 0.030621785881252923,
+            "evidence": {
+              "bm25": {
+                "rank": 2,
+                "raw_score": 0.14517350494861603,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 9,
+                "raw_score": 55.60975609756098,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 8,
+            "reranker_score": -10.355124473571777
+          },
+          {
+            "id": "209",
+            "label": "Socks",
+            "path": "Apparel & Accessories > Clothing > Underwear & Socks > Socks",
+            "rank": 38,
+            "source": "rrf",
+            "score": 0.024099883855981417,
+            "evidence": {
+              "bm25": {
+                "rank": 22,
+                "raw_score": 0.12859715521335602,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 24,
+                "raw_score": 0.5636437833309174,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 26,
+            "reranker_score": -10.370254516601562
+          },
+          {
+            "id": "5250",
+            "label": "Jumpsuits & Rompers",
+            "path": "Apparel & Accessories > Clothing > One-Pieces > Jumpsuits & Rompers",
+            "rank": 39,
+            "source": "rrf",
+            "score": 0.02625745950554135,
+            "evidence": {
+              "bm25": {
+                "rank": 9,
+                "raw_score": 0.1378338783979416,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 25,
+                "raw_score": 0.56222864985466,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 18,
+            "reranker_score": -10.461333274841309
+          },
+          {
+            "id": "1594",
+            "label": "Suits",
+            "path": "Apparel & Accessories > Clothing > Suits",
+            "rank": 40,
+            "source": "rrf",
+            "score": 0.02664576802507837,
+            "evidence": {
+              "fuzzy": {
+                "rank": 6,
+                "raw_score": 60.00000000000001,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 27,
+                "raw_score": 0.5602618157863617,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 14,
+            "reranker_score": -10.54901123046875
+          }
+        ],
+        "reason_code": "uncalibrated_reranking",
+        "ranking_model": {
+          "name": "cross-encoder/ms-marco-MiniLM-L6-v2",
+          "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+          "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--cross-encoder--ms-marco-MiniLM-L6-v2/snapshots/233902d25c440f23af6f7d6e94d2946bac0bee0a"
+        }
+      }
+    },
+    {
+      "query": "Smart Phone",
+      "review_status": "pending_review",
+      "expected_ids": [
+        "267"
+      ],
+      "explicitly_rejected_ids": [],
+      "query_encoding_ms": 39.72670799976186,
+      "retrieval_plus_reranking_ms": 113.12062500019238,
+      "baseline": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "hybrid",
+        "category": null,
+        "candidates": [
+          {
+            "id": "264",
+            "label": "Mobile Phone Accessories",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories",
+            "rank": 1,
+            "source": "rrf",
+            "score": 0.04592074592074592,
+            "evidence": {
+              "bm25": {
+                "rank": 6,
+                "raw_score": 3.6609878540039062,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 5,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 5,
+                "raw_score": 0.5811226665973663,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5566",
+            "label": "Mobile Phone Stands",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Stands",
+            "rank": 2,
+            "source": "rrf",
+            "score": 0.04465148378191856,
+            "evidence": {
+              "bm25": {
+                "rank": 3,
+                "raw_score": 3.9239449501037598,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 9,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 10,
+                "raw_score": 0.5555081367492676,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "2353",
+            "label": "Mobile Phone Cases",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Cases",
+            "rank": 3,
+            "source": "rrf",
+            "score": 0.04441226010616578,
+            "evidence": {
+              "bm25": {
+                "rank": 2,
+                "raw_score": 3.9239449501037598,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 4,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 19,
+                "raw_score": 0.5312969386577606,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1745",
+            "label": "Mobile Phone Batteries",
+            "path": "Electronics > Electronics Accessories > Power > Batteries > Mobile Phone Batteries",
+            "rank": 4,
+            "source": "rrf",
+            "score": 0.04383705164550721,
+            "evidence": {
+              "bm25": {
+                "rank": 10,
+                "raw_score": 3.471278429031372,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 1,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 16,
+                "raw_score": 0.5321895182132721,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "4550",
+            "label": "Mobile Phone Charms & Straps",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Charms & Straps",
+            "rank": 5,
+            "source": "rrf",
+            "score": 0.04267791032496915,
+            "evidence": {
+              "bm25": {
+                "rank": 8,
+                "raw_score": 3.6396782398223877,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 6,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 18,
+                "raw_score": 0.5321471989154816,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "8111",
+            "label": "Mobile Phone Camera Accessories",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Camera Accessories",
+            "rank": 6,
+            "source": "rrf",
+            "score": 0.042231462231462236,
+            "evidence": {
+              "bm25": {
+                "rank": 5,
+                "raw_score": 3.7764699459075928,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 14,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 15,
+                "raw_score": 0.5360647439956665,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "7347",
+            "label": "Mobile Phone Replacement Parts",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Replacement Parts",
+            "rank": 7,
+            "source": "rrf",
+            "score": 0.04201388888888889,
+            "evidence": {
+              "bm25": {
+                "rank": 4,
+                "raw_score": 3.7764699459075928,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 12,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 20,
+                "raw_score": 0.52286696434021,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "2028",
+            "label": "Phone & Data Jacks",
+            "path": "Hardware > Power & Electrical Supplies > Phone & Data Jacks",
+            "rank": 8,
+            "source": "rrf",
+            "score": 0.04191732502234785,
+            "evidence": {
+              "bm25": {
+                "rank": 13,
+                "raw_score": 3.3002614974975586,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 3,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 21,
+                "raw_score": 0.5178696811199188,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "543515",
+            "label": "Mobile Phone Pre-Paid Cards",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Pre-Paid Cards & SIM Cards > Mobile Phone Pre-Paid Cards",
+            "rank": 9,
+            "source": "rrf",
+            "score": 0.04139375792734909,
+            "evidence": {
+              "bm25": {
+                "rank": 9,
+                "raw_score": 3.5806210041046143,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 8,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 22,
+                "raw_score": 0.5151087045669556,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1880",
+            "label": "Cordless Phone Batteries",
+            "path": "Electronics > Electronics Accessories > Power > Batteries > Cordless Phone Batteries",
+            "rank": 10,
+            "source": "rrf",
+            "score": 0.04108310451770934,
+            "evidence": {
+              "bm25": {
+                "rank": 11,
+                "raw_score": 3.471278429031372,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 2,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 32,
+                "raw_score": 0.4850729703903198,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "269",
+            "label": "Phone Cards",
+            "path": "Electronics > Communications > Telephony > Telephone Accessories > Phone Cards",
+            "rank": 11,
+            "source": "rrf",
+            "score": 0.03981714802610325,
+            "evidence": {
+              "bm25": {
+                "rank": 7,
+                "raw_score": 3.6609878540039062,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 17,
+                "raw_score": 69.09090909090908,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 24,
+                "raw_score": 0.5076093077659607,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "499878",
+            "label": "Mobile Phone & Tablet Tripods & Monopods",
+            "path": "Electronics > Electronics Accessories > Mobile Phone & Tablet Tripods & Monopods",
+            "rank": 12,
+            "source": "rrf",
+            "score": 0.039752959341224914,
+            "evidence": {
+              "bm25": {
+                "rank": 15,
+                "raw_score": 3.0042455196380615,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 7,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 27,
+                "raw_score": 0.4997190833091736,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "6030",
+            "label": "Mobile Phone Pre-Paid Cards & SIM Cards",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Pre-Paid Cards & SIM Cards",
+            "rank": 13,
+            "source": "rrf",
+            "score": 0.03964621332685138,
+            "evidence": {
+              "bm25": {
+                "rank": 14,
+                "raw_score": 3.2829344272613525,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 11,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 23,
+                "raw_score": 0.5114713609218597,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "5696",
+            "label": "Mobile Phone Jammers",
+            "path": "Electronics > Electronics Accessories > Signal Jammers > Mobile Phone Jammers",
+            "rank": 14,
+            "source": "rrf",
+            "score": 0.03953823953823954,
+            "evidence": {
+              "bm25": {
+                "rank": 12,
+                "raw_score": 3.471278429031372,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 10,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 28,
+                "raw_score": 0.49669933319091797,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "7566",
+            "label": "MP3 Player & Mobile Phone Accessory Sets",
+            "path": "Electronics > Audio > Audio Accessories > MP3 Player Accessories > MP3 Player & Mobile Phone Accessory Sets",
+            "rank": 15,
+            "source": "rrf",
+            "score": 0.03767465411301028,
+            "evidence": {
+              "bm25": {
+                "rank": 17,
+                "raw_score": 2.75696063041687,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 13,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 31,
+                "raw_score": 0.48697906732559204,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "500002",
+            "label": "Smart Glasses",
+            "path": "Electronics > Computers > Smart Glasses",
+            "rank": 16,
+            "source": "rrf",
+            "score": 0.032266458495966696,
+            "evidence": {
+              "bm25": {
+                "rank": 1,
+                "raw_score": 5.687252521514893,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 3,
+                "raw_score": 0.5902489423751831,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1924",
+            "label": "Satellite Phones",
+            "path": "Electronics > Communications > Telephony > Satellite Phones",
+            "rank": 17,
+            "source": "rrf",
+            "score": 0.027583600982429624,
+            "evidence": {
+              "fuzzy": {
+                "rank": 19,
+                "raw_score": 66.66666666666667,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 7,
+                "raw_score": 0.564616858959198,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "543516",
+            "label": "SIM Cards",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Pre-Paid Cards & SIM Cards > SIM Cards",
+            "rank": 18,
+            "source": "rrf",
+            "score": 0.02478580171358629,
+            "evidence": {
+              "bm25": {
+                "rank": 16,
+                "raw_score": 2.938356637954712,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 26,
+                "raw_score": 0.5032974779605865,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "499916",
+            "label": "SIM Card Ejection Tools",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > SIM Card Ejection Tools",
+            "rank": 19,
+            "source": "rrf",
+            "score": 0.02282051282051282,
+            "evidence": {
+              "bm25": {
+                "rank": 18,
+                "raw_score": 2.234694242477417,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 40,
+                "raw_score": 0.45921576023101807,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "267",
+            "label": "Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones",
+            "rank": 20,
+            "source": "rrf",
+            "score": 0.01639344262295082,
+            "evidence": {
+              "semantic": {
+                "rank": 1,
+                "raw_score": 0.6639945209026337,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "543514",
+            "label": "Unlocked Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones > Unlocked Mobile Phones",
+            "rank": 21,
+            "source": "rrf",
+            "score": 0.016129032258064516,
+            "evidence": {
+              "semantic": {
+                "rank": 2,
+                "raw_score": 0.5913082957267761,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "543513",
+            "label": "Contract Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones > Contract Mobile Phones",
+            "rank": 22,
+            "source": "rrf",
+            "score": 0.015625,
+            "evidence": {
+              "semantic": {
+                "rank": 4,
+                "raw_score": 0.5853314399719238,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "271",
+            "label": "Corded Phones",
+            "path": "Electronics > Communications > Telephony > Corded Phones",
+            "rank": 23,
+            "source": "rrf",
+            "score": 0.015151515151515152,
+            "evidence": {
+              "semantic": {
+                "rank": 6,
+                "raw_score": 0.5781623721122742,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "543512",
+            "label": "Pre-paid Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones > Pre-paid Mobile Phones",
+            "rank": 24,
+            "source": "rrf",
+            "score": 0.014705882352941176,
+            "evidence": {
+              "semantic": {
+                "rank": 8,
+                "raw_score": 0.5633233785629272,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "272",
+            "label": "Cordless Phones",
+            "path": "Electronics > Communications > Telephony > Cordless Phones",
+            "rank": 25,
+            "source": "rrf",
+            "score": 0.014492753623188406,
+            "evidence": {
+              "semantic": {
+                "rank": 9,
+                "raw_score": 0.5616700351238251,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "265",
+            "label": "Telephone Accessories",
+            "path": "Electronics > Communications > Telephony > Telephone Accessories",
+            "rank": 26,
+            "source": "rrf",
+            "score": 0.014084507042253521,
+            "evidence": {
+              "semantic": {
+                "rank": 11,
+                "raw_score": 0.54765185713768,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "298",
+            "label": "Handheld Devices",
+            "path": "Electronics > Computers > Handheld Devices",
+            "rank": 27,
+            "source": "rrf",
+            "score": 0.013888888888888888,
+            "evidence": {
+              "semantic": {
+                "rank": 12,
+                "raw_score": 0.5426096022129059,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "266",
+            "label": "Answering Machines",
+            "path": "Electronics > Communications > Answering Machines",
+            "rank": 28,
+            "source": "rrf",
+            "score": 0.0136986301369863,
+            "evidence": {
+              "semantic": {
+                "rank": 13,
+                "raw_score": 0.5376194715499878,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "270",
+            "label": "Telephony",
+            "path": "Electronics > Communications > Telephony",
+            "rank": 29,
+            "source": "rrf",
+            "score": 0.013513513513513514,
+            "evidence": {
+              "semantic": {
+                "rank": 14,
+                "raw_score": 0.5361635088920593,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "4947",
+            "label": "Honey",
+            "path": "Food, Beverages & Tobacco > Food Items > Condiments & Sauces > Honey",
+            "rank": 30,
+            "source": "rrf",
+            "score": 0.013333333333333334,
+            "evidence": {
+              "fuzzy": {
+                "rank": 15,
+                "raw_score": 80.0,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "4865",
+            "label": "Saxophone Small Parts",
+            "path": "Arts & Entertainment > Hobbies & Creative Arts > Musical Instrument & Orchestra Accessories > Woodwind Instrument Accessories > Saxophone Accessories > Saxophone Parts > Saxophone Small Parts",
+            "rank": 31,
+            "source": "rrf",
+            "score": 0.013157894736842105,
+            "evidence": {
+              "fuzzy": {
+                "rank": 16,
+                "raw_score": 69.95454545454545,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "4666",
+            "label": "Conference Phones",
+            "path": "Electronics > Communications > Telephony > Conference Phones",
+            "rank": 32,
+            "source": "rrf",
+            "score": 0.012987012987012988,
+            "evidence": {
+              "semantic": {
+                "rank": 17,
+                "raw_score": 0.5321756601333618,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "4628",
+            "label": "Meat",
+            "path": "Food, Beverages & Tobacco > Food Items > Meat, Seafood & Eggs > Meat",
+            "rank": 33,
+            "source": "rrf",
+            "score": 0.01282051282051282,
+            "evidence": {
+              "fuzzy": {
+                "rank": 18,
+                "raw_score": 67.5,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "91",
+            "label": "Saxophones",
+            "path": "Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments > Woodwinds > Saxophones",
+            "rank": 34,
+            "source": "rrf",
+            "score": 0.0125,
+            "evidence": {
+              "fuzzy": {
+                "rank": 20,
+                "raw_score": 66.66666666666667,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "1242",
+            "label": "Baby Mobiles",
+            "path": "Baby & Toddler > Baby Toys & Activity Equipment > Baby Mobiles",
+            "rank": 35,
+            "source": "rrf",
+            "score": 0.011764705882352941,
+            "evidence": {
+              "semantic": {
+                "rank": 25,
+                "raw_score": 0.5052733719348907,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "4488",
+            "label": "Toll Collection Devices",
+            "path": "Electronics > Toll Collection Devices",
+            "rank": 36,
+            "source": "rrf",
+            "score": 0.011235955056179775,
+            "evidence": {
+              "semantic": {
+                "rank": 29,
+                "raw_score": 0.4960634708404541,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "280",
+            "label": "Handheld Device Accessories",
+            "path": "Electronics > Electronics Accessories > Computer Accessories > Handheld Device Accessories",
+            "rank": 37,
+            "source": "rrf",
+            "score": 0.011111111111111112,
+            "evidence": {
+              "semantic": {
+                "rank": 30,
+                "raw_score": 0.493213951587677,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "7191",
+            "label": "Baby Mobile Accessories",
+            "path": "Baby & Toddler > Baby Toys & Activity Equipment > Baby Mobile Accessories",
+            "rank": 38,
+            "source": "rrf",
+            "score": 0.010752688172043012,
+            "evidence": {
+              "semantic": {
+                "rank": 33,
+                "raw_score": 0.4821123480796814,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "3769",
+            "label": "PDAs",
+            "path": "Electronics > Computers > Handheld Devices > PDAs",
+            "rank": 39,
+            "source": "rrf",
+            "score": 0.010638297872340425,
+            "evidence": {
+              "semantic": {
+                "rank": 34,
+                "raw_score": 0.4816628694534302,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "3541",
+            "label": "Telephone Cables",
+            "path": "Electronics > Electronics Accessories > Cables > Telephone Cables",
+            "rank": 40,
+            "source": "rrf",
+            "score": 0.010526315789473684,
+            "evidence": {
+              "semantic": {
+                "rank": 35,
+                "raw_score": 0.47570544481277466,
+                "higher_is_better": true
+              }
+            }
+          },
+          {
+            "id": "276",
+            "label": "Batteries",
+            "path": "Electronics > Electronics Accessories > Power > Batteries",
+            "rank": 41,
+            "source": "parent_expansion",
+            "score": 0.0,
+            "evidence": {}
+          }
+        ],
+        "reason_code": "uncalibrated_retrieval",
+        "ranking_model": null
+      },
+      "experimental_reranked": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "hybrid+rerank",
+        "category": null,
+        "candidates": [
+          {
+            "id": "267",
+            "label": "Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones",
+            "rank": 1,
+            "source": "rrf",
+            "score": 0.01639344262295082,
+            "evidence": {
+              "semantic": {
+                "rank": 1,
+                "raw_score": 0.6639945209026337,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 20,
+            "reranker_score": -4.594250679016113
+          },
+          {
+            "id": "264",
+            "label": "Mobile Phone Accessories",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories",
+            "rank": 2,
+            "source": "rrf",
+            "score": 0.04592074592074592,
+            "evidence": {
+              "bm25": {
+                "rank": 6,
+                "raw_score": 3.6609878540039062,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 5,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 5,
+                "raw_score": 0.5811226665973663,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 1,
+            "reranker_score": -5.323294162750244
+          },
+          {
+            "id": "5566",
+            "label": "Mobile Phone Stands",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Stands",
+            "rank": 3,
+            "source": "rrf",
+            "score": 0.04465148378191856,
+            "evidence": {
+              "bm25": {
+                "rank": 3,
+                "raw_score": 3.9239449501037598,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 9,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 10,
+                "raw_score": 0.5555081367492676,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 2,
+            "reranker_score": -5.5068817138671875
+          },
+          {
+            "id": "543514",
+            "label": "Unlocked Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones > Unlocked Mobile Phones",
+            "rank": 4,
+            "source": "rrf",
+            "score": 0.016129032258064516,
+            "evidence": {
+              "semantic": {
+                "rank": 2,
+                "raw_score": 0.5913082957267761,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 21,
+            "reranker_score": -5.736578941345215
+          },
+          {
+            "id": "271",
+            "label": "Corded Phones",
+            "path": "Electronics > Communications > Telephony > Corded Phones",
+            "rank": 5,
+            "source": "rrf",
+            "score": 0.015151515151515152,
+            "evidence": {
+              "semantic": {
+                "rank": 6,
+                "raw_score": 0.5781623721122742,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 23,
+            "reranker_score": -5.926643371582031
+          },
+          {
+            "id": "272",
+            "label": "Cordless Phones",
+            "path": "Electronics > Communications > Telephony > Cordless Phones",
+            "rank": 6,
+            "source": "rrf",
+            "score": 0.014492753623188406,
+            "evidence": {
+              "semantic": {
+                "rank": 9,
+                "raw_score": 0.5616700351238251,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 25,
+            "reranker_score": -6.025373458862305
+          },
+          {
+            "id": "500002",
+            "label": "Smart Glasses",
+            "path": "Electronics > Computers > Smart Glasses",
+            "rank": 7,
+            "source": "rrf",
+            "score": 0.032266458495966696,
+            "evidence": {
+              "bm25": {
+                "rank": 1,
+                "raw_score": 5.687252521514893,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 3,
+                "raw_score": 0.5902489423751831,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 16,
+            "reranker_score": -6.210182189941406
+          },
+          {
+            "id": "1924",
+            "label": "Satellite Phones",
+            "path": "Electronics > Communications > Telephony > Satellite Phones",
+            "rank": 8,
+            "source": "rrf",
+            "score": 0.027583600982429624,
+            "evidence": {
+              "fuzzy": {
+                "rank": 19,
+                "raw_score": 66.66666666666667,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 7,
+                "raw_score": 0.564616858959198,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 17,
+            "reranker_score": -6.420682907104492
+          },
+          {
+            "id": "543516",
+            "label": "SIM Cards",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Pre-Paid Cards & SIM Cards > SIM Cards",
+            "rank": 9,
+            "source": "rrf",
+            "score": 0.02478580171358629,
+            "evidence": {
+              "bm25": {
+                "rank": 16,
+                "raw_score": 2.938356637954712,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 26,
+                "raw_score": 0.5032974779605865,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 18,
+            "reranker_score": -6.523032188415527
+          },
+          {
+            "id": "269",
+            "label": "Phone Cards",
+            "path": "Electronics > Communications > Telephony > Telephone Accessories > Phone Cards",
+            "rank": 10,
+            "source": "rrf",
+            "score": 0.03981714802610325,
+            "evidence": {
+              "bm25": {
+                "rank": 7,
+                "raw_score": 3.6609878540039062,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 17,
+                "raw_score": 69.09090909090908,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 24,
+                "raw_score": 0.5076093077659607,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 11,
+            "reranker_score": -6.88033390045166
+          },
+          {
+            "id": "543512",
+            "label": "Pre-paid Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones > Pre-paid Mobile Phones",
+            "rank": 11,
+            "source": "rrf",
+            "score": 0.014705882352941176,
+            "evidence": {
+              "semantic": {
+                "rank": 8,
+                "raw_score": 0.5633233785629272,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 24,
+            "reranker_score": -6.940145969390869
+          },
+          {
+            "id": "6030",
+            "label": "Mobile Phone Pre-Paid Cards & SIM Cards",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Pre-Paid Cards & SIM Cards",
+            "rank": 12,
+            "source": "rrf",
+            "score": 0.03964621332685138,
+            "evidence": {
+              "bm25": {
+                "rank": 14,
+                "raw_score": 3.2829344272613525,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 11,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 23,
+                "raw_score": 0.5114713609218597,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 13,
+            "reranker_score": -7.0121870040893555
+          },
+          {
+            "id": "2353",
+            "label": "Mobile Phone Cases",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Cases",
+            "rank": 13,
+            "source": "rrf",
+            "score": 0.04441226010616578,
+            "evidence": {
+              "bm25": {
+                "rank": 2,
+                "raw_score": 3.9239449501037598,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 4,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 19,
+                "raw_score": 0.5312969386577606,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 3,
+            "reranker_score": -7.069026947021484
+          },
+          {
+            "id": "543513",
+            "label": "Contract Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones > Contract Mobile Phones",
+            "rank": 14,
+            "source": "rrf",
+            "score": 0.015625,
+            "evidence": {
+              "semantic": {
+                "rank": 4,
+                "raw_score": 0.5853314399719238,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 22,
+            "reranker_score": -7.486870765686035
+          },
+          {
+            "id": "4550",
+            "label": "Mobile Phone Charms & Straps",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Charms & Straps",
+            "rank": 15,
+            "source": "rrf",
+            "score": 0.04267791032496915,
+            "evidence": {
+              "bm25": {
+                "rank": 8,
+                "raw_score": 3.6396782398223877,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 6,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 18,
+                "raw_score": 0.5321471989154816,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 5,
+            "reranker_score": -7.54020357131958
+          },
+          {
+            "id": "8111",
+            "label": "Mobile Phone Camera Accessories",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Camera Accessories",
+            "rank": 16,
+            "source": "rrf",
+            "score": 0.042231462231462236,
+            "evidence": {
+              "bm25": {
+                "rank": 5,
+                "raw_score": 3.7764699459075928,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 14,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 15,
+                "raw_score": 0.5360647439956665,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 6,
+            "reranker_score": -7.654148578643799
+          },
+          {
+            "id": "543515",
+            "label": "Mobile Phone Pre-Paid Cards",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Pre-Paid Cards & SIM Cards > Mobile Phone Pre-Paid Cards",
+            "rank": 17,
+            "source": "rrf",
+            "score": 0.04139375792734909,
+            "evidence": {
+              "bm25": {
+                "rank": 9,
+                "raw_score": 3.5806210041046143,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 8,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 22,
+                "raw_score": 0.5151087045669556,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 9,
+            "reranker_score": -7.700189590454102
+          },
+          {
+            "id": "1745",
+            "label": "Mobile Phone Batteries",
+            "path": "Electronics > Electronics Accessories > Power > Batteries > Mobile Phone Batteries",
+            "rank": 18,
+            "source": "rrf",
+            "score": 0.04383705164550721,
+            "evidence": {
+              "bm25": {
+                "rank": 10,
+                "raw_score": 3.471278429031372,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 1,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 16,
+                "raw_score": 0.5321895182132721,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 4,
+            "reranker_score": -7.721861839294434
+          },
+          {
+            "id": "499878",
+            "label": "Mobile Phone & Tablet Tripods & Monopods",
+            "path": "Electronics > Electronics Accessories > Mobile Phone & Tablet Tripods & Monopods",
+            "rank": 19,
+            "source": "rrf",
+            "score": 0.039752959341224914,
+            "evidence": {
+              "bm25": {
+                "rank": 15,
+                "raw_score": 3.0042455196380615,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 7,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 27,
+                "raw_score": 0.4997190833091736,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 12,
+            "reranker_score": -7.766807556152344
+          },
+          {
+            "id": "4666",
+            "label": "Conference Phones",
+            "path": "Electronics > Communications > Telephony > Conference Phones",
+            "rank": 20,
+            "source": "rrf",
+            "score": 0.012987012987012988,
+            "evidence": {
+              "semantic": {
+                "rank": 17,
+                "raw_score": 0.5321756601333618,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 32,
+            "reranker_score": -7.8115620613098145
+          },
+          {
+            "id": "265",
+            "label": "Telephone Accessories",
+            "path": "Electronics > Communications > Telephony > Telephone Accessories",
+            "rank": 21,
+            "source": "rrf",
+            "score": 0.014084507042253521,
+            "evidence": {
+              "semantic": {
+                "rank": 11,
+                "raw_score": 0.54765185713768,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 26,
+            "reranker_score": -8.14109992980957
+          },
+          {
+            "id": "7347",
+            "label": "Mobile Phone Replacement Parts",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Replacement Parts",
+            "rank": 22,
+            "source": "rrf",
+            "score": 0.04201388888888889,
+            "evidence": {
+              "bm25": {
+                "rank": 4,
+                "raw_score": 3.7764699459075928,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 12,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 20,
+                "raw_score": 0.52286696434021,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 7,
+            "reranker_score": -8.496238708496094
+          },
+          {
+            "id": "5696",
+            "label": "Mobile Phone Jammers",
+            "path": "Electronics > Electronics Accessories > Signal Jammers > Mobile Phone Jammers",
+            "rank": 23,
+            "source": "rrf",
+            "score": 0.03953823953823954,
+            "evidence": {
+              "bm25": {
+                "rank": 12,
+                "raw_score": 3.471278429031372,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 10,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 28,
+                "raw_score": 0.49669933319091797,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 14,
+            "reranker_score": -8.593149185180664
+          },
+          {
+            "id": "7566",
+            "label": "MP3 Player & Mobile Phone Accessory Sets",
+            "path": "Electronics > Audio > Audio Accessories > MP3 Player Accessories > MP3 Player & Mobile Phone Accessory Sets",
+            "rank": 24,
+            "source": "rrf",
+            "score": 0.03767465411301028,
+            "evidence": {
+              "bm25": {
+                "rank": 17,
+                "raw_score": 2.75696063041687,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 13,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 31,
+                "raw_score": 0.48697906732559204,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 15,
+            "reranker_score": -8.91278076171875
+          },
+          {
+            "id": "1880",
+            "label": "Cordless Phone Batteries",
+            "path": "Electronics > Electronics Accessories > Power > Batteries > Cordless Phone Batteries",
+            "rank": 25,
+            "source": "rrf",
+            "score": 0.04108310451770934,
+            "evidence": {
+              "bm25": {
+                "rank": 11,
+                "raw_score": 3.471278429031372,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 2,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 32,
+                "raw_score": 0.4850729703903198,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 10,
+            "reranker_score": -9.06233024597168
+          },
+          {
+            "id": "499916",
+            "label": "SIM Card Ejection Tools",
+            "path": "Electronics > Communications > Telephony > Mobile Phone Accessories > SIM Card Ejection Tools",
+            "rank": 26,
+            "source": "rrf",
+            "score": 0.02282051282051282,
+            "evidence": {
+              "bm25": {
+                "rank": 18,
+                "raw_score": 2.234694242477417,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 40,
+                "raw_score": 0.45921576023101807,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 19,
+            "reranker_score": -9.223586082458496
+          },
+          {
+            "id": "2028",
+            "label": "Phone & Data Jacks",
+            "path": "Hardware > Power & Electrical Supplies > Phone & Data Jacks",
+            "rank": 27,
+            "source": "rrf",
+            "score": 0.04191732502234785,
+            "evidence": {
+              "bm25": {
+                "rank": 13,
+                "raw_score": 3.3002614974975586,
+                "higher_is_better": true
+              },
+              "fuzzy": {
+                "rank": 3,
+                "raw_score": 85.5,
+                "higher_is_better": true
+              },
+              "semantic": {
+                "rank": 21,
+                "raw_score": 0.5178696811199188,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 8,
+            "reranker_score": -9.35928726196289
+          },
+          {
+            "id": "280",
+            "label": "Handheld Device Accessories",
+            "path": "Electronics > Electronics Accessories > Computer Accessories > Handheld Device Accessories",
+            "rank": 28,
+            "source": "rrf",
+            "score": 0.011111111111111112,
+            "evidence": {
+              "semantic": {
+                "rank": 30,
+                "raw_score": 0.493213951587677,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 37,
+            "reranker_score": -9.617975234985352
+          },
+          {
+            "id": "298",
+            "label": "Handheld Devices",
+            "path": "Electronics > Computers > Handheld Devices",
+            "rank": 29,
+            "source": "rrf",
+            "score": 0.013888888888888888,
+            "evidence": {
+              "semantic": {
+                "rank": 12,
+                "raw_score": 0.5426096022129059,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 27,
+            "reranker_score": -9.863340377807617
+          },
+          {
+            "id": "3769",
+            "label": "PDAs",
+            "path": "Electronics > Computers > Handheld Devices > PDAs",
+            "rank": 30,
+            "source": "rrf",
+            "score": 0.010638297872340425,
+            "evidence": {
+              "semantic": {
+                "rank": 34,
+                "raw_score": 0.4816628694534302,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 39,
+            "reranker_score": -10.18362045288086
+          },
+          {
+            "id": "3541",
+            "label": "Telephone Cables",
+            "path": "Electronics > Electronics Accessories > Cables > Telephone Cables",
+            "rank": 31,
+            "source": "rrf",
+            "score": 0.010526315789473684,
+            "evidence": {
+              "semantic": {
+                "rank": 35,
+                "raw_score": 0.47570544481277466,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 40,
+            "reranker_score": -10.207965850830078
+          },
+          {
+            "id": "1242",
+            "label": "Baby Mobiles",
+            "path": "Baby & Toddler > Baby Toys & Activity Equipment > Baby Mobiles",
+            "rank": 32,
+            "source": "rrf",
+            "score": 0.011764705882352941,
+            "evidence": {
+              "semantic": {
+                "rank": 25,
+                "raw_score": 0.5052733719348907,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 35,
+            "reranker_score": -10.302530288696289
+          },
+          {
+            "id": "7191",
+            "label": "Baby Mobile Accessories",
+            "path": "Baby & Toddler > Baby Toys & Activity Equipment > Baby Mobile Accessories",
+            "rank": 33,
+            "source": "rrf",
+            "score": 0.010752688172043012,
+            "evidence": {
+              "semantic": {
+                "rank": 33,
+                "raw_score": 0.4821123480796814,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 38,
+            "reranker_score": -10.519790649414062
+          },
+          {
+            "id": "4488",
+            "label": "Toll Collection Devices",
+            "path": "Electronics > Toll Collection Devices",
+            "rank": 34,
+            "source": "rrf",
+            "score": 0.011235955056179775,
+            "evidence": {
+              "semantic": {
+                "rank": 29,
+                "raw_score": 0.4960634708404541,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 36,
+            "reranker_score": -10.544044494628906
+          },
+          {
+            "id": "270",
+            "label": "Telephony",
+            "path": "Electronics > Communications > Telephony",
+            "rank": 35,
+            "source": "rrf",
+            "score": 0.013513513513513514,
+            "evidence": {
+              "semantic": {
+                "rank": 14,
+                "raw_score": 0.5361635088920593,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 29,
+            "reranker_score": -10.681910514831543
+          },
+          {
+            "id": "266",
+            "label": "Answering Machines",
+            "path": "Electronics > Communications > Answering Machines",
+            "rank": 36,
+            "source": "rrf",
+            "score": 0.0136986301369863,
+            "evidence": {
+              "semantic": {
+                "rank": 13,
+                "raw_score": 0.5376194715499878,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 28,
+            "reranker_score": -10.845613479614258
+          },
+          {
+            "id": "276",
+            "label": "Batteries",
+            "path": "Electronics > Electronics Accessories > Power > Batteries",
+            "rank": 37,
+            "source": "parent_expansion",
+            "score": 0.0,
+            "evidence": {},
+            "retrieval_rank": 41,
+            "reranker_score": -10.936004638671875
+          },
+          {
+            "id": "4865",
+            "label": "Saxophone Small Parts",
+            "path": "Arts & Entertainment > Hobbies & Creative Arts > Musical Instrument & Orchestra Accessories > Woodwind Instrument Accessories > Saxophone Accessories > Saxophone Parts > Saxophone Small Parts",
+            "rank": 38,
+            "source": "rrf",
+            "score": 0.013157894736842105,
+            "evidence": {
+              "fuzzy": {
+                "rank": 16,
+                "raw_score": 69.95454545454545,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 31,
+            "reranker_score": -11.252032279968262
+          },
+          {
+            "id": "91",
+            "label": "Saxophones",
+            "path": "Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments > Woodwinds > Saxophones",
+            "rank": 39,
+            "source": "rrf",
+            "score": 0.0125,
+            "evidence": {
+              "fuzzy": {
+                "rank": 20,
+                "raw_score": 66.66666666666667,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 34,
+            "reranker_score": -11.3589506149292
+          },
+          {
+            "id": "4628",
+            "label": "Meat",
+            "path": "Food, Beverages & Tobacco > Food Items > Meat, Seafood & Eggs > Meat",
+            "rank": 40,
+            "source": "rrf",
+            "score": 0.01282051282051282,
+            "evidence": {
+              "fuzzy": {
+                "rank": 18,
+                "raw_score": 67.5,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 33,
+            "reranker_score": -11.362167358398438
+          },
+          {
+            "id": "4947",
+            "label": "Honey",
+            "path": "Food, Beverages & Tobacco > Food Items > Condiments & Sauces > Honey",
+            "rank": 41,
+            "source": "rrf",
+            "score": 0.013333333333333334,
+            "evidence": {
+              "fuzzy": {
+                "rank": 15,
+                "raw_score": 80.0,
+                "higher_is_better": true
+              }
+            },
+            "retrieval_rank": 30,
+            "reranker_score": -11.381186485290527
+          }
+        ],
+        "reason_code": "uncalibrated_reranking",
+        "ranking_model": {
+          "name": "cross-encoder/ms-marco-MiniLM-L6-v2",
+          "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+          "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--cross-encoder--ms-marco-MiniLM-L6-v2/snapshots/233902d25c440f23af6f7d6e94d2946bac0bee0a"
+        }
+      }
+    },
+    {
+      "query": "Eco Friendly|Clothing",
+      "review_status": "pending_review",
+      "expected_ids": [
+        "1604"
+      ],
+      "explicitly_rejected_ids": [],
+      "query_encoding_ms": 31.72804099995119,
+      "retrieval_plus_reranking_ms": 0.17070800004148623,
+      "baseline": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "hybrid",
+        "category": null,
+        "candidates": [
+          {
+            "id": "1604",
+            "label": "Clothing",
+            "path": "Apparel & Accessories > Clothing",
+            "rank": 1,
+            "source": "context_only"
+          }
+        ],
+        "reason_code": "attribute_only_use_broad_context_provisionally",
+        "ranking_model": null
+      },
+      "experimental_reranked": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-ecbf2e1335a8",
+        "method": "hybrid",
+        "category": null,
+        "candidates": [
+          {
+            "id": "1604",
+            "label": "Clothing",
+            "path": "Apparel & Accessories > Clothing",
+            "rank": 1,
+            "source": "context_only"
+          }
+        ],
+        "reason_code": "attribute_only_use_broad_context_provisionally",
+        "ranking_model": null
+      }
+    }
+  ]
+}
