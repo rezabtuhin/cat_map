@@ -10,8 +10,14 @@ a stable process footprint with substantial compression; the observed system
 swap check still fails. Human review and independent qualification remain pending.
 Automatic semantic acceptance remains disabled. Only accepted `matched` results
 may contain an assigned category; candidates and previews must not be assigned.
-All 99 tests, lint/format, artifact integrity, and evidence-consistency checks pass.
+All 102 tests, lint/format, artifact integrity, and evidence-consistency checks pass.
 There are 405 pending review decisions prepared, with no new approvals applied.
+
+The [quantization experiment](quantization/FINDINGS.md) is complete. Float32
+remains selected: full int8 regresses on ranking; embedding-only int8 preserves
+development top-1 outcomes but increases process peak and physical footprint.
+Neither experiment enables automatic semantic assignment or changes the active
+artifact. Review and independent qualification remain pending.
 
 The snapshot below describes the earlier retrieval-only default and is retained
 as historical evidence. Intermediate findings remain in `improvement/` and `specificity/`.

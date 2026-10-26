@@ -31,6 +31,11 @@ Trusted label review, independent qualification, and remaining ranking regressio
 still require work before Sprint 3. Resource evidence now separates idle/load/
 inference swap observations and native process memory; the swap check remains
 unpassed. See the current report for measurements and limits.
+
+The [CPU quantization comparison](reports/sprint_2/quantization/FINDINGS.md) has
+also completed. It does not support replacing float32: the dynamic-int8 profile
+regresses on ranking, and embedding-only int8 does not lower the measured process
+memory. Current implementation work remains in Sprint 2 qualification.
 The sprint descriptions below define planned scope and acceptance criteria.
 
 ## 2. Sprint cadence and scope

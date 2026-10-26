@@ -1,0 +1,546 @@
+{
+  "baseline_artifact_version": "eed281a45624da69-a0a29f98cc37",
+  "baseline_quality_report_sha256": "d8e733644c18df6e8259822d07d247746de5d37f4635db6c4548f62bc7b7e4f6",
+  "decision": "keep_float32_default",
+  "automatic_semantic_acceptance_enabled": false,
+  "default_configuration_changed": false,
+  "baseline_metrics": {
+    "examples": 160,
+    "resolvable_examples": 120,
+    "top1_correct": 96,
+    "top3_correct": 109,
+    "recall20_correct": 114,
+    "shortlist_correct": 118,
+    "automatic_matches": 14,
+    "correct_automatic_matches": 14,
+    "incorrect_automatic_matches": 0,
+    "resolvable_automatic_matches": 14,
+    "top1_accuracy": 0.8,
+    "top3_recall": 0.9083333333333333,
+    "candidate_recall_at_20": 0.95,
+    "final_shortlist_recall": 0.9833333333333333,
+    "automatic_match_precision": 1.0,
+    "resolvable_automatic_coverage": 0.11666666666666667,
+    "unresolvable_examples": 40,
+    "unresolvable_false_acceptances": 0
+  },
+  "profiles": [
+    {
+      "profile": "int8_dynamic_v1",
+      "quality_report_sha256": "c833c3a42aa08004548a1b8b768237101a188c2af001be2f9d5ec4325c97ab04",
+      "metrics": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 95,
+        "top3_correct": 107,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7916666666666666,
+        "top3_recall": 0.8916666666666667,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "top1_regressions": [
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "before_rank": 1,
+          "after_rank": 2,
+          "before_top1": [
+            "5001"
+          ],
+          "after_top1": [
+            "1253"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "before_rank": 1,
+          "after_rank": 17,
+          "before_top1": [
+            "4989"
+          ],
+          "after_top1": [
+            "5017"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "before_rank": 1,
+          "after_rank": 2,
+          "before_top1": [
+            "1253"
+          ],
+          "after_top1": [
+            "3166"
+          ]
+        },
+        {
+          "example_id": "draft-060",
+          "query": "baby nappies",
+          "before_rank": 1,
+          "after_rank": 2,
+          "before_top1": [
+            "551"
+          ],
+          "after_top1": [
+            "7360"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "before_rank": 1,
+          "after_rank": 2,
+          "before_top1": [
+            "5024"
+          ],
+          "after_top1": [
+            "3238"
+          ]
+        }
+      ],
+      "top1_gains": [
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "before_rank": 7,
+          "after_rank": 1,
+          "before_top1": [
+            "569"
+          ],
+          "after_top1": [
+            "505764"
+          ]
+        },
+        {
+          "example_id": "draft-071",
+          "query": "sun protection skin lotion",
+          "before_rank": 2,
+          "after_rank": 1,
+          "before_top1": [
+            "567"
+          ],
+          "after_top1": [
+            "2844"
+          ]
+        },
+        {
+          "example_id": "draft-081",
+          "query": "movies on DVD",
+          "before_rank": 3,
+          "after_rank": 1,
+          "before_top1": [
+            "543527"
+          ],
+          "after_top1": [
+            "839"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "before_rank": 3,
+          "after_rank": 1,
+          "before_top1": [
+            "3798"
+          ],
+          "after_top1": [
+            "694"
+          ]
+        }
+      ],
+      "changed_resolvable_predictions": [
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "before_rank": 1,
+          "after_rank": 2,
+          "before_top1": [
+            "5001"
+          ],
+          "after_top1": [
+            "1253"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "before_rank": 1,
+          "after_rank": 17,
+          "before_top1": [
+            "4989"
+          ],
+          "after_top1": [
+            "5017"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "before_rank": 1,
+          "after_rank": 2,
+          "before_top1": [
+            "1253"
+          ],
+          "after_top1": [
+            "3166"
+          ]
+        },
+        {
+          "example_id": "draft-058",
+          "query": "interchangeable camera optics",
+          "before_rank": 9,
+          "after_rank": 8,
+          "before_top1": [
+            "156"
+          ],
+          "after_top1": [
+            "141"
+          ]
+        },
+        {
+          "example_id": "draft-060",
+          "query": "baby nappies",
+          "before_rank": 1,
+          "after_rank": 2,
+          "before_top1": [
+            "551"
+          ],
+          "after_top1": [
+            "7360"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "before_rank": 7,
+          "after_rank": 1,
+          "before_top1": [
+            "569"
+          ],
+          "after_top1": [
+            "505764"
+          ]
+        },
+        {
+          "example_id": "draft-071",
+          "query": "sun protection skin lotion",
+          "before_rank": 2,
+          "after_rank": 1,
+          "before_top1": [
+            "567"
+          ],
+          "after_top1": [
+            "2844"
+          ]
+        },
+        {
+          "example_id": "draft-081",
+          "query": "movies on DVD",
+          "before_rank": 3,
+          "after_rank": 1,
+          "before_top1": [
+            "543527"
+          ],
+          "after_top1": [
+            "839"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "before_rank": 1,
+          "after_rank": 2,
+          "before_top1": [
+            "5024"
+          ],
+          "after_top1": [
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "before_rank": 0,
+          "after_rank": 0,
+          "before_top1": [
+            "773"
+          ],
+          "after_top1": [
+            "778"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "before_rank": 84,
+          "after_rank": 81,
+          "before_top1": [
+            "7302"
+          ],
+          "after_top1": [
+            "3769"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "before_rank": 3,
+          "after_rank": 1,
+          "before_top1": [
+            "3798"
+          ],
+          "after_top1": [
+            "694"
+          ]
+        }
+      ],
+      "user_checks": [
+        {
+          "query": "Clothing",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Tops",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Smart Phone",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Eco Friendly|Clothing",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Jackets",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Collections",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Fitness Equipment",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "New Luma Yoga Collection",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Erin Recommends",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        }
+      ],
+      "parameter_tensors": {
+        "floating_parameter_bytes": 1658880,
+        "packed_weight_and_bias_bytes": 141609228,
+        "quantization_metadata_bytes": 1025408,
+        "estimated_parameter_tensor_bytes": 144293516
+      },
+      "resource_requests": 30,
+      "warm_latency_ms": {
+        "p50": 1421.2335419979354,
+        "p95": 1614.724849849517,
+        "max": 1724.80670799996
+      },
+      "process_peak_resident_bytes": 1656045568,
+      "process_after_inference": {
+        "resident_bytes": 628621312,
+        "peak_resident_bytes": 1656045568,
+        "private_internal_bytes": 251822080,
+        "compressed_bytes": 631242752,
+        "physical_footprint_bytes": 884364160
+      },
+      "resource_checks": {
+        "at_least_200_requests": false,
+        "p95_under_3_seconds": true,
+        "peak_under_3GB": true,
+        "no_observed_system_swapouts": false
+      }
+    },
+    {
+      "profile": "int8_embeddings_v1",
+      "quality_report_sha256": "7e1adca54e0ff89db1575b6d1bbb8edc5df09c020bec3455b297a1561d241d98",
+      "metrics": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 96,
+        "top3_correct": 109,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.8,
+        "top3_recall": 0.9083333333333333,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "top1_regressions": [],
+      "top1_gains": [],
+      "changed_resolvable_predictions": [],
+      "user_checks": [
+        {
+          "query": "Clothing",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Tops",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Smart Phone",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Eco Friendly|Clothing",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Jackets",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Collections",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Fitness Equipment",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "New Luma Yoga Collection",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        },
+        {
+          "query": "Erin Recommends",
+          "same_status": true,
+          "same_assigned_category": true,
+          "same_first_candidate": true,
+          "uncertain_stays_unmapped": true
+        }
+      ],
+      "parameter_tensors": {
+        "floating_parameter_bytes": 174065676,
+        "packed_weight_and_bias_bytes": 98380800,
+        "quantization_metadata_bytes": 1024800,
+        "estimated_parameter_tensor_bytes": 273471276
+      },
+      "resource_requests": 200,
+      "warm_latency_ms": {
+        "p50": 757.5261459969624,
+        "p95": 800.2793645977363,
+        "max": 909.2814999967231
+      },
+      "process_peak_resident_bytes": 1643495424,
+      "process_after_inference": {
+        "resident_bytes": 703545344,
+        "peak_resident_bytes": 1643495424,
+        "private_internal_bytes": 329678848,
+        "compressed_bytes": 881082368,
+        "physical_footprint_bytes": 1212142784
+      },
+      "resource_checks": {
+        "at_least_200_requests": true,
+        "p95_under_3_seconds": true,
+        "peak_under_3GB": true,
+        "no_observed_system_swapouts": false
+      }
+    }
+  ],
+  "reasons": [
+    "Full int8 has development ranking regressions.",
+    "Embedding-only preserves top-1 outcomes but raises memory peak and footprint.",
+    "No quantized profile passes the recorded conservative resource check."
+  ],
+  "limitations": [
+    "All 200 labels remain unreviewed; this is development model selection.",
+    "Float32 and embedding-only resource runs use 200 identical serial inputs.",
+    "Full-int8 timing is a 30-request diagnostic after quality rejection.",
+    "Sequential runs do not control other applications or establish swap attribution.",
+    "Test inputs and calibration fitting were not used for this experiment."
+  ]
+}

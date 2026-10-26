@@ -159,6 +159,12 @@ BM25S provides local BM25 retrieval, and RapidFuzz supplies spelling-distance an
 
 The embedding model produces 768-dimensional vectors. Sprint 2 development comparisons selected plain query encoding, omitting the initial retrieval instruction; stored category text also has no instruction. The active artifact records this choice. [BGE model card](https://huggingface.co/BAAI/bge-base-en-v1.5)
 
+The CPU execution profile remains float32 after the measured
+[quantization comparison](reports/sprint_2/quantization/FINDINGS.md). Full int8
+regressed on development rankings, and word-embedding-only int8 did not improve
+the observed process-memory peak or footprint. Experimental packed-weight byte
+counts must not be treated as measurements of runtime memory.
+
 The initial MiniLM passage reranker worsened development ranking. The current
 development configuration instead uses the NLI model with category-entailment
 pair formatting and rank fusion. It scores the first 100 candidates and combines

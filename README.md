@@ -10,6 +10,10 @@ Current [Sprint 2 status](reports/sprint_2/STATUS.md) and
 abstention, ranking safeguards, review tooling, and native memory measurements. These reused
 draft inputs do not establish independently validated accuracy.
 
+The [CPU quantization comparison](reports/sprint_2/quantization/FINDINGS.md) retains
+float32 as the default: full int8 loses development rankings, while embedding-only
+int8 preserves the observed top-1 results but raises measured process memory.
+
 **Non-exact results are provisional candidates.** Similarity and reranker scores
 are ranking signals, not correctness probabilities. Sprint 2 implements calibration,
 clarification/no-match policy rules, and qualification checks. The fitted draft
