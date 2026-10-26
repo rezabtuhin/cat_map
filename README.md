@@ -17,8 +17,9 @@ int8 preserves the observed top-1 results but raises measured process memory.
 **Non-exact results are provisional candidates.** Similarity and reranker scores
 are ranking signals, not correctness probabilities. Sprint 2 implements calibration,
 clarification/no-match policy rules, and qualification checks. The fitted draft
-policy is not validated and can only preview decisions. An API and production
-qualification remain future sprint work.
+policy is not validated and can only preview decisions. A local development API
+is implemented in [Sprint 3](reports/sprint_3/FINDINGS.md). Production qualification
+remains pending.
 
 **Uncertain inputs stay unmapped.** Only `status: "matched"` may have an assigned
 `category`. Every other result keeps `category: null`. Do not assign an ID from
@@ -102,6 +103,101 @@ literal general-category lookups return `matched`.
 The `Tops` alias was
 approved from the user's explicit confirmation of ID `212`. Other draft aliases
 are inactive until reviewed. Rebuild after changing aliases.
+
+## Run the local API
+
+After setup, start the service from the project root:
+
+```bash
+uv run category-matcher-api
+```
+
+The server listens at `http://127.0.0.1:8000` with one worker. Interactive API docs
+are at `/docs`; the schema is at `/openapi.json`. Startup validates the selected
+bundle and loads and warms the models on the inference thread. `/health/live`
+responds during initialization; `/health/ready` returns 503 until initialization
+succeeds, and remains 503 if artifacts, models, or a configured policy fail
+validation. Inspect the structured startup log for the cause.
+
+```bash
+curl http://127.0.0.1:8000/health/ready
+curl http://127.0.0.1:8000/v1/taxonomies
+curl http://127.0.0.1:8000/v1/taxonomies/google/categories/1604
+curl -X POST http://127.0.0.1:8000/v1/categories/match \
+  -H 'Content-Type: application/json' \
+  -d '{"taxonomy_key":"google","category":"Clothing"}'
+uv run python scripts/api_client.py 'Hoodies & Sweatshirts|Clothing'
+```
+
+`POST /v1/categories/match` accepts the following JSON fields. Unknown fields and
+incorrect types are rejected with 422; category IDs are strings.
+
+| Field | Contract |
+|---|---|
+| `taxonomy_key` | Required; currently only `"google"` |
+| `taxonomy_version` | Optional; if supplied, must equal the active version listed by `/v1/taxonomies` |
+| `category` | Category text, at most 300 characters; required unless `category_id` is supplied |
+| `category_id` | Optional canonical category ID for a direct lookup |
+| `parent_category_id` | Optional canonical parent ID restricting the matching hierarchy |
+| `context` | Optional product description, at most 1,000 characters |
+| `language` | Defaults to `"en"`; unsupported languages return `unsupported_language` |
+| `limit` | Number of displayed alternatives, integer 1–10; defaults to 3 |
+
+Responses include `status`, canonical `category` or `null`, `alternatives`, method,
+reason, clarification, taxonomy/artifact versions, `event_id`, and queue/inference/
+total timings in milliseconds. The `X-Request-ID` response header matches the
+event ID in the response and structured logs. Only `status: "matched"` assigns a
+category. Treat `alternatives` as suggestions requiring review. Inputs such as
+`Collections` and `Erin Recommends` remain unmapped. The API uses the same hybrid
+pipeline as the default CLI and does not expose experimental decision previews.
+
+The service keeps one matcher, its SQLite connection, and its resident models on
+one dedicated inference thread. Canonical GET lookups use an immutable category
+snapshot. One match request runs at a time, with eight pending requests by default;
+further requests receive 503 `queue_full` with `Retry-After: 1`. Health and canonical
+lookup endpoints remain available while inference runs.
+
+The default 30-second HTTP deadline includes reading the body, queueing, and
+inference. An expired request receives 504; an expired queued job or one whose
+application task is cancelled is removed. A disconnected HTTP client does not
+necessarily cancel the application task; the deadline still bounds its wait.
+A native model call already running finishes before another job starts,
+even if its caller times out or its application task is cancelled. Shutdown waits for active inference and
+closes SQLite on its owner thread. A native call that hangs requires process
+recovery; the HTTP deadline cannot interrupt native model execution.
+
+| Environment variable | Default | Allowed configuration |
+|---|---|---|
+| `CATEGORY_MATCHER_API_ARTIFACTS` | `artifacts/google` | Active-bundle root containing `active.json` |
+| `CATEGORY_MATCHER_API_POLICY` | Unset | Qualified policy only; draft/unqualified policies fail readiness |
+| `CATEGORY_MATCHER_API_QUEUE_SIZE` | `8` | Integer 1–32 |
+| `CATEGORY_MATCHER_API_TIMEOUT_SECONDS` | `30` | Greater than 0, at most 120 seconds |
+| `CATEGORY_MATCHER_API_MAX_BODY_BYTES` | `16384` | Integer 1,024–65,536 bytes |
+
+Equivalent launcher flags are `--artifacts`, `--policy`, `--queue-size`,
+`--timeout-seconds`, and `--max-body-bytes`. Flags override environment values.
+`--port` selects another port; `--host` permits only loopback addresses. Unknown
+`CATEGORY_MATCHER_API_*` settings fail startup. Oversized bodies return 413 and
+non-JSON match requests return 415. Error responses contain `error.code`,
+`error.message`, and `event_id`; requests made before readiness return 503.
+
+The default service has no qualified semantic acceptance policy. It preserves the
+canonical/approved-alias acceptance behavior described above and leaves other
+results provisional or unmapped. This is a local development integration; trusted
+label review, independent accuracy qualification, and the outstanding resource
+gate remain separate work.
+
+Reproduce the real-model HTTP checks with a new report directory:
+
+```bash
+uv run python scripts/benchmark_api.py --requests 200 \
+  --output-dir reports/sprint_3/repeat_1
+```
+
+The benchmark starts and stops its own loopback server, compares all 200 frozen
+development CLI outcomes, runs the ten supplied user examples, measures 200 warm
+model-path requests, and exercises overload while probing health. It does not
+score the test holdout or establish matching accuracy.
 
 ## Ranking configuration
 
@@ -230,8 +326,9 @@ renaming AI fixtures or inputs already inspected during development.
 ## Current scope
 
 - Google English taxonomy only; 5,582 categories and two vectors per category.
-- CLI prototype, local CPU inference, one command process at a time.
+- CLI and local FastAPI development service, with local CPU inference.
+- API inference is bounded to one active job with a configurable pending queue.
 - Small modules separate domain records, parsing, storage, retrieval, and orchestration.
-- No remote API calls during inference, web service, frontend, or deployed site.
+- No remote model calls during inference, frontend, or deployed site.
 - Additional vendors and broader scaling work remain deferred until the matching
   approach has been validated, as requested.
