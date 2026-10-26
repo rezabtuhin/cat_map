@@ -41,6 +41,61 @@ def is_attribute_only(text: str) -> bool:
     return bool(words) and words <= ATTRIBUTE_WORDS
 
 
+def is_merchandising_label(text: str) -> bool:
+    normalized = search_text(text)
+    return bool(
+        re.search(
+            r"\b(collections?|recommendations?|favorites?)$|\b(recommends?|recommended)\b",
+            normalized,
+        )
+    )
+
+
+def literal_group_candidates(
+    text: str, categories: dict[str, Category], allowed: set[str]
+) -> list[str]:
+    """Find whole coordinated-label alternatives without dropping real qualifiers.
+
+    This provides provisional ranking evidence, not an approved alias. A trailing
+    generic container noun can describe a group (Fitness Equipment); a specific
+    noun such as mats is never removed.
+    """
+    normalized = search_text(text)
+    for suffix in (" equipment", " products", " goods", " items"):
+        if normalized.endswith(suffix):
+            normalized = normalized.removesuffix(suffix)
+            break
+    key = retrieval_terms(normalized)
+    if not key:
+        return []
+    matches = []
+    for cid in allowed:
+        label = categories[cid].label
+        alternatives = label.split(" & ")
+        if len(alternatives) < 2:
+            continue
+        if any(retrieval_terms(part) == key for part in alternatives):
+            matches.append(cid)
+    return sorted(matches)
+
+
+def weak_promotion_evidence(retrieval: dict, winner: dict, guard: dict) -> dict | None:
+    first = retrieval.get("evidence", {}).get("semantic", {}).get("raw_score")
+    second = winner.get("evidence", {}).get("semantic", {}).get("raw_score")
+    support = winner.get("entailment_logit_margin")
+    if first is None or second is None or support is None or retrieval["id"] == winner["id"]:
+        return None
+    difference = first - second
+    if difference > guard["minimum_semantic_gap"] and support < guard["minimum_entailment_support"]:
+        return {
+            "model_first_id": winner["id"],
+            "retrieval_first_id": retrieval["id"],
+            "semantic_support_gap": difference,
+            "entailment_support": support,
+        }
+    return None
+
+
 def scope_only_entailment_support(candidates: list[dict], parent_id: str | None) -> bool:
     """Detect a model that endorses only the supplied scope, not a product type.
 

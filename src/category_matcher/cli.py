@@ -29,6 +29,17 @@ def parser() -> argparse.ArgumentParser:
         "--ranking-profile", type=Path, default=Path("config/category_ranking.json")
     )
     builder.add_argument("--retrieval-only", action="store_true")
+    for name in ("capture-inputs", "review-export", "review-apply"):
+        command = commands.add_parser(name)
+        command.add_argument("--taxonomy", type=Path, default=Path("google_category_list.txt"))
+        command.add_argument("--output", type=Path, required=True)
+        if name == "capture-inputs":
+            command.add_argument("--inputs", type=Path, required=True)
+            command.add_argument("--source-name", required=True)
+        else:
+            command.add_argument("--dataset", type=Path, required=True)
+        if name == "review-apply":
+            command.add_argument("--reviews", type=Path, required=True)
     commands.add_parser("inspect", help="Validate and display the active artifact manifest")
     commands.add_parser("verify", help="Check canonical lookups and SQLite vector equivalence")
     match = commands.add_parser("match", help="Return a canonical match or provisional candidates")
@@ -104,6 +115,17 @@ def main() -> int:
     args = parser().parse_args()
     matcher = None
     try:
+        if args.command in {"capture-inputs", "review-export", "review-apply"}:
+            from category_matcher.review import apply_reviews, capture_inputs, export_reviews
+
+            if args.command == "capture-inputs":
+                report = capture_inputs(args.inputs, args.taxonomy, args.output, args.source_name)
+            elif args.command == "review-export":
+                report = export_reviews(args.dataset, args.taxonomy, args.output)
+            else:
+                report = apply_reviews(args.dataset, args.taxonomy, args.reviews, args.output)
+            print(json.dumps(report, indent=2))
+            return 0
         if args.command == "check-data":
             from category_matcher.datasets import check_splits
 

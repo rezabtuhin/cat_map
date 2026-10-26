@@ -1,5 +1,8 @@
 # Sprint 2 specificity correction
 
+Historical revision: see [the store-label and review-workflow revision](../revision_3/FINDINGS.md)
+for current behavior and measurements. The evidence below belongs to this earlier artifact.
+
 This revision adds an explicit model/retrieval disagreement safeguard and changes
 the NLI pair wording to category statements. The original taxonomy and all
 development/calibration/test labels remain unchanged. The test proposals have

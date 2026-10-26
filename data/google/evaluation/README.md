@@ -18,9 +18,15 @@ audit. It does not replace the original primary benchmark. The
 [findings](../../../reports/sprint_2/improvement/FINDINGS.md) distinguish those
 proposals from human review. Do not use this derivative as an independent split.
 
-The [current review queue](../../../reports/sprint_2/specificity/LABEL_REVIEW.md)
+The [current review queue](../../../reports/sprint_2/revision_3/LABEL_REVIEW.md)
 shows remaining development failures, the earlier audit proposals, and canonical
 paths for comparison. It does not approve labels or cover all required review.
+
+`user_examples_2.jsonl` contains five additional real store titles and legacy LAYA
+outputs supplied by the user. Expected IDs/statuses remain AI proposals awaiting
+review. They were inspected during development and are not independent holdout
+inputs. The [review workflow](../reviews/README.md) provides pending packets and
+source-bound import commands without approving any labels automatically.
 
 Before using these records as trusted labels, a category reviewer must check each
 query against the source taxonomy, correct acceptable IDs or expected status, and

@@ -115,6 +115,10 @@ class DecisionPolicy:
             status, reason = "needs_clarification", "competing_spelling_interpretations"
         elif result.query_analysis.get("specificity_conflict"):
             status, reason = "needs_clarification", "scope_only_model_support"
+        elif result.query_analysis.get("promotion_conflict"):
+            status, reason = "needs_clarification", "weak_model_promotion_conflict"
+        elif result.query_analysis.get("literal_group"):
+            status, reason = "needs_clarification", "unreviewed_literal_group_interpretation"
         elif result.candidates[0].get("source") in {"context_only", "explicit_broad"}:
             status, reason = "needs_clarification", "attribute_only_broad_context"
         elif (

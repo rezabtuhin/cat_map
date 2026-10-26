@@ -1,5 +1,6 @@
 """Publish reproducible revision evidence and a human-review queue, without scoring tests."""
 
+import argparse
 import json
 from pathlib import Path
 
@@ -9,11 +10,13 @@ from category_matcher.taxonomy import read_google_taxonomy
 
 
 def main():
-    folder = Path("reports/sprint_2/specificity")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--reports", type=Path, default=Path("reports/sprint_2/specificity"))
+    parser.add_argument("--previous", type=Path, default=Path("reports/sprint_2/improvement"))
+    args = parser.parse_args()
+    folder = args.reports
     current = json.loads((folder / "retrieval_comparison.json").read_text())
-    previous = json.loads(
-        Path("reports/sprint_2/improvement/retrieval_comparison.json").read_text()
-    )
+    previous = json.loads((args.previous / "retrieval_comparison.json").read_text())
     if previous["dataset_sha256"] != current["dataset_sha256"]:
         raise ValueError("Development cohort changed between revisions")
     categories, _ = read_google_taxonomy(Path("google_category_list.txt"))

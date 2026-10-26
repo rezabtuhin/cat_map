@@ -25,6 +25,7 @@ RETRIEVAL_CONFIG = {
     "bm25_representation": "label_only",
     "spelling_min_characters": 5,
     "spelling_distance": 1,
+    "promotion_guard": {"minimum_semantic_gap": 0.03, "minimum_entailment_support": 1.0},
 }
 
 

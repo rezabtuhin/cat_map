@@ -157,3 +157,13 @@ def test_scope_only_support_cannot_auto_accept_even_with_high_retrieval_scores(e
     decision = policy.apply(answer)
     status = decision.decision_preview["status"] if experimental else decision.status
     assert status == "needs_clarification" and decision.category is None
+
+
+@pytest.mark.parametrize("flag", ["promotion_conflict", "literal_group"])
+def test_new_interpretation_guards_require_clarification_even_at_high_scores(flag):
+    doc = document()
+    doc["policy_id"] = "test"
+    policy = DecisionPolicy(doc, experimental=False)
+    answer = result(score=0.99, margin=0.9)
+    answer.query_analysis[flag] = {"present": True}
+    assert policy.apply(answer).status == "needs_clarification"

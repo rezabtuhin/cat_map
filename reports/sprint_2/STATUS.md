@@ -1,16 +1,20 @@
 # Sprint 2 implementation status
 
-**Current update:** see [the specificity findings](specificity/FINDINGS.md) and
-[updated decision](specificity/proof_of_concept_decision.json). The selected
-default uses category-worded NLI rank fusion and a parent-only disagreement
-safeguard. It reaches 78.3% draft non-exact top-1 versus 77.5% in the preceding
-revision and 58.3% in the original hybrid pipeline. All 71 tests pass. Human
-review, independent qualification, and remaining ranking errors still require
-work. Resource diagnostics now separate idle, model load, and inference phases.
-Automatic semantic acceptance remains disabled.
+**Current update:** see [the latest findings](revision_3/FINDINGS.md) and
+[updated decision](revision_3/proof_of_concept_decision.json). The current
+pipeline reaches 80.0% draft non-exact top-1 versus 78.3% in the previous
+revision and 58.3% originally. Store-section titles remain unmapped, literal
+group evidence stays provisional, and model disagreements require clarification.
+Draft calibration coverage is 52.1%, below target. Native memory profiling finds
+a stable process footprint with substantial compression; the observed system
+swap check still fails. Human review and independent qualification remain pending.
+Automatic semantic acceptance remains disabled. Only accepted `matched` results
+may contain an assigned category; candidates and previews must not be assigned.
+All 99 tests, lint/format, artifact integrity, and evidence-consistency checks pass.
+There are 405 pending review decisions prepared, with no new approvals applied.
 
 The snapshot below describes the earlier retrieval-only default and is retained
-as historical evidence. Intermediate findings remain in `improvement/`.
+as historical evidence. Intermediate findings remain in `improvement/` and `specificity/`.
 
 **Decision: revise.** Local resource targets pass. The matching-quality gate has
 not passed, and trusted calibration/test evidence is still missing. Automatic

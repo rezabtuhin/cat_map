@@ -1,5 +1,6 @@
 """Serial, end-to-end local inference measurements, separate from label accuracy."""
 
+import gc
 import math
 import platform
 import resource
@@ -13,6 +14,7 @@ import numpy as np
 from category_matcher.artifacts import digest
 from category_matcher.datasets import read_jsonl
 from category_matcher.matcher import Matcher
+from category_matcher.memory import parameter_bytes, process_memory
 
 
 def swapouts() -> int | None:
@@ -69,6 +71,7 @@ def benchmark(
     if idle_baseline_seconds:
         time.sleep(idle_baseline_seconds)
     swaps_before = swapouts()
+    memory_before = process_memory()
     started = time.perf_counter()
     matcher.encode_queries(
         [matcher.retrieval_query(samples[0]["query"], samples[0].get("context", ""))]
@@ -81,6 +84,7 @@ def benchmark(
     )
     warmup = time.perf_counter() - started
     swaps_after_warmup = swapouts()
+    memory_after_warmup = process_memory()
     window_swaps = swaps_after_warmup
     windows = []
     durations, outcomes = [], {}
@@ -104,6 +108,7 @@ def benchmark(
                     "last_request": index + 1,
                     "p95_ms": float(np.percentile(durations[window_start:], 95)),
                     "system_swapout_pages_delta": swap_delta(window_swaps, window_after),
+                    "process_memory": process_memory(),
                 }
             )
             window_swaps = window_after
@@ -111,6 +116,9 @@ def benchmark(
     peak_bytes = peak if sys.platform == "darwin" else peak * 1024
     swaps_after = swapouts()
     total_swap_delta = swap_delta(swaps_before, swaps_after)
+    memory_after_inference = process_memory()
+    gc.collect()
+    memory_after_gc = process_memory()
     p95 = float(np.percentile(durations, 95))
     checks = {
         "at_least_200_requests": requests >= 200,
@@ -151,6 +159,14 @@ def benchmark(
                 swap_delta(swaps_after_warmup, swaps_after)
             ),
             "inference_windows": windows,
+            "process_before_model_load": memory_before,
+            "process_after_warmup": memory_after_warmup,
+            "process_after_inference": memory_after_inference,
+            "process_after_python_gc": memory_after_gc,
+            "embedding_parameter_bytes": parameter_bytes(getattr(matcher.encoder, "model", None)),
+            "reranker_parameter_bytes": parameter_bytes(
+                getattr(getattr(matcher.reranker, "model", None), "model", None)
+            ),
         },
         "checks": checks,
         "resource_targets_passed": all(checks.values()),
@@ -162,5 +178,7 @@ def benchmark(
             "Peak memory is for this process; system swap counters can include other applications.",
             "Model loading and the first prediction occur in the untimed warmup.",
             "Idle/load/inference swap observations are system-wide and do not prove attribution.",
+            "Native process memory includes compressed pages/footprint on macOS when available.",
+            "Parameter byte counts exclude activations, allocator caches, and framework overhead.",
         ],
     }

@@ -14,11 +14,14 @@ from category_matcher.normalization import exact_key
 from category_matcher.query import (
     explicit_broad_category,
     is_attribute_only,
+    is_merchandising_label,
     literal_broad_variants,
+    literal_group_candidates,
     retrieval_text,
     scope_only_entailment_support,
     split_context,
     unsupported_audience_ids,
+    weak_promotion_evidence,
 )
 from category_matcher.retrieval import METHODS, LexicalRetriever, expand_parents, fuse
 from category_matcher.storage import CategoryStore
@@ -69,6 +72,8 @@ class Matcher:
         # A resolved parent already constrains the search. Repeating its broad
         # words in the query overwhelms the actual leaf concept (e.g. hoodies).
         unresolved = [part for part in parts if len(self.exact.get(exact_key(part), set())) != 1]
+        if is_merchandising_label(label) and unresolved:
+            return "; ".join(unresolved)
         return label + (". Context: " + "; ".join(unresolved) if unresolved else "")
 
     def match(
@@ -144,6 +149,19 @@ class Matcher:
             return result
         if method == "exact":
             return result
+        merchandising = is_merchandising_label(text)
+        if merchandising and (not context_parts or canonical_context):
+            result.query_analysis["merchandising_label"] = {"requires_product_context": True}
+            result.reason_code = "merchandising_label_requires_product_context"
+            result.clarification = (
+                "What product types are included in this collection or recommendation?"
+            )
+            result.status = "needs_clarification"
+            if parent_id is not None:
+                result.candidates = [
+                    {**self._record(parent_id), "rank": 1, "source": "context_only"}
+                ]
+            return result
         broad = explicit_broad_category(text, self.store.categories, allowed)
         if broad is not None and (not context_parts or canonical_context):
             result.reason_code = "explicit_broad_category"
@@ -171,10 +189,25 @@ class Matcher:
             result.reason_code = "retrieval_required"
             return result
         query = self.retrieval_query(raw_text, context)
+        if merchandising:
+            # A store section title does not name the products. Use the supplied
+            # unresolved product description while retaining resolved parent scope.
+            text = "; ".join(
+                part for part, ids in zip(context_parts, context_keys, strict=True) if len(ids) != 1
+            )
+            query = text
+            result.query_analysis["merchandising_label"] = {"used_product_context": True}
         excluded = unsupported_audience_ids(
             retrieval_text(raw_text, context), self.store.categories
         )
         allowed -= excluded
+        groups = literal_group_candidates(text, self.store.categories, allowed)
+        if groups:
+            result.query_analysis["literal_group"] = {
+                "candidate_ids": groups,
+                "ambiguous": len(groups) > 1,
+                "reason": "whole_alternative_in_coordinated_canonical_label",
+            }
         spelling = self.lexical.spelling(text, allowed, self.config["spelling_min_characters"])
         if spelling["candidates"]:
             spelling["interpretations"] = [self._record(cid) for cid in spelling["candidates"]]
@@ -222,6 +255,15 @@ class Matcher:
                 hits = [Hit(cid, 0.0, "spelling", 1)] + hits
             hits.sort(key=lambda hit: hit.category_id != cid)
             hits = hits[: self.config["fusion_limit"]]
+        if groups:
+            included = {hit.category_id for hit in hits}
+            hits.extend(
+                Hit(cid, 0.0, "literal_group", len(hits) + i)
+                for i, cid in enumerate(groups, 1)
+                if cid not in included
+            )
+            hits.sort(key=lambda hit: hit.category_id not in groups)
+            hits = hits[: self.config["fusion_limit"]]
         hits = expand_parents(hits, self.store.categories, allowed, self.config["parent_limit"])
         for final_rank, hit in enumerate(hits, 1):
             evidence = {
@@ -239,6 +281,7 @@ class Matcher:
                     "evidence": evidence,
                 }
             )
+        group_order = {candidate["id"]: i for i, candidate in enumerate(result.candidates)}
         if rerank:
             if self.reranker is None:
                 if self.reranker_metadata is None:
@@ -247,11 +290,28 @@ class Matcher:
 
                 self.reranker = CrossEncoderReranker(self.reranker_metadata)
             retrieval_order = {candidate["id"]: i for i, candidate in enumerate(result.candidates)}
+            retrieval_top = result.candidates[0] if result.candidates else None
             retrieval_first = result.candidates[0]["id"] if result.candidates else None
             result.candidates = self.reranker.rank(query, result.candidates)
             result.method += "+rerank"
             result.reason_code = "uncalibrated_reranking"
             result.ranking_model = self.reranker_metadata
+            guard = self.config.get("promotion_guard")
+            if retrieval_top and result.candidates and guard:
+                conflict = weak_promotion_evidence(retrieval_top, result.candidates[0], guard)
+                if conflict:
+                    result.query_analysis["promotion_conflict"] = conflict
+                    for candidate in result.candidates:
+                        candidate["model_rank"] = candidate["rank"]
+                    result.candidates.sort(
+                        key=lambda candidate: candidate["id"] != retrieval_top["id"]
+                    )
+                    for i, candidate in enumerate(result.candidates, 1):
+                        candidate["rank"] = i
+                    result.reason_code = "weak_model_promotion_retrieval_candidate_preserved"
+                    result.clarification = (
+                        "Retrieval and model ranking disagree; please clarify the product type."
+                    )
             if retrieval_first != parent_id and scope_only_entailment_support(
                 result.candidates, parent_id
             ):
@@ -277,4 +337,16 @@ class Matcher:
             for index, candidate in enumerate(result.candidates, 1):
                 candidate["rank"] = index
             result.reason_code = "unique_close_spelling_candidate_provisional"
+        if groups:
+            result.candidates.sort(
+                key=lambda candidate: (
+                    candidate["id"] not in groups,
+                    group_order[candidate["id"]]
+                    if candidate["id"] in groups
+                    else candidate["rank"],
+                )
+            )
+            for i, candidate in enumerate(result.candidates, 1):
+                candidate["rank"] = i
+            result.reason_code = "literal_group_candidate_provisional"
         return self.policy.apply(result) if self.policy is not None else result

@@ -6,8 +6,8 @@ The default hybrid pipeline adds category entailment rank fusion with a pinned
 local NLI model. Canonical lookups avoid model inference.
 
 Current [Sprint 2 status](reports/sprint_2/STATUS.md) and
-[latest findings](reports/sprint_2/specificity/FINDINGS.md) include the specificity
-correction, development comparisons, and remaining ranking failures. These reused
+[latest findings](reports/sprint_2/revision_3/FINDINGS.md) include store-label
+abstention, ranking safeguards, review tooling, and native memory measurements. These reused
 draft inputs do not establish independently validated accuracy.
 
 **Non-exact results are provisional candidates.** Similarity and reranker scores
@@ -15,6 +15,11 @@ are ranking signals, not correctness probabilities. Sprint 2 implements calibrat
 clarification/no-match policy rules, and qualification checks. The fitted draft
 policy is not validated and can only preview decisions. An API and production
 qualification remain future sprint work.
+
+**Uncertain inputs stay unmapped.** Only `status: "matched"` may have an assigned
+`category`. Every other result keeps `category: null`. Do not assign an ID from
+the first `candidates` entry or from `decision_preview`. A broad suggestion is
+not an automatic fallback when the input does not support a reliable category.
 
 See [the sprint plan](CATEGORY_MATCHING_SPRINT_PLAN.md) and
 [implementation plan](CATEGORY_MATCHING_IMPLEMENTATION_PLAN.md).
@@ -54,6 +59,9 @@ uv run category-matcher match 'Eco Friendly|Clothing'
 uv run category-matcher match 'protective covers for cellphones' --method semantic
 uv run category-matcher match 'mobil phones' --parent 267
 uv run category-matcher match --id 2353
+uv run category-matcher match 'Jackets'
+uv run category-matcher match 'Fitness Equipment'
+uv run category-matcher match 'Collections'
 ```
 
 JSON output includes the canonical ID/path, result status, branch evidence, and
@@ -78,6 +86,13 @@ provisional. Short or ambiguous spellings expose alternatives instead of silentl
 becoming aliases. Literal general-category wrappers such as `Furniture in general`
 can resolve a canonical label; meaningful qualifiers are preserved.
 
+Whole alternatives in coordinated labels provide provisional group evidence:
+`Jackets` ranks Coats & Jackets, and `Fitness Equipment` ranks Exercise & Fitness
+with Fitness & Nutrition retained as another broad interpretation. Neither is
+an approved alias. Store-section titles such as `Collections`, `Erin Recommends`,
+and `New Luma Yoga Collection` remain unmapped when they do not identify products.
+The matcher can use a supplied product description as context.
+
 Without a qualified policy, canonical lookups, approved aliases, and conservative
 literal general-category lookups return `matched`.
 The `Tops` alias was
@@ -90,7 +105,7 @@ are inactive until reviewed. Rebuild after changing aliases.
 uv run category-matcher match 'Smart Phone' --rerank
 uv run category-matcher match 'Hoodies & Sweatshirts|Clothing' --no-rerank
 uv run python scripts/run_user_examples.py \
-  --output reports/sprint_2/specificity/user_examples.json
+  --output reports/sprint_2/revision_3/user_examples.json
 ```
 
 Hybrid matching uses the artifact's pinned NLI rank-fusion profile by default;
@@ -108,12 +123,16 @@ supports only the supplied parent and rejects every scored product type, the
 matcher preserves retrieval order and flags the specificity conflict for
 clarification. It retains original model ranks and scores. This does not prove
 the retrieval answer is correct.
+The versioned weak-promotion guard also preserves the retrieval winner when its
+semantic support is substantially higher and the model's promoted candidate has
+weak entailment support. Both disagreement flags require clarification under a
+decision policy.
 
 ## Evaluate and verify
 
 ```bash
 uv run category-matcher evaluate --allow-draft --rerank \
-  --output reports/sprint_2/specificity/retrieval_comparison.json
+  --output reports/sprint_2/revision_3/retrieval_comparison.json
 uv run category-matcher evaluate --allow-draft \
   --dataset data/google/evaluation/user_examples.jsonl \
   --output reports/sprint_2/user_retrieval_evaluation.json
@@ -145,11 +164,11 @@ SQLite cosine scores and scoped rankings against independent NumPy calculations.
 ```bash
 uv run category-matcher check-data
 uv run category-matcher calibrate --allow-draft \
-  --output reports/sprint_2/specificity/draft_policy.json
+  --output reports/sprint_2/revision_3/draft_policy.json
 uv run category-matcher match 'Smart Phone' \
-  --experimental-policy reports/sprint_2/specificity/draft_policy.json
+  --experimental-policy reports/sprint_2/revision_3/draft_policy.json
 uv run category-matcher benchmark --requests 200 --idle-baseline-seconds 5 \
-  --output reports/sprint_2/specificity/resource_report.json
+  --output reports/sprint_2/revision_3/resource_report.json
 ```
 
 Draft-policy previews appear in `decision_preview`; they cannot turn a provisional
@@ -179,8 +198,30 @@ labels also need review. A failed gate never enables automatic semantic acceptan
 and the selected ranking model, with model warmup reported separately. It samples
 actual model-path inputs rather than canonical/general-category shortcuts. It
 records idle, model-load, and inference swap observations separately; these remain
-system-wide counters. See [the current resource report](reports/sprint_2/specificity/resource_report.json).
+system-wide counters. It also samples this process's resident/compressed memory
+and physical footprint on macOS. See [the current resource report](reports/sprint_2/revision_3/resource_report.json).
 The benchmark does not establish production concurrency or matching accuracy.
+
+## Collect and review inputs
+
+Ready-to-edit packets cover the 200 development proposals, 200 calibration
+proposals, and five new real store inputs. They contain pending decisions only.
+See [the review instructions](data/google/reviews/README.md).
+
+```bash
+uv run category-matcher review-export --dataset path/to/dataset.jsonl \
+  --output path/to/review-packet.jsonl
+uv run category-matcher review-apply --dataset path/to/dataset.jsonl \
+  --reviews path/to/edited-review-packet.jsonl --output path/to/reviewed-dataset.jsonl
+uv run category-matcher capture-inputs --inputs path/to/real-inputs.jsonl \
+  --source-name '<collection source>' --output path/to/collected.unlabeled.jsonl
+```
+
+These commands need no model weights or active artifact. Capture creates
+unlabeled inputs; apply requires explicit human-review fields and validates the
+unchanged source inputs, taxonomy IDs, and parent scope. It writes a new file and
+preserves source/split provenance. It cannot create independent test evidence by
+renaming AI fixtures or inputs already inspected during development.
 
 ## Current scope
 

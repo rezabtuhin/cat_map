@@ -166,7 +166,7 @@ model/retrieval ranks with weights 3:1 and rank constant 10. The selected profil
 and immutable revision are stored in `config/category_ranking.json` and the
 artifact. Raw entailment margins and fused scores are ranking signals, not
 correctness probabilities. This improves draft development ranking but is not
-independently qualified. See [measured findings](reports/sprint_2/specificity/FINDINGS.md)
+independently qualified. See [measured findings](reports/sprint_2/revision_3/FINDINGS.md)
 and the [NLI model card](https://huggingface.co/cross-encoder/nli-deberta-v3-small).
 
 Store and search vectors through the SQLite adapter using `sqlite-vec`. Keep NumPy for model-output conversion and correctness checks. Exact vector search is appropriate for this corpus size; it does not require an additional database service. Sentence Transformers documents direct similarity search for small corpora. [Semantic search documentation](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html)
@@ -290,6 +290,14 @@ conflict. Retain model scores/ranks and require clarification even under a
 qualified policy. This is a conservative disagreement fallback, not acceptance
 of the retrieval winner. Missing scores do not imply a rejected descendant.
 
+The current weak-promotion guard also protects the retrieval winner when both
+semantic scores exist, its semantic support is more than 0.03 higher, and the
+promoted candidate's entailment margin is below 1.0. These development-selected
+values are ranking heuristics and are pinned in the artifact. The conflict must
+abstain under a policy. Whole coordinated-label alternatives give provisional
+group evidence; collection/recommendation titles without product information stay
+unmapped. See the current findings for regressions, test evidence, and limits.
+
 Canonical ID/path/label lookup and approved aliases run first. Conservative
 literal general-category wrappers can also resolve a canonical label directly.
 The current adapter preserves parent constraints and the existing infant-apparel
@@ -305,6 +313,13 @@ Retrieve-and-rerank is the selected two-stage design; its quality improvement fo
 ### 4.5 Acceptance policy
 
 Implement a versioned policy with these outcomes:
+
+Only an accepted `matched` result may populate the assigned `category` field.
+Provisional, clarification, no-match, and unsupported-language results must keep
+`category: null`. Consumers must never automatically assign the first ranked
+candidate or an experimental decision preview. Unsupported store-section titles
+stay unmapped; an unsupported specific category must not become a forced broad
+fallback. Human review can leave the input unmapped rather than inventing an ID.
 
 | Outcome | Required behavior |
 |---|---|
@@ -948,5 +963,5 @@ This document specifies the intended full application. The initial CLI prototype
 local SQLite/vector integration have since been implemented; broader service work,
 trusted evaluation, qualified calibration, migrations, and release qualification remain.
 See [Sprint 2 status](reports/sprint_2/STATUS.md) for the current implementation and
-[latest findings](reports/sprint_2/specificity/FINDINGS.md) for measured diagnostic
+[latest findings](reports/sprint_2/revision_3/FINDINGS.md) for measured diagnostic
 results, remaining ranking regressions, and phase-specific resource observations.
