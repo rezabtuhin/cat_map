@@ -1,0 +1,35 @@
+{
+  "artifact_version": "eed281a45624da69-8f86c745339e",
+  "dataset_sha256": "2821da626f6d9fb302279e6e8df16f1979f36715ab6cb5fda358e31cff112d45",
+  "requests": 200,
+  "unique_inputs_available": 156,
+  "concurrent_inference": 1,
+  "ranking_method": "hybrid",
+  "policy_id": null,
+  "query_model_load_and_warmup_seconds": 3.135264541999277,
+  "end_to_end_warm_latency_ms": {
+    "p50": 72.09425000110059,
+    "p95": 77.01817500128524,
+    "max": 147.1442499987461
+  },
+  "serial_requests_per_second": 13.76768506102488,
+  "process_peak_resident_bytes": 739950592,
+  "system_swapout_pages_delta": 0,
+  "checks": {
+    "at_least_200_requests": true,
+    "p95_under_3_seconds": true,
+    "peak_under_3GB": true,
+    "no_observed_system_swapouts": true
+  },
+  "resource_targets_passed": true,
+  "outcomes": {
+    "provisional": 200
+  },
+  "notes": [
+    "Each timed request includes query encoding, retrieval, and selected ranking/policy.",
+    "Inference requests run serially; this does not establish multi-user capacity.",
+    "Repeated draft queries measure execution cost, not matching accuracy.",
+    "Peak memory is for this process; system swap counters can include other applications.",
+    "Encoder load is separate; CLI adapter initialization occurs before this function."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "decision": "revise",
+  "artifact_version": "eed281a45624da69-8f86c745339e",
+  "quality_gate_passed": false,
+  "resource_targets_passed": true,
+  "trusted_labels_available": false,
+  "independent_test_evaluated": false,
+  "draft_policy_id": "ace95523327a052bfea2",
+  "semantic_auto_acceptance_enabled": false,
+  "reasons": [
+    "Development and calibration labels remain unreviewed AI proposals.",
+    "No independent reviewed holdout has been evaluated.",
+    "Draft fitted coverage is below the 80% target.",
+    "Draft development shortlist recall remains below the 99.5% target."
+  ],
+  "next_work": [
+    "Adjudicate development labels and review the queued failures.",
+    "Improve ranking using development data without inspecting test outcomes.",
+    "Fit on reviewed calibration data, then qualify once on a fresh reviewed holdout.",
+    "Keep API and deployment work deferred until the quality gate passes."
+  ]
+}

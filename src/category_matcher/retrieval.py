@@ -8,23 +8,26 @@ import numpy as np
 from rapidfuzz import fuzz, process
 
 from category_matcher.domain import Category, Hit
-from category_matcher.normalization import search_text
+from category_matcher.normalization import retrieval_terms
 
 METHODS = ("exact", "fuzzy", "bm25", "semantic", "hybrid")
 RETRIEVAL_CONFIG = {
-    "bm25_limit": 50,
-    "semantic_limit": 50,
-    "fuzzy_limit": 20,
+    "bm25_limit": 100,
+    "semantic_limit": 100,
+    "fuzzy_limit": 50,
     "fuzzy_floor": 45,
-    "fusion_limit": 40,
+    "fusion_limit": 200,
     "parent_limit": 5,
-    "rrf_k": 60,
+    "rrf_k": 10,
+    "branch_weights": {"bm25": 1, "fuzzy": 1, "semantic": 5},
+    "semantic_query_instruction": "",
+    "bm25_representation": "label_only",
 }
 
 
 def tokenize(texts: list[str]):
     return bm25s.tokenize(
-        [search_text(text) for text in texts],
+        [retrieval_terms(text) for text in texts],
         stopwords=[],
         show_progress=False,
     )
@@ -32,7 +35,7 @@ def tokenize(texts: list[str]):
 
 def build_bm25(categories: list[Category], directory: Path) -> None:
     index = bm25s.BM25()
-    index.index(tokenize([c.label + " " + c.full_path for c in categories]), show_progress=False)
+    index.index(tokenize([c.label for c in categories]), show_progress=False)
     index.save(str(directory), show_progress=False)
     (directory / "category_ids.json").write_text(json.dumps([c.category_id for c in categories]))
 
@@ -43,8 +46,8 @@ class LexicalRetriever:
         self.ids = json.loads((directory / "category_ids.json").read_text())
         if set(self.ids) != set(categories) or len(self.ids) != len(categories):
             raise ValueError("BM25 category mapping differs from the canonical store")
-        self.choices = [(search_text(c.label), c.category_id) for c in categories.values()]
-        self.choices.extend((search_text(a["alias"]), a["category_id"]) for a in aliases)
+        self.choices = [(retrieval_terms(c.label), c.category_id) for c in categories.values()]
+        self.choices.extend((retrieval_terms(a["alias"]), a["category_id"]) for a in aliases)
 
     def bm25(self, query: str, allowed: set[str], limit: int) -> list[Hit]:
         results, scores = self.index.retrieve(
@@ -66,7 +69,7 @@ class LexicalRetriever:
     def fuzzy(self, query: str, allowed: set[str], limit: int, floor: float) -> list[Hit]:
         choices = [(text, cid) for text, cid in self.choices if cid in allowed]
         matches = process.extract(
-            search_text(query),
+            retrieval_terms(query),
             [text for text, _ in choices],
             scorer=fuzz.WRatio,
             score_cutoff=floor,
@@ -80,13 +83,21 @@ class LexicalRetriever:
         return [Hit(cid, score, "fuzzy", i) for i, (cid, score) in enumerate(rows, 1)]
 
 
-def fuse(branches: dict[str, list[Hit]], limit: int, constant: int = 60) -> list[Hit]:
+def fuse(
+    branches: dict[str, list[Hit]],
+    limit: int,
+    constant: int = 60,
+    weights: dict[str, float] | None = None,
+) -> list[Hit]:
     scores: dict[str, float] = {}
-    for hits in branches.values():
+    for name, hits in branches.items():
         seen = set()
         for hit in hits:
             if hit.category_id not in seen:
-                scores[hit.category_id] = scores.get(hit.category_id, 0) + 1 / (constant + hit.rank)
+                weight = 1 if weights is None else weights.get(name, 1)
+                scores[hit.category_id] = scores.get(hit.category_id, 0) + weight / (
+                    constant + hit.rank
+                )
                 seen.add(hit.category_id)
     rows = sorted(scores.items(), key=lambda item: (-item[1], item[0]))[:limit]
     return [Hit(cid, score, "rrf", i) for i, (cid, score) in enumerate(rows, 1)]

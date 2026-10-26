@@ -20,8 +20,8 @@ The first validation must answer:
 
 At planning time, the project contained only the category source and planning documents.
 Implementation has now started. Track current work in
-[Sprint 1 status](reports/sprint_1/STATUS.md) and
-[measured diagnostic findings](reports/sprint_1/FINDINGS.md).
+[Sprint 2 status](reports/sprint_2/STATUS.md) and
+[measured diagnostic findings](reports/sprint_2/FINDINGS.md).
 The sprint descriptions below define planned scope and acceptance criteria.
 
 ## 2. Sprint cadence and scope

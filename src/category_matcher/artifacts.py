@@ -9,7 +9,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from category_matcher.encoder import BGEEncoder
-from category_matcher.normalization import NORMALIZATION_VERSION
+from category_matcher.normalization import NORMALIZATION_VERSION, RETRIEVAL_TEXT_VERSION
 from category_matcher.retrieval import RETRIEVAL_CONFIG, build_bm25
 from category_matcher.storage import (
     SCHEMA_VERSION,
@@ -38,6 +38,8 @@ def implementation_fingerprint() -> dict[str, str]:
         "matcher.py",
         "query.py",
         "artifacts.py",
+        "decision.py",
+        "reranker.py",
     )
     return {name: digest(directory / name) for name in names}
 
@@ -63,6 +65,7 @@ def build(source: Path, aliases_path: Path, model_path: Path, root: Path) -> tup
     categories, audit = read_google_taxonomy(source)
     approved, inactive_aliases = read_aliases(aliases_path, {c.category_id for c in categories})
     model = json.loads(model_path.read_text())
+    model["query_instruction"] = RETRIEVAL_CONFIG["semantic_query_instruction"]
     if not isinstance(model.get("revision"), str) or len(model["revision"]) != 40:
         raise ValueError("Download and pin an immutable model revision before building")
     version = audit["source_sha256"][:16]
@@ -83,6 +86,7 @@ def build(source: Path, aliases_path: Path, model_path: Path, root: Path) -> tup
         "aliases_sha256": digest(aliases_path),
         "model": {k: v for k, v in model.items() if k != "snapshot"},
         "normalization": NORMALIZATION_VERSION,
+        "retrieval_text_version": RETRIEVAL_TEXT_VERSION,
         "retrieval": RETRIEVAL_CONFIG,
         "schema_version": SCHEMA_VERSION,
         "packages": packages,

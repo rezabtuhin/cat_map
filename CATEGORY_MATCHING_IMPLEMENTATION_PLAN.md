@@ -157,9 +157,9 @@ Resolve compatible package versions during environment creation, commit the gene
 
 BM25S provides local BM25 retrieval, and RapidFuzz supplies spelling-distance and fuzzy-string matching. [BM25S documentation](https://bm25s.github.io/), [RapidFuzz documentation](https://rapidfuzz.github.io/RapidFuzz/)
 
-The embedding model produces 768-dimensional vectors. Apply the model's retrieval instruction exactly once to queries and no instruction to stored category text. Record that encoding choice in the manifest. [BGE model card](https://huggingface.co/BAAI/bge-base-en-v1.5)
+The embedding model produces 768-dimensional vectors. Sprint 2 development comparisons selected plain query encoding, omitting the initial retrieval instruction; stored category text also has no instruction. The active artifact records this choice. [BGE model card](https://huggingface.co/BAAI/bge-base-en-v1.5)
 
-The selected reranker is an English MS MARCO passage-ranking model. Its performance on short category labels is unverified; taxonomy-specific evaluation is a release requirement. Its raw scores are ranking signals, not correctness probabilities. [MiniLM reranker model card](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2)
+The selected experimental reranker is an English MS MARCO passage-ranking model. Sprint 1 and Sprint 2 draft comparisons showed worse aggregate category ranking, so it remains disabled by default. Its raw scores are ranking signals, not correctness probabilities. [MiniLM reranker model card](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2)
 
 Store and search vectors through the SQLite adapter using `sqlite-vec`. Keep NumPy for model-output conversion and correctness checks. Exact vector search is appropriate for this corpus size; it does not require an additional database service. Sentence Transformers documents direct similarity search for small corpora. [Semantic search documentation](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html)
 
@@ -179,7 +179,7 @@ taxonomy key + input category + optional context
     -> if unresolved: BM25 + fuzzy + semantic candidate retrieval
     -> deduplicate by category ID + reciprocal rank fusion
     -> include relevant immediate parents
-    -> cross-encoder reranking
+    -> optional experimental cross-encoder reranking
     -> ambiguity, context, and specificity checks
     -> calibrated decision
     -> matched | needs_clarification | no_match | unsupported_language
@@ -226,13 +226,13 @@ The current labels have no collisions under conservative normalization. The load
 
 ### 4.3 Candidate retrieval
 
-Initial fixed retrieval configuration:
+Current Sprint 2 development configuration, superseding the initial Sprint 1 limits:
 
 | Branch | Representation | Candidate count |
 |---|---|---:|
-| BM25 | Canonical label plus full hierarchy path, tokenized with the same rules as input | 50 |
-| Semantic | Maximum similarity over label and full-path embedding views | 50 distinct category IDs |
-| Fuzzy | Normalized canonical labels and approved aliases, deduplicated by category ID | 20 |
+| BM25 | Canonical label only; retrieval-only content-word and light plural normalization | 100 |
+| Semantic | Maximum similarity over label and full-path embedding views | 100 distinct category IDs |
+| Fuzzy | Normalized canonical labels and approved aliases, deduplicated by category ID | 50 |
 
 For semantic retrieval, precompute two normalized vectors per category: one for its label and one for its full path. Score all vectors, take the maximum score per category, then select the best category IDs. The two views contribute one semantic ranking, not two independent fusion votes.
 
@@ -240,21 +240,20 @@ Store vector rows with an explicit category-ID/view mapping in `category_embeddi
 
 Use `sqlite-vec` cosine-distance functions over the persisted vectors. Group both views by category ID and take the minimum distance, equivalent to maximum cosine similarity. Apply parent-scope filtering before ranking and limiting. For the current file, two 768-dimensional float32 views require approximately 32.7 MiB of raw vector storage, excluding SQLite overhead. Model weights, Python, indexes, and inference buffers use additional memory and must be measured separately.
 
-Use the BGE query instruction:
-
-```text
-Represent this sentence for searching relevant passages: 
-```
+Use plain BGE queries in the active Sprint 2 configuration. The prefixed and plain
+forms were compared on development examples; this change has not been validated
+on an independent reviewed holdout. Exact-match keys retain conservative normalization.
 
 Fuzzy matching supplies candidates; a high fuzzy score alone never authorizes a match. Drop zero-evidence BM25 hits, and exclude fuzzy hits below the configured retrieval floor. An empty branch contributes no votes.
 
 Merge the three branch rankings using reciprocal rank fusion:
 
 ```text
-rrf(category) = sum(1 / (60 + rank_in_branch))
+rrf(category) = sum(branch_weight / (10 + rank_in_branch))
+branch_weights = {semantic: 5, bm25: 1, fuzzy: 1}
 ```
 
-Ranks start at 1. Deduplicate each branch before fusion within the selected taxonomy/version. Sort ties deterministically by native string category ID. Keep the top 40 fused candidates and add at most five distinct immediate parents of the top five, where absent. Prioritize the higher-ranked child's parents, then native parent ID for ties. This cap also applies to future graphs with multiple parents. At most 45 candidates enter reranking.
+Ranks start at 1. Deduplicate each branch before fusion within the selected taxonomy/version. Sort ties deterministically by native string category ID. Keep up to 200 fused candidates and add at most five distinct immediate parents of the top five, where absent. Prioritize the higher-ranked child's parents, then native parent ID for ties. At most 205 candidates enter optional reranking. The wider pool improves diagnostic recall at a higher potential reranking cost; serial runtime measurements and independent quality validation remain required.
 
 Do not discard entire top-level branches before retrieval; an incorrect early branch decision would make the correct category unreachable. Apply an explicitly supplied parent constraint consistently to all branches instead.
 
@@ -436,7 +435,7 @@ Use `(taxonomy_key, taxonomy_version, category_id)` category keys and correspond
 
 ### 5.1 SQLite and sqlite-vec integration
 
-Use ordinary SQLite tables for embeddings and `sqlite-vec` scalar cosine-distance search in the first release. This permits exact aggregation over label/path views and arbitrary parent-scope filtering before the top-50 limit. Keep all vector SQL inside the vector-store adapter. [sqlite-vec KNN methods](https://alexgarcia.xyz/sqlite-vec/features/knn.html)
+Use ordinary SQLite tables for embeddings and `sqlite-vec` scalar cosine-distance search in the first release. This permits exact aggregation over label/path views and arbitrary parent-scope filtering before the configured candidate limit. Keep all vector SQL inside the vector-store adapter. [sqlite-vec KNN methods](https://alexgarcia.xyz/sqlite-vec/features/knn.html)
 
 The embedding table has a composite primary key `(taxonomy_key, taxonomy_version, category_id, view)`, a matching category foreign key, a `view` enum check, and an embedding BLOB check for float32 type, 768 dimensions, and 3,072 bytes for the selected initial model. Reject nonfinite or zero-norm model output in the adapter before insertion. A different dimensionality creates a new compatible schema/bundle; it must never be mixed into the active 768-dimensional space.
 
@@ -922,5 +921,5 @@ The implementation can proceed with the fixed decisions above. The following evi
 This document specifies the intended full application. The initial CLI prototype and
 local SQLite/vector integration have since been implemented; broader service work,
 trusted evaluation, calibration, migrations, and release qualification remain.
-See [Sprint 1 status](reports/sprint_1/STATUS.md) for the current implementation and
-[findings](reports/sprint_1/FINDINGS.md) for measured diagnostic results.
+See [Sprint 2 status](reports/sprint_2/STATUS.md) for the current implementation and
+[findings](reports/sprint_2/FINDINGS.md) for measured diagnostic results.

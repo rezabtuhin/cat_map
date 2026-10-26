@@ -1,5 +1,6 @@
 """Save an inspectable comparison for the five inputs supplied in this conversation."""
 
+import argparse
 import json
 import resource
 import sys
@@ -13,6 +14,9 @@ from category_matcher.reranker import MiniLMReranker
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=Path("reports/sprint_2/user_examples.json"))
+    args = parser.parse_args()
     metadata = json.loads(Path("models/reranker_model.json").read_text())
     started = time.perf_counter()
     matcher = Matcher(resolve_bundle(Path("artifacts/google")), MiniLMReranker(metadata), metadata)
@@ -64,7 +68,7 @@ def main():
             ],
             "examples": details,
         }
-        output = Path("reports/sprint_1/user_examples.json")
+        output = args.output
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     finally:

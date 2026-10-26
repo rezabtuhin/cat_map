@@ -24,7 +24,9 @@ class Hit:
 
 @dataclass
 class MatchResult:
-    status: Literal["matched", "provisional", "unsupported_language"]
+    status: Literal[
+        "matched", "provisional", "unsupported_language", "needs_clarification", "no_match"
+    ]
     taxonomy_key: str
     taxonomy_version: str
     artifact_version: str
@@ -33,6 +35,9 @@ class MatchResult:
     candidates: list[dict] = field(default_factory=list)
     reason_code: str = "uncalibrated_retrieval"
     ranking_model: dict | None = None
+    policy_id: str | None = None
+    decision_preview: dict | None = None
+    clarification: str | None = None
 
 
 class CandidateReranker(Protocol):

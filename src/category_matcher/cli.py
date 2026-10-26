@@ -1,4 +1,4 @@
-"""Sprint 1 commands: build, inspect, match, verify, and evaluate."""
+"""Build, retrieve, calibrate, qualify, and benchmark the local matcher."""
 
 import argparse
 import json
@@ -9,6 +9,12 @@ from pathlib import Path
 from category_matcher.artifacts import build, load_manifest, resolve_bundle
 from category_matcher.matcher import Matcher
 from category_matcher.retrieval import METHODS
+
+
+def policy_arguments(command):
+    policies = command.add_mutually_exclusive_group()
+    policies.add_argument("--policy", type=Path, help="Independently qualified policy")
+    policies.add_argument("--experimental-policy", type=Path, help="Draft policy previews only")
 
 
 def parser() -> argparse.ArgumentParser:
@@ -33,12 +39,13 @@ def parser() -> argparse.ArgumentParser:
         "--rerank", action="store_true", help="Experimental reranking; still provisional"
     )
     match.add_argument("--reranker-model", type=Path, default=Path("models/reranker_model.json"))
+    policy_arguments(match)
     evaluate = commands.add_parser("evaluate", help="Compare baselines on a labeled JSONL file")
     evaluate.add_argument(
         "--dataset", type=Path, default=Path("data/google/evaluation/development.jsonl")
     )
     evaluate.add_argument(
-        "--output", type=Path, default=Path("reports/sprint_1/retrieval_baseline.json")
+        "--output", type=Path, default=Path("reports/sprint_2/retrieval_comparison.json")
     )
     evaluate.add_argument(
         "--allow-draft",
@@ -47,6 +54,43 @@ def parser() -> argparse.ArgumentParser:
     )
     evaluate.add_argument("--rerank", action="store_true", help="Also compare hybrid + reranking")
     evaluate.add_argument("--reranker-model", type=Path, default=Path("models/reranker_model.json"))
+    for name in ("calibrate", "qualify", "check-data"):
+        command = commands.add_parser(name)
+        command.add_argument(
+            "--development", type=Path, default=Path("data/google/evaluation/development.jsonl")
+        )
+        command.add_argument(
+            "--calibration",
+            type=Path,
+            default=Path("data/google/evaluation/calibration.draft.jsonl"),
+        )
+        if name in {"qualify", "check-data"}:
+            command.add_argument(
+                "--test", type=Path, default=Path("data/google/evaluation/test.draft.jsonl")
+            )
+        if name in {"calibrate", "qualify"}:
+            command.add_argument("--allow-draft", action="store_true")
+            command.add_argument(
+                "--output", type=Path, default=Path(f"reports/sprint_2/{name}_policy.json")
+            )
+            command.add_argument(
+                "--reranker-model", type=Path, default=Path("models/reranker_model.json")
+            )
+        if name == "calibrate":
+            command.add_argument("--rerank", action="store_true")
+        if name == "qualify":
+            command.add_argument("--policy", type=Path, required=True)
+    timing = commands.add_parser("benchmark")
+    timing.add_argument(
+        "--dataset", type=Path, default=Path("data/google/evaluation/development.jsonl")
+    )
+    timing.add_argument("--requests", type=int, default=200)
+    timing.add_argument(
+        "--output", type=Path, default=Path("reports/sprint_2/resource_report.json")
+    )
+    timing.add_argument("--rerank", action="store_true")
+    timing.add_argument("--reranker-model", type=Path, default=Path("models/reranker_model.json"))
+    policy_arguments(timing)
     return root
 
 
@@ -54,6 +98,18 @@ def main() -> int:
     args = parser().parse_args()
     matcher = None
     try:
+        if args.command == "check-data":
+            from category_matcher.datasets import check_splits
+
+            report = check_splits(
+                {
+                    "development": args.development,
+                    "calibration": args.calibration,
+                    "test": args.test,
+                }
+            )
+            print(json.dumps(report, indent=2))
+            return 0 if report["passed"] else 2
         if args.command == "build":
             bundle, manifest = build(args.source, args.aliases, args.model, args.artifacts)
             print(json.dumps({"bundle": str(bundle), "manifest": manifest}, indent=2))
@@ -62,16 +118,33 @@ def main() -> int:
         if args.command == "inspect":
             print(json.dumps(load_manifest(bundle), indent=2))
             return 0
-        if getattr(args, "rerank", False):
+        wants_rerank = getattr(args, "rerank", False)
+        if args.command == "qualify":
+            wants_rerank = json.loads(args.policy.read_text())["ranking_method"] == "hybrid+rerank"
+        if wants_rerank:
             from category_matcher.reranker import MiniLMReranker
 
             metadata = json.loads(args.reranker_model.read_text())
             matcher = Matcher(bundle, MiniLMReranker(metadata), metadata)
         else:
             matcher = Matcher(bundle)
+        if args.command in {"match", "benchmark"}:
+            from category_matcher.decision import DecisionPolicy
+
+            policy_path = args.policy or args.experimental_policy
+            if policy_path:
+                matcher.policy = DecisionPolicy.load(
+                    policy_path,
+                    artifact_version=matcher.manifest["artifact_version"],
+                    experimental=args.experimental_policy is not None,
+                )
         if args.command == "match":
-            if not 1 <= args.limit <= 45:
-                raise ValueError("Display limit must be between 1 and 45")
+            if (
+                not 1
+                <= args.limit
+                <= matcher.config["fusion_limit"] + matcher.config["parent_limit"]
+            ):
+                raise ValueError("Display limit exceeds the configured candidate pool")
             result = matcher.match(
                 args.category,
                 method=args.method,
@@ -83,6 +156,46 @@ def main() -> int:
             )
             result.candidates = result.candidates[: args.limit]
             print(json.dumps(asdict(result), ensure_ascii=False, indent=2))
+        elif args.command in {"calibrate", "qualify"}:
+            from category_matcher.calibration import calibrate, qualify
+            from category_matcher.decision import write_policy
+
+            if args.command == "calibrate":
+                report = calibrate(
+                    matcher,
+                    args.calibration,
+                    allow_draft=args.allow_draft,
+                    development=args.development,
+                    rerank=args.rerank,
+                )
+            else:
+                report = qualify(
+                    matcher,
+                    args.policy,
+                    args.test,
+                    args.development,
+                    args.calibration,
+                    allow_draft=args.allow_draft,
+                )
+            saved = write_policy(args.output, report)
+            print(
+                json.dumps(
+                    {
+                        "output": str(args.output),
+                        "policy_id": saved["policy_id"],
+                        "calibration": saved["calibration"],
+                        "qualification": saved["qualification"],
+                    },
+                    indent=2,
+                )
+            )
+        elif args.command == "benchmark":
+            from category_matcher.benchmark import benchmark
+
+            report = benchmark(matcher, args.dataset, args.requests, rerank=args.rerank)
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(json.dumps(report, indent=2) + "\n")
+            print(json.dumps(report, indent=2))
         elif args.command == "verify":
             from category_matcher.verification import verify
 

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "google-category-matcher"
-version = "0.1.0"
+version = "0.2.0"
 description = "Local, evaluated category retrieval over the Google product taxonomy"
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
@@ -16,6 +16,7 @@ dependencies = [
   "sqlite-vec>=0.1.6,<0.2",
   "torch>=2.5,<3",
   "transformers>=4.41,<5",
+  "scipy>=1.15,<2",
 ]
 
 [project.scripts]

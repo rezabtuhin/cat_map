@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 
 from category_matcher.artifacts import load_manifest
+from category_matcher.decision import DecisionPolicy
 from category_matcher.domain import CandidateReranker, Hit, MatchResult
 from category_matcher.encoder import BGEEncoder
 from category_matcher.normalization import exact_key
@@ -36,6 +37,7 @@ class Matcher:
         self.encoder: BGEEncoder | None = None
         self.reranker = reranker
         self.reranker_metadata = reranker_metadata
+        self.policy: DecisionPolicy | None = None
         aliases = json.loads((bundle / "aliases.json").read_text())
         self.exact: dict[str, set[str]] = defaultdict(set)
         for category in self.store.categories.values():
@@ -138,7 +140,10 @@ class Matcher:
         if is_attribute_only(text) and parent_id and canonical_context:
             result.reason_code = "attribute_only_use_broad_context_provisionally"
             result.candidates = [{**self._record(parent_id), "rank": 1, "source": "context_only"}]
-            return result
+            if rerank:
+                result.method += "+rerank"
+                result.ranking_model = self.reranker_metadata
+            return self.policy.apply(result) if self.policy is not None else result
         query = self.retrieval_query(raw_text, context)
         excluded = unsupported_audience_ids(
             retrieval_text(raw_text, context), self.store.categories
@@ -164,9 +169,14 @@ class Matcher:
                 excluded_ids=excluded,
             )
         hits = (
-            fuse(branches, self.config["fusion_limit"], self.config["rrf_k"])
+            fuse(
+                branches,
+                self.config["fusion_limit"],
+                self.config["rrf_k"],
+                self.config["branch_weights"],
+            )
             if method == "hybrid"
-            else next(iter(branches.values()))[:40]
+            else next(iter(branches.values()))[: self.config["fusion_limit"]]
         )
         hits = expand_parents(hits, self.store.categories, allowed, self.config["parent_limit"])
         for hit in hits:
@@ -192,4 +202,4 @@ class Matcher:
             result.method += "+rerank"
             result.reason_code = "uncalibrated_reranking"
             result.ranking_model = self.reranker_metadata
-        return result
+        return self.policy.apply(result) if self.policy is not None else result

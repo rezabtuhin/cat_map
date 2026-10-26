@@ -2,7 +2,14 @@
 
 `development.jsonl` contains 200 **AI-authored draft fixtures**, not collected user
 inputs or human-reviewed ground truth. Rankings against these labels are diagnostic
-only. No calibration or untouched test set has been created.
+only. Sprint 2 adds `calibration.draft.jsonl` and `test.draft.jsonl`, each containing
+200 additional review proposals. The three files contain 600 examples with disjoint
+queries, category targets, and declared input families across splits.
+
+The calibration proposals were used for an explicitly experimental policy fit.
+The test proposals have not been scored. They are not an independently collected,
+reviewed test set. Do not rename them or change their role metadata and claim that
+an independent real-world holdout has been collected.
 
 Before using these records as trusted labels, a category reviewer must check each
 query against the source taxonomy, correct acceptable IDs or expected status, and
@@ -19,3 +26,10 @@ The initial development fixture counts are 40 exact, 60 paraphrase, 32 typo,
 Some examples intentionally share category/input families; keep those families
 together when collecting later calibration/test data. Canonical exact fixtures
 cover all 21 top-level branches. Do not copy them into a holdout.
+
+Use `category-matcher check-data` to check overlaps. Qualification requires reviewed
+calibration and a separate reviewed dataset marked `independent_holdout`, along
+with measured precision, coverage, retrieval recall, and non-exact model evidence.
+The qualification command records holdout accesses so inspected data cannot be
+silently reused to validate a different policy. The production statistical gate
+still belongs to Sprint 5; a small pilot test cannot establish that claim.
