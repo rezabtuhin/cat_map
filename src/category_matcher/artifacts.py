@@ -61,7 +61,13 @@ def read_aliases(path: Path, valid_ids: set[str]) -> tuple[list[dict], int]:
     return approved, len(records) - len(approved)
 
 
-def build(source: Path, aliases_path: Path, model_path: Path, root: Path) -> tuple[Path, dict]:
+def build(
+    source: Path,
+    aliases_path: Path,
+    model_path: Path,
+    root: Path,
+    ranking_profile: Path | None = None,
+) -> tuple[Path, dict]:
     categories, audit = read_google_taxonomy(source)
     approved, inactive_aliases = read_aliases(aliases_path, {c.category_id for c in categories})
     model = json.loads(model_path.read_text())
@@ -69,6 +75,11 @@ def build(source: Path, aliases_path: Path, model_path: Path, root: Path) -> tup
     if not isinstance(model.get("revision"), str) or len(model["revision"]) != 40:
         raise ValueError("Download and pin an immutable model revision before building")
     version = audit["source_sha256"][:16]
+    ranking_model = None
+    if ranking_profile is not None:
+        from category_matcher.reranker import load_profile
+
+        ranking_model = load_profile(ranking_profile)
     packages = {
         name: importlib.metadata.version(name)
         for name in (
@@ -91,6 +102,9 @@ def build(source: Path, aliases_path: Path, model_path: Path, root: Path) -> tup
         "schema_version": SCHEMA_VERSION,
         "packages": packages,
         "implementation_fingerprint": implementation_fingerprint(),
+        "ranking_model": (
+            {k: v for k, v in ranking_model.items() if k != "snapshot"} if ranking_model else None
+        ),
     }
     config_hash = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()[:12]
     artifact_version = f"{version}-{config_hash}"
@@ -143,6 +157,7 @@ def build(source: Path, aliases_path: Path, model_path: Path, root: Path) -> tup
             "taxonomy_version": version,
             "artifact_version": artifact_version,
             "model": model,
+            "ranking_model": ranking_model,
             "created_at": datetime.now(UTC).isoformat(),
             "record_count": len(categories),
             "embedding_rows": len(texts),

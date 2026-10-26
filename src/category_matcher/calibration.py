@@ -78,8 +78,15 @@ def score_policy(items: list[dict], policy: DecisionPolicy) -> dict:
 
 
 def calibrate(
-    matcher: Matcher, dataset: Path, *, allow_draft: bool, development: Path, rerank: bool = False
+    matcher: Matcher,
+    dataset: Path,
+    *,
+    allow_draft: bool,
+    development: Path,
+    rerank: bool | None = None,
 ) -> dict:
+    if rerank is None:
+        rerank = getattr(matcher, "default_rerank", False)
     splits = check_splits({"development": development, "calibration": dataset})
     if not splits["passed"]:
         raise ValueError("Development/calibration leakage: " + "; ".join(splits["conflicts"][:3]))

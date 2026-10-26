@@ -25,6 +25,10 @@ def parser() -> argparse.ArgumentParser:
     builder.add_argument("--source", type=Path, default=Path("google_category_list.txt"))
     builder.add_argument("--aliases", type=Path, default=Path("data/google/aliases.jsonl"))
     builder.add_argument("--model", type=Path, default=Path("models/embedding_model.json"))
+    builder.add_argument(
+        "--ranking-profile", type=Path, default=Path("config/category_ranking.json")
+    )
+    builder.add_argument("--retrieval-only", action="store_true")
     commands.add_parser("inspect", help="Validate and display the active artifact manifest")
     commands.add_parser("verify", help="Check canonical lookups and SQLite vector equivalence")
     match = commands.add_parser("match", help="Return a canonical match or provisional candidates")
@@ -36,9 +40,12 @@ def parser() -> argparse.ArgumentParser:
     match.add_argument("--method", choices=METHODS, default="hybrid")
     match.add_argument("--limit", type=int, default=5)
     match.add_argument(
-        "--rerank", action="store_true", help="Experimental reranking; still provisional"
+        "--rerank",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Use the artifact's ranking model; --no-rerank selects retrieval only",
     )
-    match.add_argument("--reranker-model", type=Path, default=Path("models/reranker_model.json"))
+    match.add_argument("--reranker-model", type=Path)
     policy_arguments(match)
     evaluate = commands.add_parser("evaluate", help="Compare baselines on a labeled JSONL file")
     evaluate.add_argument(
@@ -52,8 +59,8 @@ def parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Diagnostic run only; never treat unreviewed labels as ground truth",
     )
-    evaluate.add_argument("--rerank", action="store_true", help="Also compare hybrid + reranking")
-    evaluate.add_argument("--reranker-model", type=Path, default=Path("models/reranker_model.json"))
+    evaluate.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None)
+    evaluate.add_argument("--reranker-model", type=Path)
     for name in ("calibrate", "qualify", "check-data"):
         command = commands.add_parser(name)
         command.add_argument(
@@ -73,11 +80,9 @@ def parser() -> argparse.ArgumentParser:
             command.add_argument(
                 "--output", type=Path, default=Path(f"reports/sprint_2/{name}_policy.json")
             )
-            command.add_argument(
-                "--reranker-model", type=Path, default=Path("models/reranker_model.json")
-            )
+            command.add_argument("--reranker-model", type=Path)
         if name == "calibrate":
-            command.add_argument("--rerank", action="store_true")
+            command.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None)
         if name == "qualify":
             command.add_argument("--policy", type=Path, required=True)
     timing = commands.add_parser("benchmark")
@@ -88,8 +93,8 @@ def parser() -> argparse.ArgumentParser:
     timing.add_argument(
         "--output", type=Path, default=Path("reports/sprint_2/resource_report.json")
     )
-    timing.add_argument("--rerank", action="store_true")
-    timing.add_argument("--reranker-model", type=Path, default=Path("models/reranker_model.json"))
+    timing.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None)
+    timing.add_argument("--reranker-model", type=Path)
     policy_arguments(timing)
     return root
 
@@ -111,23 +116,37 @@ def main() -> int:
             print(json.dumps(report, indent=2))
             return 0 if report["passed"] else 2
         if args.command == "build":
-            bundle, manifest = build(args.source, args.aliases, args.model, args.artifacts)
+            bundle, manifest = build(
+                args.source,
+                args.aliases,
+                args.model,
+                args.artifacts,
+                None if args.retrieval_only else args.ranking_profile,
+            )
             print(json.dumps({"bundle": str(bundle), "manifest": manifest}, indent=2))
             return 0
         bundle = resolve_bundle(args.artifacts)
         if args.command == "inspect":
             print(json.dumps(load_manifest(bundle), indent=2))
             return 0
-        wants_rerank = getattr(args, "rerank", False)
+        manifest = load_manifest(bundle)
+        wants_rerank = getattr(args, "rerank", None)
+        override = getattr(args, "reranker_model", None)
+        if wants_rerank is None:
+            wants_rerank = override is not None or manifest.get("ranking_model") is not None
+            if args.command == "match" and args.method != "hybrid":
+                wants_rerank = False
         if args.command == "qualify":
             wants_rerank = json.loads(args.policy.read_text())["ranking_method"] == "hybrid+rerank"
+        metadata = None
         if wants_rerank:
-            from category_matcher.reranker import MiniLMReranker
-
-            metadata = json.loads(args.reranker_model.read_text())
-            matcher = Matcher(bundle, MiniLMReranker(metadata), metadata)
-        else:
-            matcher = Matcher(bundle)
+            metadata = (
+                json.loads(override.read_text()) if override else manifest.get("ranking_model")
+            )
+            if metadata is None:
+                metadata = json.loads(Path("models/reranker_model.json").read_text())
+        args.rerank = wants_rerank
+        matcher = Matcher(bundle, reranker_metadata=metadata)
         if args.command in {"match", "benchmark"}:
             from category_matcher.decision import DecisionPolicy
 
@@ -203,7 +222,9 @@ def main() -> int:
         elif args.command == "evaluate":
             from category_matcher.evaluation import evaluate
 
-            report = evaluate(matcher, args.dataset, allow_draft=args.allow_draft)
+            report = evaluate(
+                matcher, args.dataset, allow_draft=args.allow_draft, include_reranking=wants_rerank
+            )
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
             print(

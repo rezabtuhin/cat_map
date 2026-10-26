@@ -1,0 +1,1097 @@
+{
+  "original_dataset_sha256": "2821da626f6d9fb302279e6e8df16f1979f36715ab6cb5fda358e31cff112d45",
+  "changed_label_proposals": 6,
+  "finding_counts": {
+    "ranking_error_proposal": 44,
+    "more_specific_supported_label": 2,
+    "ambiguous_input": 1,
+    "ambiguous_typo": 3
+  },
+  "human_review_complete": false,
+  "findings": [
+    {
+      "example_id": "draft-041",
+      "query": "handheld cellular telephones",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "267"
+      ],
+      "proposed_expected_ids": [
+        "267"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "267": "Electronics > Communications > Telephony > Mobile Phones"
+      },
+      "prior_first_ids": [
+        "298",
+        "267",
+        "271"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-043",
+      "query": "portable notebook computers",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "328"
+      ],
+      "proposed_expected_ids": [
+        "328"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "328": "Electronics > Computers > Laptops"
+      },
+      "prior_first_ids": [
+        "961",
+        "278",
+        "4745"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-044",
+      "query": "living room couches",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "460"
+      ],
+      "proposed_expected_ids": [
+        "460"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "460": "Furniture > Sofas"
+      },
+      "prior_first_ids": [
+        "6348",
+        "460",
+        "436"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-052",
+      "query": "bridal gowns",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "5329"
+      ],
+      "proposed_expected_ids": [
+        "5329"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "5329": "Apparel & Accessories > Clothing > Wedding & Bridal Party Dresses > Wedding Dresses"
+      },
+      "prior_first_ids": [
+        "5330",
+        "5446",
+        "1645"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-053",
+      "query": "children's playthings",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "1253"
+      ],
+      "proposed_expected_ids": [
+        "1253"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "1253": "Toys & Games > Toys"
+      },
+      "prior_first_ids": [
+        "3166",
+        "4352",
+        "1262"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-055",
+      "query": "interlocking picture puzzles",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "2618"
+      ],
+      "proposed_expected_ids": [
+        "2618"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "2618": "Toys & Games > Puzzles > Jigsaw Puzzles"
+      },
+      "prior_first_ids": [
+        "3287",
+        "3867",
+        "4011"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-056",
+      "query": "pedal powered bicycles",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "1026"
+      ],
+      "proposed_expected_ids": [
+        "1026"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "1026": "Sporting Goods > Outdoor Recreation > Cycling > Bicycles"
+      },
+      "prior_first_ids": [
+        "4593",
+        "1026",
+        "2724"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-058",
+      "query": "interchangeable camera optics",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "4432"
+      ],
+      "proposed_expected_ids": [
+        "4432"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "4432": "Cameras & Optics > Camera & Optic Accessories > Camera & Video Camera Lenses > Camera Lenses"
+      },
+      "prior_first_ids": [
+        "141",
+        "156",
+        "142"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-060",
+      "query": "baby nappies",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "551"
+      ],
+      "proposed_expected_ids": [
+        "551"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "551": "Baby & Toddler > Diapering > Diapers"
+      },
+      "prior_first_ids": [
+        "7360",
+        "5412",
+        "1599"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-062",
+      "query": "coffee beverages",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "1868"
+      ],
+      "proposed_expected_ids": [
+        "1868"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "1868": "Food, Beverages & Tobacco > Beverages > Coffee"
+      },
+      "prior_first_ids": [
+        "413",
+        "1868",
+        "499676"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-064",
+      "query": "tools for turning screws",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "1203"
+      ],
+      "proposed_expected_ids": [
+        "1203"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "1203": "Hardware > Tools > Screwdrivers"
+      },
+      "prior_first_ids": [
+        "2251",
+        "1167",
+        "1203"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-065",
+      "query": "hand tools for driving nails",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "1186"
+      ],
+      "proposed_expected_ids": [
+        "1186"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "1186": "Hardware > Tools > Hammers"
+      },
+      "prior_first_ids": [
+        "2975",
+        "1194",
+        "6965"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-069",
+      "query": "brushes for cleaning teeth",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "527"
+      ],
+      "proposed_expected_ids": [
+        "527"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "527": "Health & Beauty > Personal Care > Oral Care > Toothbrushes"
+      },
+      "prior_first_ids": [
+        "2681",
+        "527",
+        "4670"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-071",
+      "query": "sun protection skin lotion",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "2844"
+      ],
+      "proposed_expected_ids": [
+        "2844"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "2844": "Health & Beauty > Personal Care > Cosmetics > Skin Care > Sunscreen"
+      },
+      "prior_first_ids": [
+        "499926",
+        "2592",
+        "567"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-072",
+      "query": "bags worn on the back",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "100"
+      ],
+      "proposed_expected_ids": [
+        "100"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "100": "Luggage & Bags > Backpacks"
+      },
+      "prior_first_ids": [
+        "103",
+        "2301",
+        "3032"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-073",
+      "query": "desk seating for office workers",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "2045"
+      ],
+      "proposed_expected_ids": [
+        "2045"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "2045": "Furniture > Office Furniture > Office Chairs"
+      },
+      "prior_first_ids": [
+        "6362",
+        "4191",
+        "2045"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-075",
+      "query": "software that protects against computer viruses",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "5299"
+      ],
+      "proposed_expected_ids": [
+        "5299"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "5299": "Software > Computer Software > Antivirus & Security Software"
+      },
+      "prior_first_ids": [
+        "313",
+        "5299",
+        "2092"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-080",
+      "query": "printed reading books",
+      "finding": "more_specific_supported_label",
+      "reason": "Printed reading books explicitly supports Print Books, a child of Books.",
+      "original_expected_ids": [
+        "784"
+      ],
+      "proposed_expected_ids": [
+        "543543"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "543543": "Media > Books > Print Books"
+      },
+      "prior_first_ids": [
+        "543543",
+        "3539",
+        "5529"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-081",
+      "query": "movies on DVD",
+      "finding": "more_specific_supported_label",
+      "reason": "Movies on DVD supports Film & Television DVDs rather than all DVDs & Videos.",
+      "original_expected_ids": [
+        "839"
+      ],
+      "proposed_expected_ids": [
+        "543527"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "543527": "Media > DVDs & Videos > Film & Television DVDs"
+      },
+      "prior_first_ids": [
+        "543527",
+        "839",
+        "388"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-084",
+      "query": "desktop computer displays",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "305"
+      ],
+      "proposed_expected_ids": [
+        "305"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "305": "Electronics > Video > Computer Monitors"
+      },
+      "prior_first_ids": [
+        "325",
+        "305",
+        "278"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-086",
+      "query": "feed for aquarium fish",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "5024"
+      ],
+      "proposed_expected_ids": [
+        "5024"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "5024": "Animals & Pet Supplies > Pet Supplies > Fish Supplies > Fish Food"
+      },
+      "prior_first_ids": [
+        "6403",
+        "5024",
+        "6"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-089",
+      "query": "religious and ceremonial goods",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "5605"
+      ],
+      "proposed_expected_ids": [
+        "5605"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "5605": "Religious & Ceremonial"
+      },
+      "prior_first_ids": [
+        "97",
+        "5483",
+        "5605"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-094",
+      "query": "household and gardening goods",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "536"
+      ],
+      "proposed_expected_ids": [
+        "536"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "536": "Home & Garden"
+      },
+      "prior_first_ids": [
+        "630",
+        "5632",
+        "3348"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-097",
+      "query": "adult oriented products",
+      "finding": "ambiguous_input",
+      "reason": "Adult-oriented does not establish whether the products are erotic or another adult-use product.",
+      "original_expected_ids": [
+        "772"
+      ],
+      "proposed_expected_ids": [],
+      "proposed_status": "needs_clarification",
+      "category_paths": {},
+      "prior_first_ids": [
+        "778",
+        "774",
+        "2563"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-098",
+      "query": "building hardware and tools",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "632"
+      ],
+      "proposed_expected_ids": [
+        "632"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "632": "Hardware"
+      },
+      "prior_first_ids": [
+        "1167",
+        "115",
+        "632"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-100",
+      "query": "goods for babies and toddlers",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "537"
+      ],
+      "proposed_expected_ids": [
+        "537"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "537": "Baby & Toddler"
+      },
+      "prior_first_ids": [
+        "5422",
+        "562",
+        "5859"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-103",
+      "query": "Latops",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "328"
+      ],
+      "proposed_expected_ids": [
+        "328"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "328": "Electronics > Computers > Laptops"
+      },
+      "prior_first_ids": [
+        "1663",
+        "679",
+        "2494"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-104",
+      "query": "Soas",
+      "finding": "ambiguous_typo",
+      "reason": "Soas can be a deletion from sofas or soaps; the query has no product context.",
+      "original_expected_ids": [
+        "460"
+      ],
+      "proposed_expected_ids": [],
+      "proposed_status": "needs_clarification",
+      "category_paths": {},
+      "prior_first_ids": [
+        "2982",
+        "3769",
+        "321"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-105",
+      "query": "Chirs",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "443"
+      ],
+      "proposed_expected_ids": [
+        "443"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "443": "Furniture > Chairs"
+      },
+      "prior_first_ids": [
+        "5109",
+        "3347",
+        "714"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-106",
+      "query": "Do Food",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "3530"
+      ],
+      "proposed_expected_ids": [
+        "3530"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "3530": "Animals & Pet Supplies > Pet Supplies > Dog Supplies > Dog Food"
+      },
+      "prior_first_ids": [
+        "543624",
+        "135",
+        "422"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-107",
+      "query": "Ca Toys",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "5001"
+      ],
+      "proposed_expected_ids": [
+        "5001"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "5001": "Animals & Pet Supplies > Pet Supplies > Cat Supplies > Cat Toys"
+      },
+      "prior_first_ids": [
+        "1253",
+        "3661",
+        "6058"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-109",
+      "query": "Shes",
+      "finding": "ambiguous_typo",
+      "reason": "Shes alone does not uniquely support shoes; sheds and other spellings compete.",
+      "original_expected_ids": [
+        "187"
+      ],
+      "proposed_expected_ids": [],
+      "proposed_status": "needs_clarification",
+      "category_paths": {},
+      "prior_first_ids": [
+        "214",
+        "209",
+        "6812"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-113",
+      "query": "Tos",
+      "finding": "ambiguous_typo",
+      "reason": "Tos can be a deletion from toys or tops; choosing Toys requires extra context.",
+      "original_expected_ids": [
+        "1253"
+      ],
+      "proposed_expected_ids": [],
+      "proposed_status": "needs_clarification",
+      "category_paths": {},
+      "prior_first_ids": [
+        "543648",
+        "4026",
+        "3089"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-114",
+      "query": "Bord Games",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "1246"
+      ],
+      "proposed_expected_ids": [
+        "1246"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "1246": "Toys & Games > Games > Board Games"
+      },
+      "prior_first_ids": [
+        "3793",
+        "1246",
+        "1247"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-117",
+      "query": "Diital Cameras",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "152"
+      ],
+      "proposed_expected_ids": [
+        "152"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "152": "Cameras & Optics > Cameras > Digital Cameras"
+      },
+      "prior_first_ids": [
+        "142",
+        "152",
+        "155"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-120",
+      "query": "Dipers",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "551"
+      ],
+      "proposed_expected_ids": [
+        "551"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "551": "Baby & Toddler > Diapering > Diapers"
+      },
+      "prior_first_ids": [
+        "1391",
+        "5740",
+        "3828"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-123",
+      "query": "Aples",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "6566"
+      ],
+      "proposed_expected_ids": [
+        "6566"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "6566": "Food, Beverages & Tobacco > Food Items > Fruits & Vegetables > Fresh & Frozen Fruits > Apples"
+      },
+      "prior_first_ids": [
+        "7302",
+        "3620",
+        "189"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-125",
+      "query": "Hamers",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "1186"
+      ],
+      "proposed_expected_ids": [
+        "1186"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "1186": "Hardware > Tools > Hammers"
+      },
+      "prior_first_ids": [
+        "5109",
+        "3347",
+        "762"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-129",
+      "query": "Tothbrushes",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "527"
+      ],
+      "proposed_expected_ids": [
+        "527"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "527": "Health & Beauty > Personal Care > Oral Care > Toothbrushes"
+      },
+      "prior_first_ids": [
+        "2486",
+        "18",
+        "1300"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-130",
+      "query": "Shmpoo & Conditioner",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "2441"
+      ],
+      "proposed_expected_ids": [
+        "2441"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "2441": "Health & Beauty > Personal Care > Hair Care > Shampoo & Conditioner"
+      },
+      "prior_first_ids": [
+        "543616",
+        "2441",
+        "6406"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-131",
+      "query": "Suscreen",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "2844"
+      ],
+      "proposed_expected_ids": [
+        "2844"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "2844": "Health & Beauty > Personal Care > Cosmetics > Skin Care > Sunscreen"
+      },
+      "prior_first_ids": [
+        "4375",
+        "1816",
+        "395"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-134",
+      "query": "clothing and fashion accessories in general",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "166"
+      ],
+      "proposed_expected_ids": [
+        "166"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "166": "Apparel & Accessories"
+      },
+      "prior_first_ids": [
+        "167",
+        "1604",
+        "166"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-135",
+      "query": "arts crafts and entertainment products",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "8"
+      ],
+      "proposed_expected_ids": [
+        "8"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "8": "Arts & Entertainment"
+      },
+      "prior_first_ids": [
+        "16",
+        "505372",
+        "3731"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-136",
+      "query": "baby and toddler products in general",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "537"
+      ],
+      "proposed_expected_ids": [
+        "537"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "537": "Baby & Toddler"
+      },
+      "prior_first_ids": [
+        "5422",
+        "182",
+        "562"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-137",
+      "query": "business and industrial equipment in general",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "111"
+      ],
+      "proposed_expected_ids": [
+        "111"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "111": "Business & Industrial"
+      },
+      "prior_first_ids": [
+        "3477",
+        "111",
+        "4335"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-138",
+      "query": "photography and optics equipment in general",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "141"
+      ],
+      "proposed_expected_ids": [
+        "141"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "141": "Cameras & Optics"
+      },
+      "prior_first_ids": [
+        "39",
+        "141",
+        "156"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-147",
+      "query": "media content products in general",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "783"
+      ],
+      "proposed_expected_ids": [
+        "783"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "783": "Media"
+      },
+      "prior_first_ids": [
+        "6028",
+        "783",
+        "5037"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-148",
+      "query": "office supplies in general",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "922"
+      ],
+      "proposed_expected_ids": [
+        "922"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "922": "Office Supplies"
+      },
+      "prior_first_ids": [
+        "932",
+        "922",
+        "950"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-149",
+      "query": "religious and ceremonial products in general",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "5605"
+      ],
+      "proposed_expected_ids": [
+        "5605"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "5605": "Religious & Ceremonial"
+      },
+      "prior_first_ids": [
+        "97",
+        "5483",
+        "5605"
+      ],
+      "human_reviewed": false
+    },
+    {
+      "example_id": "draft-151",
+      "query": "sports equipment in general",
+      "finding": "ranking_error_proposal",
+      "reason": "Draft target appears plausible from product meaning and taxonomy; ranking needs improvement.",
+      "original_expected_ids": [
+        "988"
+      ],
+      "proposed_expected_ids": [
+        "988"
+      ],
+      "proposed_status": "matched",
+      "category_paths": {
+        "988": "Sporting Goods"
+      },
+      "prior_first_ids": [
+        "1266",
+        "499799",
+        "3998"
+      ],
+      "human_reviewed": false
+    }
+  ]
+}

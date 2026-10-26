@@ -1,0 +1,79 @@
+{
+  "bundle": "/Users/linno/Documents/code/RAG/artifacts/google/eed281a45624da69-9b3561b338b6",
+  "manifest": {
+    "source_sha256": "eed281a45624da690a1e0fcbbf64529ad331c75488816ab51d641db3d11459fa",
+    "aliases_sha256": "28b3608a10837984acb00419ab342218888105bc627db04cf3922c5bc917dbd9",
+    "model": {
+      "name": "BAAI/bge-base-en-v1.5",
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--BAAI--bge-base-en-v1.5/snapshots/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "dimension": 768,
+      "query_instruction": ""
+    },
+    "normalization": "nfkc-casefold-ampersand-v1",
+    "retrieval_text_version": "english-light-plurals-content-words-v2",
+    "retrieval": {
+      "bm25_limit": 100,
+      "semantic_limit": 100,
+      "fuzzy_limit": 50,
+      "fuzzy_floor": 45,
+      "fusion_limit": 200,
+      "parent_limit": 5,
+      "rrf_k": 10,
+      "branch_weights": {
+        "bm25": 1,
+        "fuzzy": 1,
+        "semantic": 5
+      },
+      "semantic_query_instruction": "",
+      "bm25_representation": "label_only",
+      "spelling_min_characters": 5,
+      "spelling_distance": 1
+    },
+    "schema_version": 1,
+    "packages": {
+      "bm25s": "0.3.15",
+      "numpy": "2.4.6",
+      "rapidfuzz": "3.14.6",
+      "sentence-transformers": "5.7.0",
+      "torch": "2.14.1",
+      "sqlite-vec": "0.1.9",
+      "transformers": "4.57.6"
+    },
+    "implementation_fingerprint": {
+      "domain.py": "dc97ad93e528b9d0b902f4fd784b142c874319be200241e1511122a55bde5e16",
+      "normalization.py": "d5465cbf1516fc58e66e7c43c3fda35bf361d177d20f26b44de15ee05662fb78",
+      "taxonomy.py": "a2f71a5d91e4fcbf6c4304780743ee8f1a2516bbaa84cd6cc32afa47a4f5b492",
+      "storage.py": "a2302cadc53a21e5350b75521ae1d37a1cdef6cebe4148dd167df547f0e37304",
+      "retrieval.py": "81e1ec61fb1d893e412ab59405b3e512d5b9d42e7c7532b2e3634fd7e6f5c394",
+      "encoder.py": "334b3cc3378ef5f14091600a4544c59b7293150306d6781be32dec9e482567c7",
+      "matcher.py": "a3b8fafd0cd57820a76277040d14ac55fcbc5092d1b26d0a45639a6b04ffaa16",
+      "query.py": "6ecd440c597e750864578dcf970d8925691c4b3bc8199bb49a1de07021f71989",
+      "artifacts.py": "03887effa52ba4249d555199cce4474526b353425fad9eb6f43ead9fca1c4618",
+      "decision.py": "351c6e5605efb98d227e7109e080d067b4aaa2cdb89c76202415c84a9134a3ce",
+      "reranker.py": "48bbdb58615936c1dfe914b61ecc0684f4dc6ac0543137aea261c87cceb4f26b"
+    },
+    "taxonomy_key": "google",
+    "taxonomy_version": "eed281a45624da69",
+    "artifact_version": "eed281a45624da69-9b3561b338b6",
+    "created_at": "2026-10-26T05:37:15.277809+00:00",
+    "record_count": 5582,
+    "embedding_rows": 11164,
+    "approved_alias_count": 1,
+    "inactive_alias_count": 3,
+    "sqlite_version": "3.53.1",
+    "sqlite_vec_version": "v0.1.9",
+    "checksums": {
+      "audit.json": "b364ba5c871934151d32196278fe651251b4fc45074147f879d1bf8ec9c012ce",
+      "aliases.json": "6be1c025feae7b39d0d0a2a0b262d22a66f169152e86cc8e026e6167209f137d",
+      "taxonomy.sqlite3": "0534a5ac6b7117ca0467a0aac7af7bbf90c53b60c3d470c0f29334215c9ae1b3",
+      "bm25/category_ids.json": "a01e3b7d7e1bee0ad2a2a2c8a9aed23828c495c235bf5e56fdab5bb2bbd538ac",
+      "bm25/params.index.json": "5a071945b70e30f8f8dee20200421b9e8e390925ba833ee330a78632d7832204",
+      "bm25/vocab.index.json": "371fc65aae9d96184b476e480bec11bb727425362fbd2e6dba1fb6d44c826ecb",
+      "bm25/indices.csc.index.npy": "a785c76cda49ec38d68c01c58cbc5b8daf6fed0144b0b43e228d1384656dd421",
+      "bm25/data.csc.index.npy": "358cd1b2a8dd0801cd3bbdbf4b3bbab3fa5d3a92bbe69ffb2fcaffef4c9eac7f",
+      "bm25/indptr.csc.index.npy": "7272483a5579c98801aec7bd0ad1f7baa4c22961b9b641358a81581e7beb60cb"
+    },
+    "decision_policy": "sprint-1-provisional-only"
+  }
+}

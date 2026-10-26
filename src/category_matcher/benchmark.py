@@ -26,7 +26,11 @@ def swapouts() -> int | None:
     return None
 
 
-def benchmark(matcher: Matcher, dataset: Path, requests: int, *, rerank: bool = False) -> dict:
+def benchmark(
+    matcher: Matcher, dataset: Path, requests: int, *, rerank: bool | None = None
+) -> dict:
+    if rerank is None:
+        rerank = matcher.default_rerank
     if not 1 <= requests <= 10000:
         raise ValueError("Benchmark requests must be between 1 and 10000")
     rows = read_jsonl(dataset)
@@ -39,12 +43,12 @@ def benchmark(matcher: Matcher, dataset: Path, requests: int, *, rerank: bool = 
             continue
         exact = matcher.match(
             row["query"],
-            method="exact",
             category_id=row.get("category_id"),
             context=row.get("context", ""),
             parent_id=row.get("parent_category_id"),
+            retrieve=False,
         )
-        if exact.status == "provisional":
+        if exact.reason_code == "retrieval_required":
             samples.append(row)
     if not samples:
         raise ValueError("Benchmark requires non-exact English queries")
@@ -52,6 +56,12 @@ def benchmark(matcher: Matcher, dataset: Path, requests: int, *, rerank: bool = 
     started = time.perf_counter()
     matcher.encode_queries(
         [matcher.retrieval_query(samples[0]["query"], samples[0].get("context", ""))]
+    )
+    matcher.match(
+        samples[0]["query"],
+        context=samples[0].get("context", ""),
+        parent_id=samples[0].get("parent_category_id"),
+        rerank=rerank,
     )
     warmup = time.perf_counter() - started
     durations, outcomes = [], {}
@@ -84,8 +94,10 @@ def benchmark(matcher: Matcher, dataset: Path, requests: int, *, rerank: bool = 
         "unique_inputs_available": len(samples),
         "concurrent_inference": 1,
         "ranking_method": "hybrid+rerank" if rerank else "hybrid",
+        "ranking_model": matcher.reranker_metadata if rerank else None,
         "policy_id": matcher.policy.document["policy_id"] if matcher.policy else None,
         "query_model_load_and_warmup_seconds": warmup,
+        "model_load_and_warmup_seconds": warmup,
         "end_to_end_warm_latency_ms": {
             "p50": float(np.percentile(durations, 50)),
             "p95": p95,
@@ -102,6 +114,6 @@ def benchmark(matcher: Matcher, dataset: Path, requests: int, *, rerank: bool = 
             "Inference requests run serially; this does not establish multi-user capacity.",
             "Repeated draft queries measure execution cost, not matching accuracy.",
             "Peak memory is for this process; system swap counters can include other applications.",
-            "Encoder load is separate; CLI adapter initialization occurs before this function.",
+            "Model loading and the first prediction occur in the untimed warmup.",
         ],
     }

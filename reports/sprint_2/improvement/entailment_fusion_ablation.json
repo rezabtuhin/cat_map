@@ -1,0 +1,75 @@
+{
+  "purpose": "Draft development model selection; confirm with fresh end-to-end execution",
+  "results": [
+    {
+      "entailment_weight": 0.25,
+      "rank_constant": 10,
+      "top1_correct": 86,
+      "top3_correct": 107,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 0.25,
+      "rank_constant": 60,
+      "top1_correct": 85,
+      "top3_correct": 107,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 0.5,
+      "rank_constant": 10,
+      "top1_correct": 88,
+      "top3_correct": 111,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 0.5,
+      "rank_constant": 60,
+      "top1_correct": 88,
+      "top3_correct": 111,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 1.0,
+      "rank_constant": 10,
+      "top1_correct": 89,
+      "top3_correct": 111,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 1.0,
+      "rank_constant": 60,
+      "top1_correct": 89,
+      "top3_correct": 110,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 2.0,
+      "rank_constant": 10,
+      "top1_correct": 92,
+      "top3_correct": 108,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 2.0,
+      "rank_constant": 60,
+      "top1_correct": 92,
+      "top3_correct": 109,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 3.0,
+      "rank_constant": 10,
+      "top1_correct": 93,
+      "top3_correct": 105,
+      "denominator": 120
+    },
+    {
+      "entailment_weight": 3.0,
+      "rank_constant": 60,
+      "top1_correct": 91,
+      "top3_correct": 106,
+      "denominator": 120
+    }
+  ]
+}

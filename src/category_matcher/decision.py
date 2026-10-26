@@ -111,7 +111,9 @@ class DecisionPolicy:
         values = evidence(result)
         if not result.candidates:
             status, reason = "no_match", "no_candidates"
-        elif result.candidates[0].get("source") == "context_only":
+        elif result.query_analysis.get("spelling", {}).get("ambiguous"):
+            status, reason = "needs_clarification", "competing_spelling_interpretations"
+        elif result.candidates[0].get("source") in {"context_only", "explicit_broad"}:
             status, reason = "needs_clarification", "attribute_only_broad_context"
         elif (
             values["semantic"] >= thresholds["min_semantic"]
@@ -151,7 +153,8 @@ class DecisionPolicy:
             result.category = decision["category"]
             result.reason_code = decision["reason_code"]
         if decision["status"] == "needs_clarification":
-            names = [candidate["label"] for candidate in result.candidates[:2]]
+            interpretations = result.query_analysis.get("spelling", {}).get("interpretations")
+            names = [candidate["label"] for candidate in (interpretations or result.candidates[:2])]
             result.clarification = (
                 "Please specify the product type. Possible categories: " + ", ".join(names) + "."
             )
