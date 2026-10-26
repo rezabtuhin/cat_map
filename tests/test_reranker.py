@@ -19,12 +19,13 @@ def test_misaligned_cpu_weight_copy_preserves_values_and_parameter_identity():
     assert align_cpu_parameters(model) == 0
 
 
-def test_entailment_profile_uses_entailment_contradiction_and_neutral_logits():
+@pytest.mark.parametrize("prefix", ["These products are", "The product category is"])
+def test_entailment_profile_uses_entailment_contradiction_and_neutral_logits(prefix):
     class Model:
         def predict(self, pairs, **kwargs):
             assert pairs == [
-                ("These products are smart phones.", "These products are Cases."),
-                ("These products are smart phones.", "These products are Phones."),
+                (f"{prefix} smart phones.", f"{prefix} Cases."),
+                (f"{prefix} smart phones.", f"{prefix} Phones."),
             ]
             return [[8.0, -4.0, -2.0], [-2.0, 6.0, -1.0]]
 
@@ -33,8 +34,8 @@ def test_entailment_profile_uses_entailment_contradiction_and_neutral_logits():
     ranker.metadata = {
         "score_profile": "category_entailment_v1",
         "entailment_index": 1,
-        "premise_template": "These products are {query}.",
-        "hypothesis_template": "These products are {label}.",
+        "premise_template": prefix + " {query}.",
+        "hypothesis_template": prefix + " {label}.",
     }
     output = ranker.rank(
         "smart phones",
@@ -89,9 +90,21 @@ def test_profile_pins_revision_and_resolves_metadata_relative_to_config(tmp_path
         "candidate_limit": 100,
         "rank_fusion_weight": 3,
         "rank_constant": 10,
+        "premise_template": "The product category is {query}.",
+        "hypothesis_template": "The product category is {label}.",
     }
     config.write_text(json.dumps(profile))
     assert load_profile(config)["candidate_limit"] == 100
+    assert load_profile(config)["premise_template"] == profile["premise_template"]
+    for invalid in [
+        "No query placeholder",
+        "{query} {path}",
+        "{query.__class__}",
+        "{query}{query}",
+    ]:
+        config.write_text(json.dumps({**profile, "premise_template": invalid}))
+        with pytest.raises(ValueError, match="pair template"):
+            load_profile(config)
     profile["model_revision"] = "other"
     config.write_text(json.dumps(profile))
     with pytest.raises(ValueError, match="revision"):

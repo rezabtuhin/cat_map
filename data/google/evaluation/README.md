@@ -18,6 +18,10 @@ audit. It does not replace the original primary benchmark. The
 [findings](../../../reports/sprint_2/improvement/FINDINGS.md) distinguish those
 proposals from human review. Do not use this derivative as an independent split.
 
+The [current review queue](../../../reports/sprint_2/specificity/LABEL_REVIEW.md)
+shows remaining development failures, the earlier audit proposals, and canonical
+paths for comparison. It does not approve labels or cover all required review.
+
 Before using these records as trusted labels, a category reviewer must check each
 query against the source taxonomy, correct acceptable IDs or expected status, and
 set `review_status` to `approved`, with nonempty `reviewer` and `reviewed_at` fields.

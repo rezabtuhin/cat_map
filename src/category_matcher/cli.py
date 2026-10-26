@@ -90,6 +90,7 @@ def parser() -> argparse.ArgumentParser:
         "--dataset", type=Path, default=Path("data/google/evaluation/development.jsonl")
     )
     timing.add_argument("--requests", type=int, default=200)
+    timing.add_argument("--idle-baseline-seconds", type=float, default=0)
     timing.add_argument(
         "--output", type=Path, default=Path("reports/sprint_2/resource_report.json")
     )
@@ -211,7 +212,13 @@ def main() -> int:
         elif args.command == "benchmark":
             from category_matcher.benchmark import benchmark
 
-            report = benchmark(matcher, args.dataset, args.requests, rerank=args.rerank)
+            report = benchmark(
+                matcher,
+                args.dataset,
+                args.requests,
+                rerank=args.rerank,
+                idle_baseline_seconds=args.idle_baseline_seconds,
+            )
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(json.dumps(report, indent=2) + "\n")
             print(json.dumps(report, indent=2))

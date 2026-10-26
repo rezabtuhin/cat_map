@@ -3,6 +3,8 @@
   "model_name": "cross-encoder/nli-deberta-v3-small",
   "model_revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
   "score_profile": "category_entailment_v1",
+  "premise_template": "The product category is {query}.",
+  "hypothesis_template": "The product category is {label}.",
   "candidate_limit": 100,
   "rank_fusion_weight": 3.0,
   "rank_constant": 10

@@ -1,5 +1,9 @@
 # Sprint 2 ranking improvement
 
+Historical revision: the [specificity correction](../specificity/FINDINGS.md)
+contains the current behavior and evidence. This report retains the previous
+artifact's findings and measurements.
+
 The updated default pipeline improves top-1 ranking from **70/120 (58.3%) to
 93/120 (77.5%)** on the original non-exact, resolvable development proposals.
 These are reused, unreviewed draft examples. This measures development progress,

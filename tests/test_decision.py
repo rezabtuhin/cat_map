@@ -145,3 +145,15 @@ def test_competing_spelling_interpretations_require_clarification_even_at_high_s
     assert preview.status == "provisional" and preview.category is None
     assert preview.decision_preview["status"] == "needs_clarification"
     assert "Toys, Shirts & Tops" in preview.clarification
+
+
+@pytest.mark.parametrize("experimental", [True, False])
+def test_scope_only_support_cannot_auto_accept_even_with_high_retrieval_scores(experimental):
+    doc = document()
+    doc["policy_id"] = "unit-test-policy"
+    policy = DecisionPolicy(doc, experimental=experimental)
+    answer = result(score=0.99, margin=0.9)
+    answer.query_analysis["specificity_conflict"] = {"parent_id": "2"}
+    decision = policy.apply(answer)
+    status = decision.decision_preview["status"] if experimental else decision.status
+    assert status == "needs_clarification" and decision.category is None

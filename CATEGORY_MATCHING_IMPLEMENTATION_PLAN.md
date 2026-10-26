@@ -166,7 +166,7 @@ model/retrieval ranks with weights 3:1 and rank constant 10. The selected profil
 and immutable revision are stored in `config/category_ranking.json` and the
 artifact. Raw entailment margins and fused scores are ranking signals, not
 correctness probabilities. This improves draft development ranking but is not
-independently qualified. See [measured findings](reports/sprint_2/improvement/FINDINGS.md)
+independently qualified. See [measured findings](reports/sprint_2/specificity/FINDINGS.md)
 and the [NLI model card](https://huggingface.co/cross-encoder/nli-deberta-v3-small).
 
 Store and search vectors through the SQLite adapter using `sqlite-vec`. Keep NumPy for model-output conversion and correctness checks. Exact vector search is appropriate for this corpus size; it does not require an additional database service. Sentence Transformers documents direct similarity search for small corpora. [Semantic search documentation](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html)
@@ -272,8 +272,8 @@ RRF combines ranks without equating incompatible raw scores. [RRF definition](ht
 For each of the first 100 candidates, the selected profile constructs a pair:
 
 ```text
-premise: These products are <retrieval query>.
-hypothesis: These products are <canonical label>.
+premise: The product category is <retrieval query>.
+hypothesis: The product category is <canonical label>.
 ```
 
 Batch the pairs through the cross-encoder and rank by entailment logit minus
@@ -283,6 +283,12 @@ scored prefix retain their retrieval term. Apply the unique eligible whole-label
 spelling priority without converting it into a verified alias. Record raw model
 margins, fused scores, retrieval ranks, and parent/child relationships. Preserve
 the full shortlist; return alternatives according to the response limit.
+
+If only the supplied parent receives positive NLI support and every scored
+descendant is rejected, preserve retrieval order and record a specificity
+conflict. Retain model scores/ranks and require clarification even under a
+qualified policy. This is a conservative disagreement fallback, not acceptance
+of the retrieval winner. Missing scores do not imply a rejected descendant.
 
 Canonical ID/path/label lookup and approved aliases run first. Conservative
 literal general-category wrappers can also resolve a canonical label directly.
@@ -942,5 +948,5 @@ This document specifies the intended full application. The initial CLI prototype
 local SQLite/vector integration have since been implemented; broader service work,
 trusted evaluation, qualified calibration, migrations, and release qualification remain.
 See [Sprint 2 status](reports/sprint_2/STATUS.md) for the current implementation and
-[latest findings](reports/sprint_2/improvement/FINDINGS.md) for measured diagnostic
-results, remaining ranking regressions, and the failed no-observed-swap resource check.
+[latest findings](reports/sprint_2/specificity/FINDINGS.md) for measured diagnostic
+results, remaining ranking regressions, and phase-specific resource observations.

@@ -41,6 +41,29 @@ def is_attribute_only(text: str) -> bool:
     return bool(words) and words <= ATTRIBUTE_WORDS
 
 
+def scope_only_entailment_support(candidates: list[dict], parent_id: str | None) -> bool:
+    """Detect a model that endorses only the supplied scope, not a product type.
+
+    Zero is the boundary between entailment and the combined other NLI logits;
+    it is not a calibrated category-correctness threshold. Unscored candidates
+    provide no model evidence and do not count as rejected descendants.
+    """
+    if not candidates or parent_id is None or candidates[0]["id"] != parent_id:
+        return False
+    parent_support = candidates[0].get("entailment_logit_margin")
+    descendants = [
+        candidate["entailment_logit_margin"]
+        for candidate in candidates
+        if candidate["id"] != parent_id and candidate.get("entailment_logit_margin") is not None
+    ]
+    return (
+        parent_support is not None
+        and parent_support > 0
+        and len(descendants) >= 2
+        and all(score <= 0 for score in descendants)
+    )
+
+
 def explicit_broad_category(
     text: str, categories: dict[str, Category], allowed: set[str]
 ) -> str | None:

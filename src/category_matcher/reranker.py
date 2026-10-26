@@ -66,6 +66,20 @@ def load_profile(path: Path) -> dict:
         raise ValueError("Ranking profile model revision does not match the downloaded model")
     if metadata.get("score_profile") != profile["score_profile"]:
         raise ValueError("Ranking score profile mismatch")
+    templates = {}
+    for key, placeholder in (("premise_template", "{query}"), ("hypothesis_template", "{label}")):
+        if key not in profile:
+            continue
+        template = profile[key]
+        if (
+            metadata.get("score_profile") != "category_entailment_v1"
+            or not isinstance(template, str)
+            or len(template) > 300
+            or template.count(placeholder) != 1
+            or any(char in template.replace(placeholder, "") for char in "{}")
+        ):
+            raise ValueError("Invalid category-entailment pair template")
+        templates[key] = template
     if (
         type(profile["candidate_limit"]) is not int
         or type(profile["rank_constant"]) is not int
@@ -83,6 +97,7 @@ def load_profile(path: Path) -> dict:
         raise ValueError("Invalid ranking profile weight")
     return {
         **metadata,
+        **templates,
         **{key: profile[key] for key in ("candidate_limit", "rank_fusion_weight", "rank_constant")},
     }
 

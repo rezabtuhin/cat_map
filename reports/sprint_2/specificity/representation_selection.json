@@ -1,0 +1,8180 @@
+{
+  "input_sha256": "48f8092f0762690b5a85b8fec53d3e4884961c8c936c8e77930093357a908dbf",
+  "label_status": "UNREVIEWED_DEVELOPMENT_SELECTION",
+  "results": [
+    {
+      "representations": [
+        "category",
+        "context"
+      ],
+      "total_model_weight": 1,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 94,
+        "top3_correct": 111,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7833333333333333,
+        "top3_recall": 0.925,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "264",
+            "280"
+          ]
+        },
+        {
+          "example_id": "draft-046",
+          "query": "kibble for pet dogs",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "3530",
+            "5015",
+            "5162"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "500059"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 6,
+          "new_top3": [
+            "5017",
+            "7385",
+            "5016"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 4,
+          "new_top3": [
+            "5330",
+            "2271",
+            "5441"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "4352",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-058",
+          "query": "interchangeable camera optics",
+          "previous_rank": 7,
+          "new_rank": 9,
+          "new_top3": [
+            "141",
+            "156",
+            "142"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "4437",
+            "6860"
+          ]
+        },
+        {
+          "example_id": "draft-072",
+          "query": "bags worn on the back",
+          "previous_rank": 6,
+          "new_rank": 3,
+          "new_top3": [
+            "103",
+            "3032",
+            "100"
+          ]
+        },
+        {
+          "example_id": "draft-073",
+          "query": "desk seating for office workers",
+          "previous_rank": 2,
+          "new_rank": 3,
+          "new_top3": [
+            "6362",
+            "4191",
+            "2045"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "6182"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "6403",
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "5483"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "5632"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5055",
+            "774",
+            "773"
+          ]
+        },
+        {
+          "example_id": "draft-098",
+          "query": "building hardware and tools",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1167",
+            "632",
+            "4919"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 87,
+          "new_top3": [
+            "3769",
+            "5687",
+            "2982"
+          ]
+        },
+        {
+          "example_id": "draft-109",
+          "query": "Shes",
+          "previous_rank": 144,
+          "new_rank": 144,
+          "new_top3": [
+            "214",
+            "773",
+            "5821"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "3311",
+            "3798"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "275",
+            "505295",
+            "222"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3672",
+            "6553",
+            "2353"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6176",
+            "543662",
+            "1513"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5566",
+            "7308",
+            "6428"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2836",
+            "3845",
+            "2446"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4745",
+            "298",
+            "4554"
+          ]
+        },
+        {
+          "example_id": "draft-169",
+          "query": "mouse",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "278",
+            "1928",
+            "1993"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1300",
+            "18",
+            "527"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "147",
+            "1816",
+            "7258"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "500101",
+            "500096",
+            "543575"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4617",
+            "4973",
+            "4974"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1483",
+            "7238",
+            "579"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3307",
+            "543589",
+            "3769"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "5918",
+            "923"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "267",
+            "318",
+            "543513"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "528",
+            "6383",
+            "2915"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "973",
+            "630",
+            "4634"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1634",
+            "318",
+            "1767"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "303",
+            "1928",
+            "318"
+          ]
+        },
+        {
+          "example_id": "draft-195",
+          "query": "zzzzvvvqqq",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "429",
+            "3284",
+            "2905"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "543659",
+            "1671"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "298",
+            "264"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "category",
+        "context"
+      ],
+      "total_model_weight": 2,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 94,
+        "top3_correct": 111,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7833333333333333,
+        "top3_recall": 0.925,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "280",
+            "264"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 10,
+          "new_top3": [
+            "5017",
+            "5016",
+            "7385"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "2271",
+            "5441",
+            "5329"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "4352",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "1180",
+            "2218",
+            "694"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 2,
+          "new_top3": [
+            "6433",
+            "505764",
+            "436"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "5261"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "3238",
+            "5015"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 84,
+          "new_top3": [
+            "3769",
+            "5687",
+            "519"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "3798",
+            "8485"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "8",
+            "16",
+            "505372"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1801",
+            "275",
+            "222"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4640",
+            "4739",
+            "101"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543662",
+            "6176",
+            "1594"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3588",
+            "5566",
+            "4659"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "632",
+            "464",
+            "499697"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4554",
+            "4745",
+            "1928"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2619",
+            "9",
+            "527"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1795",
+            "543575",
+            "2015"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4973",
+            "503741",
+            "4617"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3769",
+            "4737",
+            "499850"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "5918",
+            "923"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "267",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1634",
+            "1279"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "303",
+            "1928"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "3354",
+            "1671"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "category"
+      ],
+      "total_model_weight": 3,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 94,
+        "top3_correct": 108,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7833333333333333,
+        "top3_recall": 0.9,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "280",
+            "298"
+          ]
+        },
+        {
+          "example_id": "draft-046",
+          "query": "kibble for pet dogs",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "3530",
+            "5015",
+            "5162"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "1251"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "2218",
+            "1180",
+            "694"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 7,
+          "new_top3": [
+            "569",
+            "4076",
+            "436"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "587"
+          ]
+        },
+        {
+          "example_id": "draft-081",
+          "query": "movies on DVD",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "386",
+            "839",
+            "389"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "3238",
+            "5015"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 84,
+          "new_top3": [
+            "7302",
+            "5687",
+            "3769"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 3,
+          "new_top3": [
+            "3798",
+            "8485",
+            "694"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "275",
+            "1801",
+            "6790"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1594",
+            "101",
+            "503748"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543662",
+            "599",
+            "6176"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7422",
+            "976",
+            "1205"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "632",
+            "499697",
+            "8023"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6930",
+            "500090",
+            "543618"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "631",
+            "2531",
+            "587"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3769",
+            "1928",
+            "298"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "923",
+            "5918"
+          ]
+        },
+        {
+          "example_id": "draft-186",
+          "query": "car insurance policy",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3436",
+            "1267",
+            "1813"
+          ]
+        },
+        {
+          "example_id": "draft-189",
+          "query": "cloud server rental",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4026",
+            "331",
+            "342"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "267",
+            "319"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "529",
+            "4508",
+            "486"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "519",
+            "131",
+            "6446"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "3354",
+            "499972"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "1675"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "category"
+      ],
+      "total_model_weight": 2,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 93,
+        "top3_correct": 109,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.775,
+        "top3_recall": 0.9083333333333333,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "264",
+            "280"
+          ]
+        },
+        {
+          "example_id": "draft-046",
+          "query": "kibble for pet dogs",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "3530",
+            "5015",
+            "5162"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "1251"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 12,
+          "new_top3": [
+            "5017",
+            "5016",
+            "7385"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2218",
+            "694",
+            "1180"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 4,
+          "new_top3": [
+            "569",
+            "4437",
+            "4076"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "587"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "3238",
+            "6403"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-100",
+          "query": "goods for babies and toddlers",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "562",
+            "537",
+            "422"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 85,
+          "new_top3": [
+            "7302",
+            "3769",
+            "5687"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 2,
+          "new_top3": [
+            "3798",
+            "694",
+            "8485"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "275",
+            "1801",
+            "222"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1594",
+            "503748",
+            "4739"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543662",
+            "6176",
+            "599"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7422",
+            "976",
+            "4659"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "632",
+            "3845",
+            "499697"
+          ]
+        },
+        {
+          "example_id": "draft-169",
+          "query": "mouse",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "278",
+            "1928",
+            "1253"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6930",
+            "500090",
+            "543618"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "631",
+            "2531",
+            "587"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3769",
+            "1928",
+            "298"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "923",
+            "5918"
+          ]
+        },
+        {
+          "example_id": "draft-186",
+          "query": "car insurance policy",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3436",
+            "1267",
+            "1813"
+          ]
+        },
+        {
+          "example_id": "draft-189",
+          "query": "cloud server rental",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4026",
+            "331",
+            "342"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "267",
+            "318",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "529",
+            "4508",
+            "528"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "519",
+            "131",
+            "2764"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "303",
+            "4512",
+            "5036"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "3354",
+            "499972"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "1675"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "category",
+        "alternatives"
+      ],
+      "total_model_weight": 1,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 91,
+        "top3_correct": 112,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7583333333333333,
+        "top3_recall": 0.9333333333333333,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "264",
+            "280"
+          ]
+        },
+        {
+          "example_id": "draft-046",
+          "query": "kibble for pet dogs",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "3530",
+            "5015",
+            "5011"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "500059"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 4,
+          "new_top3": [
+            "5017",
+            "7385",
+            "5016"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5330",
+            "5329",
+            "5441"
+          ]
+        },
+        {
+          "example_id": "draft-060",
+          "query": "baby nappies",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "7360",
+            "551",
+            "548"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "4437",
+            "2696"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "6182"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "6403",
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "7120"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "5632"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5055",
+            "774",
+            "773"
+          ]
+        },
+        {
+          "example_id": "draft-098",
+          "query": "building hardware and tools",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1167",
+            "632",
+            "3650"
+          ]
+        },
+        {
+          "example_id": "draft-100",
+          "query": "goods for babies and toddlers",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "562",
+            "537",
+            "5422"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 94,
+          "new_top3": [
+            "3769",
+            "5687",
+            "7302"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "3798",
+            "3311"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 3,
+          "new_top3": [
+            "505372",
+            "16",
+            "8"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505295",
+            "275",
+            "6933"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1594",
+            "3672",
+            "6553"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543662",
+            "6176",
+            "1513"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6428",
+            "6426",
+            "4659"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2836",
+            "3845",
+            "2446"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4745",
+            "1928",
+            "298"
+          ]
+        },
+        {
+          "example_id": "draft-169",
+          "query": "mouse",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "278",
+            "1253",
+            "1928"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1816",
+            "147",
+            "6930"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4974",
+            "4977",
+            "2195"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "631",
+            "1483",
+            "7238"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3307",
+            "3769",
+            "543589"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "923",
+            "5918"
+          ]
+        },
+        {
+          "example_id": "draft-186",
+          "query": "car insurance policy",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3436",
+            "1267",
+            "1813"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "267",
+            "318",
+            "543513"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "528",
+            "6383",
+            "6384"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "973",
+            "131",
+            "630"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "303",
+            "1928",
+            "503003"
+          ]
+        },
+        {
+          "example_id": "draft-195",
+          "query": "zzzzvvvqqq",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "429",
+            "3284",
+            "2905"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "543659",
+            "3354"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "298",
+            "264"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "category"
+      ],
+      "total_model_weight": 1,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 91,
+        "top3_correct": 111,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7583333333333333,
+        "top3_recall": 0.925,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "264",
+            "280"
+          ]
+        },
+        {
+          "example_id": "draft-046",
+          "query": "kibble for pet dogs",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "3530",
+            "5015",
+            "5162"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "500059"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 7,
+          "new_top3": [
+            "7385",
+            "5017",
+            "5016"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5330",
+            "5329",
+            "2271"
+          ]
+        },
+        {
+          "example_id": "draft-060",
+          "query": "baby nappies",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "7360",
+            "551",
+            "5412"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2218",
+            "694",
+            "1180"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "4437",
+            "6860"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "6182"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "6403",
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "5483"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "5632"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "774",
+            "5055",
+            "773"
+          ]
+        },
+        {
+          "example_id": "draft-098",
+          "query": "building hardware and tools",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1167",
+            "632",
+            "4919"
+          ]
+        },
+        {
+          "example_id": "draft-100",
+          "query": "goods for babies and toddlers",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "562",
+            "537",
+            "5422"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 91,
+          "new_top3": [
+            "3769",
+            "5687",
+            "7302"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "3311",
+            "3798"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "275",
+            "505295",
+            "6933"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3672",
+            "6553",
+            "1594"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543662",
+            "6176",
+            "1513"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4659",
+            "6426",
+            "6428"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3845",
+            "2836",
+            "632"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4745",
+            "1928",
+            "302"
+          ]
+        },
+        {
+          "example_id": "draft-169",
+          "query": "mouse",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "278",
+            "1253",
+            "1993"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1816",
+            "147",
+            "6930"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4974",
+            "2195",
+            "4977"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "631",
+            "1483",
+            "7238"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3307",
+            "3769",
+            "1928"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "923",
+            "5918"
+          ]
+        },
+        {
+          "example_id": "draft-186",
+          "query": "car insurance policy",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3436",
+            "1267",
+            "1813"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "267",
+            "318",
+            "543513"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "528",
+            "6383",
+            "6384"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "973",
+            "536",
+            "2764"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1634",
+            "1562",
+            "1279"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "303",
+            "4512",
+            "1928"
+          ]
+        },
+        {
+          "example_id": "draft-195",
+          "query": "zzzzvvvqqq",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "429",
+            "2905",
+            "3284"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "3354",
+            "543659"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "298",
+            "264"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "category",
+        "context"
+      ],
+      "total_model_weight": 3,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 91,
+        "top3_correct": 107,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7583333333333333,
+        "top3_recall": 0.8916666666666667,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "280",
+            "298"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 18,
+          "new_top3": [
+            "5017",
+            "5016",
+            "2"
+          ]
+        },
+        {
+          "example_id": "draft-051",
+          "query": "purses carried by hand",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5207",
+            "3032",
+            "104"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "2271",
+            "5441",
+            "5329"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "4352",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 4,
+          "new_top3": [
+            "1180",
+            "8485",
+            "2218"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 6,
+          "new_top3": [
+            "6433",
+            "436",
+            "569"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "5261"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "5015",
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-087",
+          "query": "instruments used to make music",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2165",
+            "54",
+            "1264"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 81,
+          "new_top3": [
+            "3769",
+            "519",
+            "5687"
+          ]
+        },
+        {
+          "example_id": "draft-113",
+          "query": "Tos",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5488",
+            "543648",
+            "4245"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 2,
+          "new_top3": [
+            "3798",
+            "694",
+            "8485"
+          ]
+        },
+        {
+          "example_id": "draft-133",
+          "query": "all animal and pet products",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2",
+            "1",
+            "6991"
+          ]
+        },
+        {
+          "example_id": "draft-134",
+          "query": "clothing and fashion accessories in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "166",
+            "1604",
+            "167"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "8",
+            "505372",
+            "16"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1801",
+            "275",
+            "6790"
+          ]
+        },
+        {
+          "example_id": "draft-163",
+          "query": "adapter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2182",
+            "258",
+            "1337"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4640",
+            "101",
+            "4739"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3588",
+            "7422",
+            "772"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "632",
+            "464",
+            "499697"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4554",
+            "1928",
+            "6475"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2619",
+            "9",
+            "527"
+          ]
+        },
+        {
+          "example_id": "draft-173",
+          "query": "cable",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "404",
+            "222",
+            "259"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1795",
+            "543575",
+            "2015"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "503741",
+            "4973",
+            "2195"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3769",
+            "499850",
+            "4737"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "5918",
+            "923"
+          ]
+        },
+        {
+          "example_id": "draft-183",
+          "query": "dental surgery appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505367",
+            "7497",
+            "2527"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "2092",
+            "267"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1634",
+            "1279"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "4512",
+            "303"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3354",
+            "6568",
+            "1671"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "context",
+        "alternatives"
+      ],
+      "total_model_weight": 1,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 90,
+        "top3_correct": 111,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.75,
+        "top3_recall": 0.925,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "264",
+            "280"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 5,
+          "new_top3": [
+            "5017",
+            "5016",
+            "7052"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 4,
+          "new_top3": [
+            "5441",
+            "5330",
+            "2271"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "4352",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-055",
+          "query": "interlocking picture puzzles",
+          "previous_rank": 5,
+          "new_rank": 3,
+          "new_top3": [
+            "3287",
+            "3867",
+            "2618"
+          ]
+        },
+        {
+          "example_id": "draft-058",
+          "query": "interchangeable camera optics",
+          "previous_rank": 7,
+          "new_rank": 8,
+          "new_top3": [
+            "141",
+            "156",
+            "142"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "4437",
+            "6433"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543615",
+            "543616",
+            "2441"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "6182"
+          ]
+        },
+        {
+          "example_id": "draft-085",
+          "query": "personal audio headphones and headsets",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543626",
+            "543627",
+            "505771"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "3238",
+            "6403"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "5483"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "5632"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5055",
+            "773",
+            "778"
+          ]
+        },
+        {
+          "example_id": "draft-098",
+          "query": "building hardware and tools",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1167",
+            "632",
+            "3650"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 88,
+          "new_top3": [
+            "3769",
+            "5687",
+            "2982"
+          ]
+        },
+        {
+          "example_id": "draft-109",
+          "query": "Shes",
+          "previous_rank": 144,
+          "new_rank": 144,
+          "new_top3": [
+            "214",
+            "773",
+            "5821"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "4566",
+            "3311"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 3,
+          "new_top3": [
+            "505372",
+            "16",
+            "8"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505295",
+            "6933",
+            "275"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3672",
+            "2353",
+            "6553"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1513",
+            "6176",
+            "5385"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5566",
+            "7308",
+            "6428"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2836",
+            "2446",
+            "464"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4745",
+            "298",
+            "1928"
+          ]
+        },
+        {
+          "example_id": "draft-169",
+          "query": "mouse",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "278",
+            "1928",
+            "6291"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1300",
+            "527",
+            "18"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1816",
+            "147",
+            "2182"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "500101",
+            "500096",
+            "1795"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4617",
+            "4973",
+            "4974"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1483",
+            "1185",
+            "579"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3307",
+            "543589",
+            "1993"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "5918",
+            "923"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "267",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "528",
+            "6383",
+            "5"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "973",
+            "630",
+            "604"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1634",
+            "3849"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1928",
+            "303",
+            "318"
+          ]
+        },
+        {
+          "example_id": "draft-195",
+          "query": "zzzzvvvqqq",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "429",
+            "3284",
+            "773"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "543659",
+            "1671"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "298",
+            "264"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "context"
+      ],
+      "total_model_weight": 1,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 90,
+        "top3_correct": 107,
+        "recall20_correct": 115,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.75,
+        "top3_recall": 0.8916666666666667,
+        "candidate_recall_at_20": 0.9583333333333334,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "265",
+            "264"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 6,
+          "new_top3": [
+            "5017",
+            "7052",
+            "499954"
+          ]
+        },
+        {
+          "example_id": "draft-049",
+          "query": "footwear",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "1933",
+            "1604",
+            "187"
+          ]
+        },
+        {
+          "example_id": "draft-051",
+          "query": "purses carried by hand",
+          "previous_rank": 1,
+          "new_rank": 4,
+          "new_top3": [
+            "6551",
+            "104",
+            "6552"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 6,
+          "new_top3": [
+            "5441",
+            "2271",
+            "5443"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "4352",
+            "3229",
+            "1253"
+          ]
+        },
+        {
+          "example_id": "draft-055",
+          "query": "interlocking picture puzzles",
+          "previous_rank": 5,
+          "new_rank": 1,
+          "new_top3": [
+            "2618",
+            "3287",
+            "3867"
+          ]
+        },
+        {
+          "example_id": "draft-058",
+          "query": "interchangeable camera optics",
+          "previous_rank": 7,
+          "new_rank": 9,
+          "new_top3": [
+            "141",
+            "156",
+            "142"
+          ]
+        },
+        {
+          "example_id": "draft-063",
+          "query": "fresh apples",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "6854",
+            "430",
+            "6566"
+          ]
+        },
+        {
+          "example_id": "draft-064",
+          "query": "tools for turning screws",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "1203",
+            "1167",
+            "1180"
+          ]
+        },
+        {
+          "example_id": "draft-065",
+          "query": "hand tools for driving nails",
+          "previous_rank": 47,
+          "new_rank": 36,
+          "new_top3": [
+            "1194",
+            "2975",
+            "1167"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "6860",
+            "6433"
+          ]
+        },
+        {
+          "example_id": "draft-072",
+          "query": "bags worn on the back",
+          "previous_rank": 6,
+          "new_rank": 2,
+          "new_top3": [
+            "103",
+            "100",
+            "3032"
+          ]
+        },
+        {
+          "example_id": "draft-073",
+          "query": "desk seating for office workers",
+          "previous_rank": 2,
+          "new_rank": 3,
+          "new_top3": [
+            "6362",
+            "4191",
+            "2045"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "6182"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 4,
+          "new_top3": [
+            "3238",
+            "505821",
+            "6403"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "5483"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "5632"
+          ]
+        },
+        {
+          "example_id": "draft-098",
+          "query": "building hardware and tools",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1167",
+            "632",
+            "115"
+          ]
+        },
+        {
+          "example_id": "draft-100",
+          "query": "goods for babies and toddlers",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5422",
+            "537",
+            "562"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 79,
+          "new_top3": [
+            "3769",
+            "2182",
+            "5635"
+          ]
+        },
+        {
+          "example_id": "draft-105",
+          "query": "Chirs",
+          "previous_rank": 85,
+          "new_rank": 15,
+          "new_top3": [
+            "1923",
+            "3347",
+            "2182"
+          ]
+        },
+        {
+          "example_id": "draft-109",
+          "query": "Shes",
+          "previous_rank": 144,
+          "new_rank": 144,
+          "new_top3": [
+            "214",
+            "773",
+            "5821"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "4566",
+            "3311"
+          ]
+        },
+        {
+          "example_id": "draft-133",
+          "query": "all animal and pet products",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2",
+            "1",
+            "3237"
+          ]
+        },
+        {
+          "example_id": "draft-134",
+          "query": "clothing and fashion accessories in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "166",
+            "1604",
+            "167"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 3,
+          "new_top3": [
+            "505372",
+            "16",
+            "8"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-161",
+          "query": "apple",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1684",
+            "6566",
+            "6814"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1801",
+            "222",
+            "5533"
+          ]
+        },
+        {
+          "example_id": "draft-163",
+          "query": "adapter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2182",
+            "286",
+            "1337"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3055",
+            "2353",
+            "4738"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5385",
+            "4642",
+            "1513"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5566",
+            "7308",
+            "4142"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2836",
+            "2446",
+            "3280"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4745",
+            "298",
+            "4554"
+          ]
+        },
+        {
+          "example_id": "draft-169",
+          "query": "mouse",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "278",
+            "1928",
+            "1993"
+          ]
+        },
+        {
+          "example_id": "draft-170",
+          "query": "bass",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505308",
+            "543626",
+            "2917"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1300",
+            "2681",
+            "18"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "147",
+            "2981",
+            "3402"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "500096",
+            "500101",
+            "2015"
+          ]
+        },
+        {
+          "example_id": "draft-177",
+          "query": "bag",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "103",
+            "7224",
+            "3032"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4617",
+            "4973",
+            "4892"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7093",
+            "1483",
+            "4303"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4737",
+            "543589",
+            "3307"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "5918",
+            "923"
+          ]
+        },
+        {
+          "example_id": "draft-183",
+          "query": "dental surgery appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2527",
+            "7499",
+            "7497"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "267",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "528",
+            "6383",
+            "2915"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4973",
+            "4742",
+            "4634"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1634",
+            "318",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1928",
+            "303",
+            "318"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1671",
+            "543659",
+            "3284"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "298",
+            "264"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "category",
+        "alternatives"
+      ],
+      "total_model_weight": 3,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 89,
+        "top3_correct": 108,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7416666666666667,
+        "top3_recall": 0.9,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "1251"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 10,
+          "new_top3": [
+            "5017",
+            "5016",
+            "699"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "1180",
+            "2218",
+            "694"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "2696",
+            "569"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543615",
+            "543616",
+            "2441"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "587"
+          ]
+        },
+        {
+          "example_id": "draft-082",
+          "query": "passenger cars trucks and vans",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5614",
+            "916",
+            "1267"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "5015",
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "192"
+          ]
+        },
+        {
+          "example_id": "draft-091",
+          "query": "cameras and optical equipment",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "142",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 86,
+          "new_top3": [
+            "7302",
+            "499972",
+            "5687"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 3,
+          "new_top3": [
+            "3798",
+            "8485",
+            "694"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 2,
+          "new_top3": [
+            "505372",
+            "8",
+            "16"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "142"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "275",
+            "6790",
+            "1801"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1594",
+            "101",
+            "1801"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7422",
+            "631",
+            "976"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "499697",
+            "464",
+            "632"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6930",
+            "2182",
+            "1816"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "631",
+            "587",
+            "1185"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3769",
+            "569",
+            "6142"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "267",
+            "319"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "519",
+            "131",
+            "630"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "4512",
+            "5036"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "499972",
+            "3354"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "1675"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "category",
+        "alternatives"
+      ],
+      "total_model_weight": 2,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 88,
+        "top3_correct": 111,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7333333333333333,
+        "top3_recall": 0.925,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "1251"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 7,
+          "new_top3": [
+            "5017",
+            "5016",
+            "7385"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2218",
+            "694",
+            "1180"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "2696",
+            "569"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543615",
+            "2441",
+            "543616"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "587"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "3238",
+            "6403"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "7120"
+          ]
+        },
+        {
+          "example_id": "draft-091",
+          "query": "cameras and optical equipment",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "142",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5055",
+            "773",
+            "774"
+          ]
+        },
+        {
+          "example_id": "draft-100",
+          "query": "goods for babies and toddlers",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "562",
+            "537",
+            "5422"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 2,
+          "new_top3": [
+            "3798",
+            "694",
+            "8485"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 3,
+          "new_top3": [
+            "505372",
+            "16",
+            "8"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "275",
+            "6790",
+            "505295"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1594",
+            "101",
+            "1801"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543662",
+            "1594",
+            "6176"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7422",
+            "976",
+            "631"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1816",
+            "6930",
+            "2182"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "631",
+            "587",
+            "1185"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3769",
+            "569",
+            "6142"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "267",
+            "319"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "528",
+            "4508",
+            "529"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "131",
+            "519",
+            "630"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "303",
+            "4512"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "499972",
+            "3354"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "1675"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "context",
+        "alternatives"
+      ],
+      "total_model_weight": 2,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 87,
+        "top3_correct": 110,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.725,
+        "top3_recall": 0.9166666666666666,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "280",
+            "264"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 6,
+          "new_top3": [
+            "5017",
+            "5016",
+            "7052"
+          ]
+        },
+        {
+          "example_id": "draft-051",
+          "query": "purses carried by hand",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5207",
+            "3032",
+            "6552"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "5441",
+            "2271",
+            "5329"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "4352",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-055",
+          "query": "interlocking picture puzzles",
+          "previous_rank": 5,
+          "new_rank": 1,
+          "new_top3": [
+            "2618",
+            "3867",
+            "3287"
+          ]
+        },
+        {
+          "example_id": "draft-058",
+          "query": "interchangeable camera optics",
+          "previous_rank": 7,
+          "new_rank": 10,
+          "new_top3": [
+            "141",
+            "156",
+            "142"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1180",
+            "694",
+            "8485"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "6433",
+            "2696"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543615",
+            "543616",
+            "2441"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "5261"
+          ]
+        },
+        {
+          "example_id": "draft-082",
+          "query": "passenger cars trucks and vans",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1267",
+            "916",
+            "5614"
+          ]
+        },
+        {
+          "example_id": "draft-085",
+          "query": "personal audio headphones and headsets",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543626",
+            "543627",
+            "505771"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 4,
+          "new_top3": [
+            "3238",
+            "505821",
+            "5015"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "5483"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 85,
+          "new_top3": [
+            "3769",
+            "5687",
+            "519"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "3798",
+            "8485"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 2,
+          "new_top3": [
+            "505372",
+            "8",
+            "5710"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "101",
+            "3055",
+            "4640"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "298",
+            "1928",
+            "4745"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543559",
+            "527",
+            "2619"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1795",
+            "2015",
+            "543575"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4973",
+            "503741",
+            "2954"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5918",
+            "5304",
+            "923"
+          ]
+        },
+        {
+          "example_id": "draft-183",
+          "query": "dental surgery appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505367",
+            "7497",
+            "526"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "2092",
+            "267"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "2092",
+            "1634"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1928",
+            "4512"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1671",
+            "6568",
+            "499972"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "alternatives"
+      ],
+      "total_model_weight": 1,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 85,
+        "top3_correct": 113,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7083333333333334,
+        "top3_recall": 0.9416666666666667,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 2,
+          "new_top3": [
+            "264",
+            "2353",
+            "280"
+          ]
+        },
+        {
+          "example_id": "draft-046",
+          "query": "kibble for pet dogs",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "3530",
+            "5015",
+            "5011"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "3166"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 3,
+          "new_top3": [
+            "5017",
+            "5016",
+            "4989"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "5330",
+            "5441",
+            "5329"
+          ]
+        },
+        {
+          "example_id": "draft-060",
+          "query": "baby nappies",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "7360",
+            "551",
+            "548"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "4437",
+            "2696"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543615",
+            "543616",
+            "2441"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "6176"
+          ]
+        },
+        {
+          "example_id": "draft-082",
+          "query": "passenger cars trucks and vans",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5614",
+            "916",
+            "1267"
+          ]
+        },
+        {
+          "example_id": "draft-085",
+          "query": "personal audio headphones and headsets",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543626",
+            "543627",
+            "505771"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "5024",
+            "6403",
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "505372"
+          ]
+        },
+        {
+          "example_id": "draft-091",
+          "query": "cameras and optical equipment",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "142",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "5632"
+          ]
+        },
+        {
+          "example_id": "draft-095",
+          "query": "vehicles and vehicle parts",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5614",
+            "888",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5055",
+            "773",
+            "778"
+          ]
+        },
+        {
+          "example_id": "draft-098",
+          "query": "building hardware and tools",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1167",
+            "632",
+            "3650"
+          ]
+        },
+        {
+          "example_id": "draft-100",
+          "query": "goods for babies and toddlers",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "562",
+            "537",
+            "5422"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "3798",
+            "4566"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 3,
+          "new_top3": [
+            "505372",
+            "16",
+            "8"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505295",
+            "6933",
+            "275"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1594",
+            "3672",
+            "1801"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1513",
+            "6176",
+            "1594"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6428",
+            "772",
+            "1340"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2836",
+            "2446",
+            "464"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4745",
+            "298",
+            "1928"
+          ]
+        },
+        {
+          "example_id": "draft-169",
+          "query": "mouse",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "278",
+            "6291",
+            "1253"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1816",
+            "2182",
+            "147"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2954",
+            "4974",
+            "4977"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1483",
+            "587",
+            "631"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6142",
+            "3307",
+            "569"
+          ]
+        },
+        {
+          "example_id": "draft-186",
+          "query": "car insurance policy",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3436",
+            "1267",
+            "1813"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "267",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "528",
+            "6383",
+            "6384"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "973",
+            "630",
+            "131"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "303",
+            "1928",
+            "503003"
+          ]
+        },
+        {
+          "example_id": "draft-195",
+          "query": "zzzzvvvqqq",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "429",
+            "3284",
+            "7403"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6568",
+            "543659",
+            "499972"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "298",
+            "264"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "alternatives"
+      ],
+      "total_model_weight": 3,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 85,
+        "top3_correct": 105,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7083333333333334,
+        "top3_recall": 0.875,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 9,
+          "new_top3": [
+            "5017",
+            "5016",
+            "3237"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1180",
+            "694",
+            "8485"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "2696",
+            "569"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 5,
+          "new_top3": [
+            "543615",
+            "543616",
+            "486"
+          ]
+        },
+        {
+          "example_id": "draft-082",
+          "query": "passenger cars trucks and vans",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "5614",
+            "1267",
+            "916"
+          ]
+        },
+        {
+          "example_id": "draft-085",
+          "query": "personal audio headphones and headsets",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543626",
+            "543627",
+            "505771"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "505372"
+          ]
+        },
+        {
+          "example_id": "draft-091",
+          "query": "cameras and optical equipment",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "142",
+            "156",
+            "141"
+          ]
+        },
+        {
+          "example_id": "draft-093",
+          "query": "health and beauty products",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2915",
+            "469",
+            "491"
+          ]
+        },
+        {
+          "example_id": "draft-095",
+          "query": "vehicles and vehicle parts",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5614",
+            "888",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5055",
+            "773",
+            "8295"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 89,
+          "new_top3": [
+            "499972",
+            "5687",
+            "7302"
+          ]
+        },
+        {
+          "example_id": "draft-113",
+          "query": "Tos",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5488",
+            "543648",
+            "1801"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 2,
+          "new_top3": [
+            "505372",
+            "8",
+            "5710"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "142"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543559",
+            "527",
+            "528"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2954",
+            "503741",
+            "2195"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6142",
+            "569",
+            "2564"
+          ]
+        },
+        {
+          "example_id": "draft-181",
+          "query": "legal consultation services",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "923",
+            "1594",
+            "963"
+          ]
+        },
+        {
+          "example_id": "draft-185",
+          "query": "online math tutoring",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6739",
+            "317",
+            "523"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "319",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "519",
+            "131",
+            "630"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "4512",
+            "5036"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "6031"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "context"
+      ],
+      "total_model_weight": 2,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 85,
+        "top3_correct": 98,
+        "recall20_correct": 115,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7083333333333334,
+        "top3_recall": 0.8166666666666667,
+        "candidate_recall_at_20": 0.9583333333333334,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "4737",
+            "4008"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 3,
+          "new_top3": [
+            "3229",
+            "1253",
+            "5001"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 13,
+          "new_top3": [
+            "5017",
+            "7052",
+            "2"
+          ]
+        },
+        {
+          "example_id": "draft-049",
+          "query": "footwear",
+          "previous_rank": 1,
+          "new_rank": 7,
+          "new_top3": [
+            "5322",
+            "166",
+            "988"
+          ]
+        },
+        {
+          "example_id": "draft-051",
+          "query": "purses carried by hand",
+          "previous_rank": 1,
+          "new_rank": 8,
+          "new_top3": [
+            "5207",
+            "7133",
+            "104"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 6,
+          "new_top3": [
+            "2271",
+            "5441",
+            "5443"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "4352",
+            "3229",
+            "1253"
+          ]
+        },
+        {
+          "example_id": "draft-055",
+          "query": "interlocking picture puzzles",
+          "previous_rank": 5,
+          "new_rank": 1,
+          "new_top3": [
+            "2618",
+            "3287",
+            "3860"
+          ]
+        },
+        {
+          "example_id": "draft-058",
+          "query": "interchangeable camera optics",
+          "previous_rank": 7,
+          "new_rank": 13,
+          "new_top3": [
+            "141",
+            "156",
+            "142"
+          ]
+        },
+        {
+          "example_id": "draft-063",
+          "query": "fresh apples",
+          "previous_rank": 1,
+          "new_rank": 6,
+          "new_top3": [
+            "430",
+            "6854",
+            "5744"
+          ]
+        },
+        {
+          "example_id": "draft-064",
+          "query": "tools for turning screws",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "1203",
+            "1167",
+            "1180"
+          ]
+        },
+        {
+          "example_id": "draft-065",
+          "query": "hand tools for driving nails",
+          "previous_rank": 47,
+          "new_rank": 33,
+          "new_top3": [
+            "1194",
+            "2975",
+            "1167"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 7,
+          "new_top3": [
+            "1180",
+            "8485",
+            "7564"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 5,
+          "new_top3": [
+            "6433",
+            "436",
+            "6860"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543616",
+            "543615",
+            "2441"
+          ]
+        },
+        {
+          "example_id": "draft-071",
+          "query": "sun protection skin lotion",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "2844",
+            "567",
+            "2958"
+          ]
+        },
+        {
+          "example_id": "draft-072",
+          "query": "bags worn on the back",
+          "previous_rank": 6,
+          "new_rank": 5,
+          "new_top3": [
+            "103",
+            "6971",
+            "7224"
+          ]
+        },
+        {
+          "example_id": "draft-073",
+          "query": "desk seating for office workers",
+          "previous_rank": 2,
+          "new_rank": 7,
+          "new_top3": [
+            "6362",
+            "443",
+            "436"
+          ]
+        },
+        {
+          "example_id": "draft-074",
+          "query": "paper fastening staplers",
+          "previous_rank": 1,
+          "new_rank": 4,
+          "new_top3": [
+            "7064",
+            "4312",
+            "7080"
+          ]
+        },
+        {
+          "example_id": "draft-076",
+          "query": "six string guitars",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "77",
+            "80",
+            "503034"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "5261"
+          ]
+        },
+        {
+          "example_id": "draft-082",
+          "query": "passenger cars trucks and vans",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1267",
+            "916",
+            "920"
+          ]
+        },
+        {
+          "example_id": "draft-083",
+          "query": "protective helmets for bicycle riders",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "499722",
+            "2020",
+            "1029"
+          ]
+        },
+        {
+          "example_id": "draft-085",
+          "query": "personal audio headphones and headsets",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543626",
+            "543627",
+            "505771"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 5,
+          "new_top3": [
+            "505821",
+            "3238",
+            "5015"
+          ]
+        },
+        {
+          "example_id": "draft-087",
+          "query": "instruments used to make music",
+          "previous_rank": 1,
+          "new_rank": 5,
+          "new_top3": [
+            "2165",
+            "4892",
+            "503038"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 73,
+          "new_top3": [
+            "3769",
+            "2182",
+            "135"
+          ]
+        },
+        {
+          "example_id": "draft-105",
+          "query": "Chirs",
+          "previous_rank": 85,
+          "new_rank": 10,
+          "new_top3": [
+            "360",
+            "1923",
+            "6436"
+          ]
+        },
+        {
+          "example_id": "draft-113",
+          "query": "Tos",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "8301",
+            "4245",
+            "1801"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "694",
+            "2218",
+            "7564"
+          ]
+        },
+        {
+          "example_id": "draft-133",
+          "query": "all animal and pet products",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2",
+            "1",
+            "3237"
+          ]
+        },
+        {
+          "example_id": "draft-134",
+          "query": "clothing and fashion accessories in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "166",
+            "1604",
+            "5192"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "8",
+            "5710",
+            "505372"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-157",
+          "query": "phone accessories",
+          "previous_rank": 5,
+          "new_rank": 5,
+          "new_top3": [
+            "4737",
+            "2082",
+            "7163"
+          ]
+        },
+        {
+          "example_id": "draft-161",
+          "query": "apple",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1684",
+            "543626",
+            "430"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1801",
+            "222",
+            "6790"
+          ]
+        },
+        {
+          "example_id": "draft-163",
+          "query": "adapter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2182",
+            "1337",
+            "1167"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3055",
+            "4640",
+            "4738"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5385",
+            "4642",
+            "1594"
+          ]
+        },
+        {
+          "example_id": "draft-166",
+          "query": "stand",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5566",
+            "7308",
+            "772"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3280",
+            "464",
+            "499903"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4554",
+            "6475",
+            "4745"
+          ]
+        },
+        {
+          "example_id": "draft-170",
+          "query": "bass",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3334",
+            "505308",
+            "543626"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "9",
+            "2619",
+            "1300"
+          ]
+        },
+        {
+          "example_id": "draft-173",
+          "query": "cable",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5119",
+            "222",
+            "503729"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2015",
+            "1795",
+            "500096"
+          ]
+        },
+        {
+          "example_id": "draft-177",
+          "query": "bag",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7224",
+            "103",
+            "6971"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4973",
+            "4892",
+            "4617"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7093",
+            "4737",
+            "4303"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4737",
+            "551",
+            "502970"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "5918",
+            "500106"
+          ]
+        },
+        {
+          "example_id": "draft-183",
+          "query": "dental surgery appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2527",
+            "505367",
+            "7499"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2915",
+            "4508",
+            "486"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4973",
+            "4742",
+            "630"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1634",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1928",
+            "3769"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1671",
+            "773",
+            "3284"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "alternatives"
+      ],
+      "total_model_weight": 2,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 84,
+        "top3_correct": 107,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.7,
+        "top3_recall": 0.8916666666666667,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "5001",
+            "1253",
+            "1251"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 6,
+          "new_top3": [
+            "5017",
+            "5016",
+            "3237"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "2696",
+            "6433"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 5,
+          "new_top3": [
+            "543615",
+            "543616",
+            "486"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "5261"
+          ]
+        },
+        {
+          "example_id": "draft-082",
+          "query": "passenger cars trucks and vans",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5614",
+            "916",
+            "1267"
+          ]
+        },
+        {
+          "example_id": "draft-085",
+          "query": "personal audio headphones and headsets",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543626",
+            "543627",
+            "505771"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 3,
+          "new_top3": [
+            "3238",
+            "422",
+            "5024"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "505372"
+          ]
+        },
+        {
+          "example_id": "draft-091",
+          "query": "cameras and optical equipment",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "142",
+            "156",
+            "141"
+          ]
+        },
+        {
+          "example_id": "draft-093",
+          "query": "health and beauty products",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2915",
+            "469",
+            "491"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-095",
+          "query": "vehicles and vehicle parts",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5614",
+            "888",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-097",
+          "query": "adult oriented products",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5055",
+            "773",
+            "776"
+          ]
+        },
+        {
+          "example_id": "draft-100",
+          "query": "goods for babies and toddlers",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "562",
+            "537",
+            "7070"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 2,
+          "new_top3": [
+            "505372",
+            "8",
+            "5710"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505295",
+            "6790",
+            "1869"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1594",
+            "1801",
+            "101"
+          ]
+        },
+        {
+          "example_id": "draft-174",
+          "query": "filter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1816",
+            "2182",
+            "7393"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2954",
+            "503741",
+            "2195"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "6142",
+            "569",
+            "2564"
+          ]
+        },
+        {
+          "example_id": "draft-181",
+          "query": "legal consultation services",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "923",
+            "1594",
+            "963"
+          ]
+        },
+        {
+          "example_id": "draft-190",
+          "query": "mobile app development service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "319",
+            "267"
+          ]
+        },
+        {
+          "example_id": "draft-191",
+          "query": "dog grooming appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "528",
+            "4508",
+            "529"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "131",
+            "630",
+            "519"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1928",
+            "4512"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "298"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "context",
+        "alternatives"
+      ],
+      "total_model_weight": 3,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 82,
+        "top3_correct": 107,
+        "recall20_correct": 114,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.6833333333333333,
+        "top3_recall": 0.8916666666666667,
+        "candidate_recall_at_20": 0.95,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "280",
+            "264"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 11,
+          "new_top3": [
+            "5017",
+            "5016",
+            "2"
+          ]
+        },
+        {
+          "example_id": "draft-051",
+          "query": "purses carried by hand",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "5207",
+            "3032",
+            "6552"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "5441",
+            "2271",
+            "5329"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "4352",
+            "1253",
+            "3229"
+          ]
+        },
+        {
+          "example_id": "draft-055",
+          "query": "interlocking picture puzzles",
+          "previous_rank": 5,
+          "new_rank": 1,
+          "new_top3": [
+            "2618",
+            "3867",
+            "3860"
+          ]
+        },
+        {
+          "example_id": "draft-063",
+          "query": "fresh apples",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "430",
+            "6566",
+            "422"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "1180",
+            "8485",
+            "694"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 1,
+          "new_top3": [
+            "505764",
+            "6433",
+            "2696"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543615",
+            "543616",
+            "2441"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "5261"
+          ]
+        },
+        {
+          "example_id": "draft-082",
+          "query": "passenger cars trucks and vans",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1267",
+            "916",
+            "5614"
+          ]
+        },
+        {
+          "example_id": "draft-083",
+          "query": "protective helmets for bicycle riders",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2020",
+            "1029",
+            "500028"
+          ]
+        },
+        {
+          "example_id": "draft-085",
+          "query": "personal audio headphones and headsets",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543626",
+            "543627",
+            "505771"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 5,
+          "new_top3": [
+            "5015",
+            "505821",
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-087",
+          "query": "instruments used to make music",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2165",
+            "54",
+            "1264"
+          ]
+        },
+        {
+          "example_id": "draft-089",
+          "query": "religious and ceremonial goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "97",
+            "5605",
+            "184"
+          ]
+        },
+        {
+          "example_id": "draft-091",
+          "query": "cameras and optical equipment",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "142",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 82,
+          "new_top3": [
+            "3769",
+            "519",
+            "135"
+          ]
+        },
+        {
+          "example_id": "draft-105",
+          "query": "Chirs",
+          "previous_rank": 85,
+          "new_rank": 29,
+          "new_top3": [
+            "6436",
+            "5109",
+            "533"
+          ]
+        },
+        {
+          "example_id": "draft-113",
+          "query": "Tos",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5488",
+            "1801",
+            "543648"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 3,
+          "new_top3": [
+            "3798",
+            "8485",
+            "694"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 2,
+          "new_top3": [
+            "505372",
+            "8",
+            "5710"
+          ]
+        },
+        {
+          "example_id": "draft-138",
+          "query": "photography and optics equipment in general",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "39",
+            "141",
+            "156"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-163",
+          "query": "adapter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1337",
+            "2182",
+            "258"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "101",
+            "4640",
+            "107"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "298",
+            "1928",
+            "4554"
+          ]
+        },
+        {
+          "example_id": "draft-170",
+          "query": "bass",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3334",
+            "223",
+            "54"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "543559",
+            "2619",
+            "527"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1795",
+            "2015",
+            "543575"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "503741",
+            "4973",
+            "2954"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5918",
+            "5304",
+            "923"
+          ]
+        },
+        {
+          "example_id": "draft-183",
+          "query": "dental surgery appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505367",
+            "7497",
+            "526"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1562",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "1928",
+            "4512"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "222"
+          ]
+        }
+      ]
+    },
+    {
+      "representations": [
+        "context"
+      ],
+      "total_model_weight": 3,
+      "non_exact": {
+        "examples": 160,
+        "resolvable_examples": 120,
+        "top1_correct": 79,
+        "top3_correct": 93,
+        "recall20_correct": 115,
+        "shortlist_correct": 118,
+        "automatic_matches": 14,
+        "correct_automatic_matches": 14,
+        "incorrect_automatic_matches": 0,
+        "resolvable_automatic_matches": 14,
+        "top1_accuracy": 0.6583333333333333,
+        "top3_recall": 0.775,
+        "candidate_recall_at_20": 0.9583333333333334,
+        "final_shortlist_recall": 0.9833333333333333,
+        "automatic_match_precision": 1.0,
+        "resolvable_automatic_coverage": 0.11666666666666667,
+        "unresolvable_examples": 40,
+        "unresolvable_false_acceptances": 0
+      },
+      "changes": [
+        {
+          "example_id": "draft-041",
+          "query": "handheld cellular telephones",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "270",
+            "272",
+            "267"
+          ]
+        },
+        {
+          "example_id": "draft-042",
+          "query": "protective shells for cellphones",
+          "previous_rank": 3,
+          "new_rank": 1,
+          "new_top3": [
+            "2353",
+            "4737",
+            "4008"
+          ]
+        },
+        {
+          "example_id": "draft-043",
+          "query": "portable notebook computers",
+          "previous_rank": 3,
+          "new_rank": 3,
+          "new_top3": [
+            "298",
+            "278",
+            "328"
+          ]
+        },
+        {
+          "example_id": "draft-047",
+          "query": "playthings for cats",
+          "previous_rank": 2,
+          "new_rank": 5,
+          "new_top3": [
+            "3229",
+            "1253",
+            "4352"
+          ]
+        },
+        {
+          "example_id": "draft-048",
+          "query": "enclosures for pet birds",
+          "previous_rank": 18,
+          "new_rank": 18,
+          "new_top3": [
+            "5017",
+            "7052",
+            "2"
+          ]
+        },
+        {
+          "example_id": "draft-049",
+          "query": "footwear",
+          "previous_rank": 1,
+          "new_rank": 8,
+          "new_top3": [
+            "988",
+            "166",
+            "5322"
+          ]
+        },
+        {
+          "example_id": "draft-051",
+          "query": "purses carried by hand",
+          "previous_rank": 1,
+          "new_rank": 12,
+          "new_top3": [
+            "5207",
+            "7133",
+            "5181"
+          ]
+        },
+        {
+          "example_id": "draft-052",
+          "query": "bridal gowns",
+          "previous_rank": 1,
+          "new_rank": 6,
+          "new_top3": [
+            "2271",
+            "5441",
+            "5443"
+          ]
+        },
+        {
+          "example_id": "draft-053",
+          "query": "children's playthings",
+          "previous_rank": 1,
+          "new_rank": 4,
+          "new_top3": [
+            "4352",
+            "3229",
+            "2505"
+          ]
+        },
+        {
+          "example_id": "draft-055",
+          "query": "interlocking picture puzzles",
+          "previous_rank": 5,
+          "new_rank": 1,
+          "new_top3": [
+            "2618",
+            "3287",
+            "3725"
+          ]
+        },
+        {
+          "example_id": "draft-058",
+          "query": "interchangeable camera optics",
+          "previous_rank": 7,
+          "new_rank": 15,
+          "new_top3": [
+            "141",
+            "156",
+            "142"
+          ]
+        },
+        {
+          "example_id": "draft-059",
+          "query": "pushchairs for babies",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "538",
+            "551",
+            "568"
+          ]
+        },
+        {
+          "example_id": "draft-063",
+          "query": "fresh apples",
+          "previous_rank": 1,
+          "new_rank": 10,
+          "new_top3": [
+            "430",
+            "6854",
+            "5744"
+          ]
+        },
+        {
+          "example_id": "draft-064",
+          "query": "tools for turning screws",
+          "previous_rank": 4,
+          "new_rank": 1,
+          "new_top3": [
+            "1203",
+            "1180",
+            "1923"
+          ]
+        },
+        {
+          "example_id": "draft-065",
+          "query": "hand tools for driving nails",
+          "previous_rank": 47,
+          "new_rank": 28,
+          "new_top3": [
+            "1194",
+            "1167",
+            "2975"
+          ]
+        },
+        {
+          "example_id": "draft-066",
+          "query": "machines for cutting lawn grass",
+          "previous_rank": 1,
+          "new_rank": 9,
+          "new_top3": [
+            "1180",
+            "8485",
+            "6258"
+          ]
+        },
+        {
+          "example_id": "draft-068",
+          "query": "bed frames for sleeping",
+          "previous_rank": 12,
+          "new_rank": 7,
+          "new_top3": [
+            "6433",
+            "436",
+            "4420"
+          ]
+        },
+        {
+          "example_id": "draft-069",
+          "query": "brushes for cleaning teeth",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "7499",
+            "527",
+            "2619"
+          ]
+        },
+        {
+          "example_id": "draft-070",
+          "query": "hair shampoo and conditioner",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543616",
+            "543615",
+            "2441"
+          ]
+        },
+        {
+          "example_id": "draft-071",
+          "query": "sun protection skin lotion",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "2844",
+            "567",
+            "2958"
+          ]
+        },
+        {
+          "example_id": "draft-072",
+          "query": "bags worn on the back",
+          "previous_rank": 6,
+          "new_rank": 5,
+          "new_top3": [
+            "103",
+            "6971",
+            "7224"
+          ]
+        },
+        {
+          "example_id": "draft-073",
+          "query": "desk seating for office workers",
+          "previous_rank": 2,
+          "new_rank": 9,
+          "new_top3": [
+            "6362",
+            "443",
+            "436"
+          ]
+        },
+        {
+          "example_id": "draft-074",
+          "query": "paper fastening staplers",
+          "previous_rank": 1,
+          "new_rank": 9,
+          "new_top3": [
+            "7064",
+            "7080",
+            "4312"
+          ]
+        },
+        {
+          "example_id": "draft-076",
+          "query": "six string guitars",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "77",
+            "80",
+            "503038"
+          ]
+        },
+        {
+          "example_id": "draft-077",
+          "query": "brushes for applying paint",
+          "previous_rank": 1,
+          "new_rank": 4,
+          "new_top3": [
+            "1832",
+            "1361",
+            "2619"
+          ]
+        },
+        {
+          "example_id": "draft-078",
+          "query": "storage equipment for industrial facilities",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1470",
+            "5830",
+            "1795"
+          ]
+        },
+        {
+          "example_id": "draft-080",
+          "query": "printed reading books",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "543543",
+            "784",
+            "5261"
+          ]
+        },
+        {
+          "example_id": "draft-082",
+          "query": "passenger cars trucks and vans",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "1267",
+            "916",
+            "920"
+          ]
+        },
+        {
+          "example_id": "draft-083",
+          "query": "protective helmets for bicycle riders",
+          "previous_rank": 1,
+          "new_rank": 7,
+          "new_top3": [
+            "499722",
+            "2020",
+            "3077"
+          ]
+        },
+        {
+          "example_id": "draft-085",
+          "query": "personal audio headphones and headsets",
+          "previous_rank": 1,
+          "new_rank": 3,
+          "new_top3": [
+            "543626",
+            "543627",
+            "505771"
+          ]
+        },
+        {
+          "example_id": "draft-086",
+          "query": "feed for aquarium fish",
+          "previous_rank": 4,
+          "new_rank": 8,
+          "new_top3": [
+            "505821",
+            "5015",
+            "3238"
+          ]
+        },
+        {
+          "example_id": "draft-087",
+          "query": "instruments used to make music",
+          "previous_rank": 1,
+          "new_rank": 9,
+          "new_top3": [
+            "2165",
+            "4892",
+            "503038"
+          ]
+        },
+        {
+          "example_id": "draft-094",
+          "query": "household and gardening goods",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "630",
+            "536",
+            "2962"
+          ]
+        },
+        {
+          "example_id": "draft-104",
+          "query": "Soas",
+          "previous_rank": 88,
+          "new_rank": 70,
+          "new_top3": [
+            "3769",
+            "2182",
+            "135"
+          ]
+        },
+        {
+          "example_id": "draft-105",
+          "query": "Chirs",
+          "previous_rank": 85,
+          "new_rank": 9,
+          "new_top3": [
+            "360",
+            "6436",
+            "1923"
+          ]
+        },
+        {
+          "example_id": "draft-113",
+          "query": "Tos",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "8301",
+            "4245",
+            "1801"
+          ]
+        },
+        {
+          "example_id": "draft-126",
+          "query": "Lan Mowers",
+          "previous_rank": 3,
+          "new_rank": 3,
+          "new_top3": [
+            "2218",
+            "7564",
+            "694"
+          ]
+        },
+        {
+          "example_id": "draft-133",
+          "query": "all animal and pet products",
+          "previous_rank": 1,
+          "new_rank": 2,
+          "new_top3": [
+            "2",
+            "1",
+            "3237"
+          ]
+        },
+        {
+          "example_id": "draft-134",
+          "query": "clothing and fashion accessories in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "166",
+            "1604",
+            "5192"
+          ]
+        },
+        {
+          "example_id": "draft-135",
+          "query": "arts crafts and entertainment products",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "8",
+            "5710",
+            "216"
+          ]
+        },
+        {
+          "example_id": "draft-153",
+          "query": "vehicles and their parts in general",
+          "previous_rank": 2,
+          "new_rank": 1,
+          "new_top3": [
+            "888",
+            "5614",
+            "5613"
+          ]
+        },
+        {
+          "example_id": "draft-157",
+          "query": "phone accessories",
+          "previous_rank": 5,
+          "new_rank": 9,
+          "new_top3": [
+            "4737",
+            "7163",
+            "2082"
+          ]
+        },
+        {
+          "example_id": "draft-161",
+          "query": "apple",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1684",
+            "543626",
+            "430"
+          ]
+        },
+        {
+          "example_id": "draft-162",
+          "query": "charger",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1801",
+            "6790",
+            "222"
+          ]
+        },
+        {
+          "example_id": "draft-163",
+          "query": "adapter",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2182",
+            "1337",
+            "1167"
+          ]
+        },
+        {
+          "example_id": "draft-164",
+          "query": "case",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3055",
+            "4640",
+            "4738"
+          ]
+        },
+        {
+          "example_id": "draft-165",
+          "query": "cover",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4642",
+            "5385",
+            "1594"
+          ]
+        },
+        {
+          "example_id": "draft-167",
+          "query": "rack",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3280",
+            "464",
+            "499903"
+          ]
+        },
+        {
+          "example_id": "draft-168",
+          "query": "tablet",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4554",
+            "6475",
+            "298"
+          ]
+        },
+        {
+          "example_id": "draft-170",
+          "query": "bass",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "3334",
+            "505308",
+            "543626"
+          ]
+        },
+        {
+          "example_id": "draft-172",
+          "query": "brush",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "9",
+            "2619",
+            "4973"
+          ]
+        },
+        {
+          "example_id": "draft-173",
+          "query": "cable",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5119",
+            "222",
+            "503729"
+          ]
+        },
+        {
+          "example_id": "draft-176",
+          "query": "pump",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1795",
+            "2015",
+            "3540"
+          ]
+        },
+        {
+          "example_id": "draft-177",
+          "query": "bag",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7224",
+            "6971",
+            "7151"
+          ]
+        },
+        {
+          "example_id": "draft-178",
+          "query": "cleaner",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4892",
+            "4973",
+            "4617"
+          ]
+        },
+        {
+          "example_id": "draft-179",
+          "query": "holder",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "7093",
+            "4737",
+            "4303"
+          ]
+        },
+        {
+          "example_id": "draft-180",
+          "query": "pad",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4737",
+            "551",
+            "499850"
+          ]
+        },
+        {
+          "example_id": "draft-182",
+          "query": "tax accounting service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5304",
+            "500106",
+            "5918"
+          ]
+        },
+        {
+          "example_id": "draft-183",
+          "query": "dental surgery appointment",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "505367",
+            "2527",
+            "7499"
+          ]
+        },
+        {
+          "example_id": "draft-185",
+          "query": "online math tutoring",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "5255",
+            "317",
+            "5935"
+          ]
+        },
+        {
+          "example_id": "draft-188",
+          "query": "restaurant table booking",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "2920",
+            "6392",
+            "672"
+          ]
+        },
+        {
+          "example_id": "draft-192",
+          "query": "home moving service",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "4973",
+            "4742",
+            "630"
+          ]
+        },
+        {
+          "example_id": "draft-193",
+          "query": "zxqvplm",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "499899",
+            "2092"
+          ]
+        },
+        {
+          "example_id": "draft-194",
+          "query": "qwertyuiopxyz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "318",
+            "3769",
+            "1928"
+          ]
+        },
+        {
+          "example_id": "draft-195",
+          "query": "zzzzvvvqqq",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "773",
+            "3284",
+            "5713"
+          ]
+        },
+        {
+          "example_id": "draft-196",
+          "query": "asdfghjklzzz",
+          "previous_rank": 0,
+          "new_rank": 0,
+          "new_top3": [
+            "1671",
+            "773",
+            "3953"
+          ]
+        }
+      ],
+      "user_candidates": [
+        {
+          "query": "Hoodies & Sweatshirts|Clothing",
+          "top3": [
+            "1604",
+            "203",
+            "212"
+          ]
+        },
+        {
+          "query": "Smart Phone",
+          "top3": [
+            "267",
+            "270",
+            "262"
+          ]
+        }
+      ]
+    }
+  ]
+}

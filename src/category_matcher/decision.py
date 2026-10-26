@@ -113,6 +113,8 @@ class DecisionPolicy:
             status, reason = "no_match", "no_candidates"
         elif result.query_analysis.get("spelling", {}).get("ambiguous"):
             status, reason = "needs_clarification", "competing_spelling_interpretations"
+        elif result.query_analysis.get("specificity_conflict"):
+            status, reason = "needs_clarification", "scope_only_model_support"
         elif result.candidates[0].get("source") in {"context_only", "explicit_broad"}:
             status, reason = "needs_clarification", "attribute_only_broad_context"
         elif (

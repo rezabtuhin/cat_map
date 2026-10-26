@@ -16,6 +16,7 @@ from category_matcher.query import (
     is_attribute_only,
     literal_broad_variants,
     retrieval_text,
+    scope_only_entailment_support,
     split_context,
     unsupported_audience_ids,
 )
@@ -245,10 +246,31 @@ class Matcher:
                 from category_matcher.reranker import CrossEncoderReranker
 
                 self.reranker = CrossEncoderReranker(self.reranker_metadata)
+            retrieval_order = {candidate["id"]: i for i, candidate in enumerate(result.candidates)}
+            retrieval_first = result.candidates[0]["id"] if result.candidates else None
             result.candidates = self.reranker.rank(query, result.candidates)
             result.method += "+rerank"
             result.reason_code = "uncalibrated_reranking"
             result.ranking_model = self.reranker_metadata
+            if retrieval_first != parent_id and scope_only_entailment_support(
+                result.candidates, parent_id
+            ):
+                result.query_analysis["specificity_conflict"] = {
+                    "parent_id": parent_id,
+                    "retrieval_first_id": retrieval_first,
+                    "reason": "model_supports_scope_but_no_scored_product_type",
+                    "action": "preserve_retrieval_order_and_require_clarification",
+                }
+                for candidate in result.candidates:
+                    candidate["model_rank"] = candidate["rank"]
+                result.candidates.sort(key=lambda candidate: retrieval_order[candidate["id"]])
+                for index, candidate in enumerate(result.candidates, 1):
+                    candidate["rank"] = index
+                result.reason_code = "scope_only_model_support_retrieval_order_preserved"
+                result.clarification = (
+                    "The parent category is clear, but the product type is uncertain. "
+                    "Please clarify which type of product this category contains."
+                )
         if spelling["eligible"] and len(spelling["candidates"]) == 1:
             cid = spelling["candidates"][0]
             result.candidates.sort(key=lambda candidate: candidate["id"] != cid)

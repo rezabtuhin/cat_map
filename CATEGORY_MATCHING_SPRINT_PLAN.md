@@ -21,11 +21,13 @@ The first validation must answer:
 At planning time, the project contained only the category source and planning documents.
 Implementation has now started. Track current work in
 [Sprint 2 status](reports/sprint_2/STATUS.md) and
-[latest measured diagnostic findings](reports/sprint_2/improvement/FINDINGS.md).
+[latest measured diagnostic findings](reports/sprint_2/specificity/FINDINGS.md).
 The current Sprint 2 revision selects NLI entailment rank fusion after the initial
-MiniLM comparison failed. It reaches 77.5% top-1 on reused draft non-exact inputs.
-Trusted label review, independent qualification, remaining ranking regressions,
-and the observed swap activity still require work before Sprint 3.
+MiniLM comparison failed. The specificity revision reaches 78.3% top-1 on reused
+draft non-exact inputs and exposes parent-only model disagreement for clarification.
+Trusted label review, independent qualification, and remaining ranking regressions
+still require work before Sprint 3. Resource evidence now separates idle/load/
+inference swap observations; see the current report for its qualification result.
 The sprint descriptions below define planned scope and acceptance criteria.
 
 ## 2. Sprint cadence and scope

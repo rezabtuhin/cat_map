@@ -1,5 +1,7 @@
 """Serial, end-to-end local inference measurements, separate from label accuracy."""
 
+import math
+import platform
 import resource
 import subprocess
 import sys
@@ -26,13 +28,24 @@ def swapouts() -> int | None:
     return None
 
 
+def swap_delta(before: int | None, after: int | None) -> int | None:
+    return None if before is None or after is None else after - before
+
+
 def benchmark(
-    matcher: Matcher, dataset: Path, requests: int, *, rerank: bool | None = None
+    matcher: Matcher,
+    dataset: Path,
+    requests: int,
+    *,
+    rerank: bool | None = None,
+    idle_baseline_seconds: float = 0,
 ) -> dict:
     if rerank is None:
         rerank = matcher.default_rerank
     if not 1 <= requests <= 10000:
         raise ValueError("Benchmark requests must be between 1 and 10000")
+    if not math.isfinite(idle_baseline_seconds) or not 0 <= idle_baseline_seconds <= 30:
+        raise ValueError("Idle baseline must be between 0 and 30 seconds")
     rows = read_jsonl(dataset)
     for row in rows:
         if (row["taxonomy_key"], row["taxonomy_version"]) != ("google", matcher.version):
@@ -52,6 +65,9 @@ def benchmark(
             samples.append(row)
     if not samples:
         raise ValueError("Benchmark requires non-exact English queries")
+    idle_before = swapouts()
+    if idle_baseline_seconds:
+        time.sleep(idle_baseline_seconds)
     swaps_before = swapouts()
     started = time.perf_counter()
     matcher.encode_queries(
@@ -64,6 +80,9 @@ def benchmark(
         rerank=rerank,
     )
     warmup = time.perf_counter() - started
+    swaps_after_warmup = swapouts()
+    window_swaps = swaps_after_warmup
+    windows = []
     durations, outcomes = [], {}
     for index in range(requests):
         row = samples[index % len(samples)]
@@ -76,16 +95,28 @@ def benchmark(
         )
         durations.append((time.perf_counter() - started) * 1000)
         outcomes[result.status] = outcomes.get(result.status, 0) + 1
+        if (index + 1) % 20 == 0 or index + 1 == requests:
+            window_after = swapouts()
+            window_start = len(windows) * 20
+            windows.append(
+                {
+                    "first_request": window_start + 1,
+                    "last_request": index + 1,
+                    "p95_ms": float(np.percentile(durations[window_start:], 95)),
+                    "system_swapout_pages_delta": swap_delta(window_swaps, window_after),
+                }
+            )
+            window_swaps = window_after
     peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     peak_bytes = peak if sys.platform == "darwin" else peak * 1024
     swaps_after = swapouts()
-    swap_delta = None if swaps_before is None or swaps_after is None else swaps_after - swaps_before
+    total_swap_delta = swap_delta(swaps_before, swaps_after)
     p95 = float(np.percentile(durations, 95))
     checks = {
         "at_least_200_requests": requests >= 200,
         "p95_under_3_seconds": p95 <= 3000,
         "peak_under_3GB": peak_bytes < 3_000_000_000,
-        "no_observed_system_swapouts": swap_delta == 0,
+        "no_observed_system_swapouts": total_swap_delta == 0,
     }
     return {
         "artifact_version": matcher.manifest["artifact_version"],
@@ -105,7 +136,22 @@ def benchmark(
         },
         "serial_requests_per_second": requests / (sum(durations) / 1000),
         "process_peak_resident_bytes": peak_bytes,
-        "system_swapout_pages_delta": swap_delta,
+        "system_swapout_pages_delta": total_swap_delta,
+        "resource_diagnostics": {
+            "platform": platform.platform(),
+            "machine": platform.machine(),
+            "idle_baseline_seconds": idle_baseline_seconds,
+            "idle_system_swapout_pages_delta": (
+                swap_delta(idle_before, swaps_before) if idle_baseline_seconds else None
+            ),
+            "load_and_warmup_system_swapout_pages_delta": (
+                swap_delta(swaps_before, swaps_after_warmup)
+            ),
+            "timed_inference_system_swapout_pages_delta": (
+                swap_delta(swaps_after_warmup, swaps_after)
+            ),
+            "inference_windows": windows,
+        },
         "checks": checks,
         "resource_targets_passed": all(checks.values()),
         "outcomes": outcomes,
@@ -115,5 +161,6 @@ def benchmark(
             "Repeated draft queries measure execution cost, not matching accuracy.",
             "Peak memory is for this process; system swap counters can include other applications.",
             "Model loading and the first prediction occur in the untimed warmup.",
+            "Idle/load/inference swap observations are system-wide and do not prove attribution.",
         ],
     }

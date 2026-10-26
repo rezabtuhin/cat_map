@@ -6,9 +6,9 @@ The default hybrid pipeline adds category entailment rank fusion with a pinned
 local NLI model. Canonical lookups avoid model inference.
 
 Current [Sprint 2 status](reports/sprint_2/STATUS.md) and
-[latest findings](reports/sprint_2/improvement/FINDINGS.md) include unresolved
-ranking failures. Top-1 ranking improved from 58.3% to 77.5% on reused draft
-development inputs; this is not independently validated accuracy.
+[latest findings](reports/sprint_2/specificity/FINDINGS.md) include the specificity
+correction, development comparisons, and remaining ranking failures. These reused
+draft inputs do not establish independently validated accuracy.
 
 **Non-exact results are provisional candidates.** Similarity and reranker scores
 are ranking signals, not correctness probabilities. Sprint 2 implements calibration,
@@ -90,7 +90,7 @@ are inactive until reviewed. Rebuild after changing aliases.
 uv run category-matcher match 'Smart Phone' --rerank
 uv run category-matcher match 'Hoodies & Sweatshirts|Clothing' --no-rerank
 uv run python scripts/run_user_examples.py \
-  --output reports/sprint_2/improvement/user_examples.json
+  --output reports/sprint_2/specificity/user_examples.json
 ```
 
 Hybrid matching uses the artifact's pinned NLI rank-fusion profile by default;
@@ -98,19 +98,22 @@ Hybrid matching uses the artifact's pinned NLI rank-fusion profile by default;
 The first 100 candidates receive model scores, combined with retrieval ranks;
 all remaining candidates stay available. Reranked non-exact outputs remain
 provisional. The comparison script does not change the decision policy.
+The current pair wording is `The product category is …`; the configuration pins
+both query and candidate templates in the artifact.
 The observed Apple Silicon CPU runtime requires copying misaligned checkpoint
 parameters into aligned storage; the adapter applies and tests that workaround.
 The older MiniLM and BGE reranker experiments remain available through explicit
-`--reranker-model` overrides; neither is the selected profile. The NLI pipeline
-improves aggregate development ranking, but still regresses on the hoodie input:
-it ranks Clothing first, while retrieval-only ranks Shirts & Tops first. Both
-avoid the unsupported baby category. This error still needs resolution.
+`--reranker-model` overrides; neither is the selected profile. When the model
+supports only the supplied parent and rejects every scored product type, the
+matcher preserves retrieval order and flags the specificity conflict for
+clarification. It retains original model ranks and scores. This does not prove
+the retrieval answer is correct.
 
 ## Evaluate and verify
 
 ```bash
 uv run category-matcher evaluate --allow-draft --rerank \
-  --output reports/sprint_2/improvement/retrieval_comparison.json
+  --output reports/sprint_2/specificity/retrieval_comparison.json
 uv run category-matcher evaluate --allow-draft \
   --dataset data/google/evaluation/user_examples.jsonl \
   --output reports/sprint_2/user_retrieval_evaluation.json
@@ -142,11 +145,11 @@ SQLite cosine scores and scoped rankings against independent NumPy calculations.
 ```bash
 uv run category-matcher check-data
 uv run category-matcher calibrate --allow-draft \
-  --output reports/sprint_2/improvement/draft_policy.json
+  --output reports/sprint_2/specificity/draft_policy.json
 uv run category-matcher match 'Smart Phone' \
-  --experimental-policy reports/sprint_2/improvement/draft_policy.json
-uv run category-matcher benchmark --requests 200 \
-  --output reports/sprint_2/improvement/resource_report.json
+  --experimental-policy reports/sprint_2/specificity/draft_policy.json
+uv run category-matcher benchmark --requests 200 --idle-baseline-seconds 5 \
+  --output reports/sprint_2/specificity/resource_report.json
 ```
 
 Draft-policy previews appear in `decision_preview`; they cannot turn a provisional
@@ -174,10 +177,10 @@ labels also need review. A failed gate never enables automatic semantic acceptan
 
 `benchmark` measures 200 serial warm requests including query encoding, retrieval,
 and the selected ranking model, with model warmup reported separately. It samples
-actual model-path inputs rather than canonical/general-category shortcuts. The
-latest run measured 779 ms p95 and 1.18 GiB peak process memory, but observed system
-swap activity, so the combined resource gate has not passed. It does not establish
-production concurrency or matching accuracy.
+actual model-path inputs rather than canonical/general-category shortcuts. It
+records idle, model-load, and inference swap observations separately; these remain
+system-wide counters. See [the current resource report](reports/sprint_2/specificity/resource_report.json).
+The benchmark does not establish production concurrency or matching accuracy.
 
 ## Current scope
 
