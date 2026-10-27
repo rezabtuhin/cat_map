@@ -10,6 +10,7 @@ import numpy as np
 
 from category_matcher.artifacts import digest
 from category_matcher.matcher import Matcher
+from category_matcher.query import source_ancestry, source_ancestry_options
 from category_matcher.retrieval import METHODS
 
 
@@ -17,6 +18,7 @@ def read_examples(path: Path, matcher: Matcher, allow_draft: bool) -> list[dict]
     records = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
     seen = set()
     for row in records:
+        source_ancestry(row.get("source_ancestors"))
         if row["example_id"] in seen:
             raise ValueError("Duplicate evaluation example ID")
         seen.add(row["example_id"])
@@ -108,11 +110,12 @@ def evaluate(
             parent_id=row.get("parent_category_id"),
             language=row.get("language", "en"),
             context=row.get("context", ""),
+            **source_ancestry_options(row),
         )
         exact_results[row["example_id"]] = exact
         if exact.status == "provisional":
             queries[row["example_id"]] = matcher.retrieval_query(
-                row["query"], row.get("context", "")
+                row["query"], row.get("context", ""), **source_ancestry_options(row)
             )
     started = time.perf_counter()
     vectors = matcher.encode_queries(list(queries.values())) if queries else []
@@ -137,6 +140,7 @@ def evaluate(
                 context=row.get("context", ""),
                 query_vector=by_example_vector.get(row["example_id"]),
                 rerank=method == "hybrid_rerank",
+                **source_ancestry_options(row),
             )
             durations.append((time.perf_counter() - started) * 1000)
             ids = [candidate["id"] for candidate in result.candidates]

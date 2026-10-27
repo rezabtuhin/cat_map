@@ -25,6 +25,7 @@ def packets(store):
             and feedback["category"] is not None
             and request.get("language", "en") == "en"
             and not request.get("context")
+            and not request.get("source_ancestors")
             and not request.get("parent_category_id")
             and not request.get("category_id")
             and bool(request.get("category"))
@@ -163,6 +164,7 @@ def export_pilot_inputs(store, output):
             request.get("category_id"),
             request.get("parent_category_id"),
             request.get("language", "en"),
+            tuple(request.get("source_ancestors") or []),
         )
         events.setdefault(key, event)
     rows = [
@@ -175,6 +177,7 @@ def export_pilot_inputs(store, output):
             "parent_category_id": event["request"].get("parent_category_id"),
             "category_id": event["request"].get("category_id"),
             "language": event["request"].get("language", "en"),
+            "source_ancestors": event["request"].get("source_ancestors", []),
             "input_family": exact_key(
                 event["request"].get("category") or event["request"]["category_id"]
             ),

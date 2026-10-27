@@ -157,6 +157,7 @@ class InferenceService:
             "pending_requests": len(self.pending),
             "queue_capacity": self.settings.queue_size,
             "semantic_auto_acceptance_enabled": self.policy_enabled,
+            "capabilities": {"source_ancestors": True, "provisional_selection": True},
             "process_memory": process_memory(),
         }
 
@@ -220,6 +221,7 @@ class InferenceService:
                 category_id=payload.category_id,
                 parent_id=payload.parent_category_id,
                 context=payload.context or "",
+                source_ancestors=payload.source_ancestors,
                 language=payload.language,
             )
         except ValueError as error:
@@ -242,6 +244,10 @@ class InferenceService:
             if (result.status in {"provisional", "needs_clarification"})
             else []
         )
+        # Candidates already follow the final neural ranking and specificity safeguards.
+        provisional_category = (
+            alternatives[0] if result.status == "provisional" and alternatives else None
+        )
         if (
             result.artifact_version != self.artifact_version
             or result.taxonomy_version != self.taxonomy_version
@@ -256,6 +262,8 @@ class InferenceService:
             artifact_version=self.artifact_version,
             category=category,
             alternatives=alternatives,
+            provisional_category=provisional_category,
+            requires_review=provisional_category is not None,
             method=result.method,
             reason_code=result.reason_code,
             clarification=result.clarification,

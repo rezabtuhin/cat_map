@@ -254,6 +254,7 @@ def test_exported_pilot_inputs_are_unlabeled_development_data(pilot, tmp_path):
         ("handsets|Electronics", {}),
         ("portable handsets", {"context": "phones"}),
         ("portable handsets", {"parent_category_id": "2"}),
+        ("portable handsets", {"source_ancestors": ["Electronics"]}),
     ],
 )
 def test_contextual_or_nonproduct_feedback_cannot_become_a_global_alias(

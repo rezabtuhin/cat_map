@@ -9,6 +9,38 @@ INFANT_CUES = {"baby", "babies", "toddler", "toddlers", "infant", "infants", "ne
 ATTRIBUTE_WORDS = {"eco", "friendly", "sustainable", "recycled", "recyclable", "ethical"}
 
 
+def source_ancestry(ancestors: list[str] | None) -> list[str]:
+    """Validate source-store labels without treating them as canonical constraints."""
+    if ancestors is None:
+        return []
+    if not isinstance(ancestors, list) or len(ancestors) > 20:
+        raise ValueError("Source ancestors must be a list of at most 20 labels")
+    if any(not isinstance(label, str) or not 1 <= len(label.strip()) <= 300 for label in ancestors):
+        raise ValueError("Source ancestor labels must contain 1 to 300 characters")
+    result = [label.strip() for label in ancestors]
+    if sum(map(len, result)) > 1000:
+        raise ValueError("Source ancestry is limited to 1000 characters")
+    return result
+
+
+def source_supports_lookup(ancestors: list[str], category: Category) -> bool:
+    """Only canonical path evidence may preserve an automatic lookup shortcut."""
+    path_keys = [exact_key(part) for part in category.full_path.split(" > ")]
+    position = 0
+    for label in ancestors:
+        if is_merchandising_label(label):
+            continue
+        try:
+            position = path_keys.index(exact_key(label), position) + 1
+        except ValueError:
+            return False
+    return True
+
+
+def source_ancestry_options(row: dict) -> dict:
+    return {"source_ancestors": row["source_ancestors"]} if row.get("source_ancestors") else {}
+
+
 def split_context(text: str, context: str) -> tuple[str, list[str]]:
     parts = [part.strip() for part in text.split("|")]
     if any(not part for part in parts):

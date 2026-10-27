@@ -19,6 +19,8 @@ from category_matcher.query import (
     literal_group_candidates,
     retrieval_text,
     scope_only_entailment_support,
+    source_ancestry,
+    source_supports_lookup,
     split_context,
     unsupported_audience_ids,
     weak_promotion_evidence,
@@ -67,14 +69,25 @@ class Matcher:
         category = self.store.categories[category_id]
         return {"id": category.category_id, "label": category.label, "path": category.full_path}
 
-    def retrieval_query(self, text: str, context: str = "") -> str:
+    def retrieval_query(
+        self, text: str, context: str = "", source_ancestors: list[str] | None = None
+    ) -> str:
         label, parts = split_context(text.strip(), context.strip())
         # A resolved parent already constrains the search. Repeating its broad
         # words in the query overwhelms the actual leaf concept (e.g. hoodies).
         unresolved = [part for part in parts if len(self.exact.get(exact_key(part), set())) != 1]
         if is_merchandising_label(label) and unresolved:
             return "; ".join(unresolved)
-        return label + (". Context: " + "; ".join(unresolved) if unresolved else "")
+        query = label + (". Context: " + "; ".join(unresolved) if unresolved else "")
+        resolved = {
+            exact_key(part) for part in parts if len(self.exact.get(exact_key(part), set())) == 1
+        }
+        parents = [
+            part
+            for part in source_ancestry(source_ancestors)
+            if not is_merchandising_label(part) and exact_key(part) not in resolved
+        ]
+        return query + (". Store ancestry: " + " > ".join(parents) if parents else "")
 
     def match(
         self,
@@ -85,6 +98,7 @@ class Matcher:
         parent_id: str | None = None,
         language: str = "en",
         context: str = "",
+        source_ancestors: list[str] | None = None,
         query_vector: np.ndarray | None = None,
         force_retrieval: bool = False,
         rerank: bool | None = None,
@@ -96,6 +110,7 @@ class Matcher:
             rerank = self.default_rerank and method == "hybrid"
         text = text.strip()
         context = context.strip()
+        ancestors = source_ancestry(source_ancestors)
         if not text and category_id is None:
             raise ValueError("Provide nonempty category text or an explicit category ID")
         if len(text) > 300 or len(context) > 1000:
@@ -139,6 +154,10 @@ class Matcher:
             exact_method = "approved_alias"
         # Extra context must not turn an otherwise exact-looking term into a blind shortcut.
         safe_context = not context_parts or canonical_context or category_id is not None
+        if len(exact_ids) == 1 and category_id is None:
+            safe_context = safe_context and source_supports_lookup(
+                ancestors, self.store.categories[next(iter(exact_ids))]
+            )
         if len(exact_ids) == 1 and not force_retrieval and safe_context:
             cid = next(iter(exact_ids))
             result.status = "matched"
@@ -167,7 +186,9 @@ class Matcher:
             result.reason_code = "explicit_broad_category"
             result.candidates = [{**self._record(broad), "rank": 1, "source": "explicit_broad"}]
             result.query_analysis = {"broad_category": broad}
-            if any(self.exact.get(key, set()) == {broad} for key in literal_broad_variants(text)):
+            if source_supports_lookup(ancestors, self.store.categories[broad]) and any(
+                self.exact.get(key, set()) == {broad} for key in literal_broad_variants(text)
+            ):
                 result.status = "matched"
                 result.method = "explicit_broad"
                 result.category = self._record(broad)
@@ -188,7 +209,7 @@ class Matcher:
         if not retrieve:
             result.reason_code = "retrieval_required"
             return result
-        query = self.retrieval_query(raw_text, context)
+        query = self.retrieval_query(raw_text, context, ancestors)
         if merchandising:
             # A store section title does not name the products. Use the supplied
             # unresolved product description while retaining resolved parent scope.
@@ -198,7 +219,7 @@ class Matcher:
             query = text
             result.query_analysis["merchandising_label"] = {"used_product_context": True}
         excluded = unsupported_audience_ids(
-            retrieval_text(raw_text, context), self.store.categories
+            retrieval_text(raw_text, context) + " " + " ".join(ancestors), self.store.categories
         )
         allowed -= excluded
         groups = literal_group_candidates(text, self.store.categories, allowed)

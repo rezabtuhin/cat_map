@@ -140,6 +140,7 @@ incorrect types are rejected with 422; category IDs are strings.
 | `category_id` | Optional canonical category ID for a direct lookup |
 | `parent_category_id` | Optional canonical parent ID restricting the matching hierarchy |
 | `context` | Optional product description, at most 1,000 characters |
+| `source_ancestors` | Optional store ancestor names, root to immediate parent; at most 20 labels and 1,000 characters total. These are contextual evidence, not Google IDs or hard parent constraints. |
 | `language` | Defaults to `"en"`; unsupported languages return `unsupported_language` |
 | `limit` | Number of displayed alternatives, integer 1–10; defaults to 3 |
 
@@ -147,7 +148,9 @@ Responses include `status`, canonical `category` or `null`, `alternatives`, meth
 reason, clarification, taxonomy/artifact versions, `event_id`, and queue/inference/
 total timings in milliseconds. The `X-Request-ID` response header matches the
 event ID in the response and structured logs. Only `status: "matched"` assigns a
-category. Treat `alternatives` as suggestions requiring review. Inputs such as
+category. For `provisional` results with candidates, `provisional_category` selects
+the first candidate from the final AI-assisted ranking and `requires_review` is
+`true`; accepted `category` remains `null`. Inputs such as
 `Collections` and `Erin Recommends` remain unmapped. The API uses the same hybrid
 pipeline as the default CLI and does not expose experimental decision previews.
 
@@ -265,6 +268,19 @@ qualification holdout. To rerun isolated live/recovery checks, use
 `uv run python scripts/check_sprint4.py --output /tmp/sprint4-checks.json`.
 
 ## Ranking configuration
+
+WooCommerce integration: the shared `best-woocommerce-feed` category mapper now
+offers **Category Matcher API** by default, including when Pro is active. Start
+this API, select a Google-taxonomy-backed merchant, and run AI Category Mapping.
+Accepted matches and the best provisional candidate fill dropdowns. Provisional
+selections display **Provisioning needed** until manually replaced or marked
+reviewed; the flag persists after Save/reopen. Other results show review notes.
+Save remains an explicit user action. The plugin resolves names/ancestry from WooCommerce term
+IDs and calls the API from PHP, so the configured address must be reachable from
+the WordPress host. Its default is `http://127.0.0.1:8000`; trusted PHP configuration
+can override `WPFM_CATEGORY_MATCHER_API_URL`. A readiness capability check prevents
+using an older API without source-ancestry support. Source context cannot be
+promoted into global aliases through the feedback workflow.
 
 ```bash
 uv run category-matcher match 'Smart Phone' --rerank

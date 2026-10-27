@@ -12,6 +12,7 @@ from category_matcher.datasets import check_splits, is_reviewed, read_jsonl
 from category_matcher.decision import DecisionPolicy, evidence
 from category_matcher.evaluation import read_examples
 from category_matcher.matcher import Matcher
+from category_matcher.query import source_ancestry_options
 
 
 def observations(matcher: Matcher, dataset: Path, *, allow_draft: bool, rerank: bool) -> list[dict]:
@@ -29,6 +30,7 @@ def observations(matcher: Matcher, dataset: Path, *, allow_draft: bool, rerank: 
             parent_id=row.get("parent_category_id"),
             language=row.get("language", "en"),
             rerank=rerank,
+            **source_ancestry_options(row),
         )
         output.append({"row": row, "result": result, "features": evidence(result)})
     return output

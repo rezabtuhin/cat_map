@@ -21,6 +21,11 @@ INPUT_FIELDS = (
 )
 
 
+def review_input(row):
+    fields = INPUT_FIELDS + (("source_ancestors",) if "source_ancestors" in row else ())
+    return {key: row.get(key) for key in fields}
+
+
 def row_hash(row: dict) -> str:
     return hashlib.sha256(json.dumps(row, sort_keys=True).encode()).hexdigest()
 
@@ -72,7 +77,7 @@ def export_reviews(dataset: Path, taxonomy: Path, output: Path) -> dict:
                 "source_dataset_sha256": source_hash,
                 "taxonomy_sha256": audit["source_sha256"],
                 "source_row_sha256": row_hash(row),
-                "input": {key: row.get(key) for key in INPUT_FIELDS},
+                "input": review_input(row),
                 "proposal": {
                     "expected_status": row.get("expected_status"),
                     "acceptable_category_ids": ids,
@@ -117,7 +122,7 @@ def apply_reviews(dataset: Path, taxonomy: Path, reviews: Path, output: Path) ->
             or review.get("source_dataset_sha256") != source_hash
             or review.get("taxonomy_sha256") != audit["source_sha256"]
             or review.get("source_row_sha256") != row_hash(row)
-            or review.get("input") != {key: row.get(key) for key in INPUT_FIELDS}
+            or review.get("input") != review_input(row)
         ):
             raise ValueError("Stale or changed review input/source binding")
         decision = review["decision"]
