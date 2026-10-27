@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--artifacts", type=Path)
     parser.add_argument("--policy", type=Path)
+    parser.add_argument("--runtime-db", type=Path)
     parser.add_argument("--queue-size", type=int)
     parser.add_argument("--timeout-seconds", type=float)
     parser.add_argument("--max-body-bytes", type=int)

@@ -1,0 +1,16 @@
+{
+  "embedding": {
+    "name": "BAAI/bge-base-en-v1.5",
+    "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+    "dimension": 768,
+    "query_instruction": "Represent this sentence for searching relevant passages: "
+  },
+  "ranking": {
+    "name": "cross-encoder/nli-deberta-v3-small",
+    "revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+    "score_profile": "category_entailment_v1",
+    "entailment_index": 1,
+    "premise_template": "These products are {query}.",
+    "hypothesis_template": "These products are {label}."
+  }
+}
