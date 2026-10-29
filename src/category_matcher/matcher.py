@@ -10,11 +10,13 @@ from category_matcher.artifacts import load_manifest
 from category_matcher.decision import DecisionPolicy
 from category_matcher.domain import CandidateReranker, Hit, MatchResult
 from category_matcher.encoder import BGEEncoder
-from category_matcher.normalization import exact_key
+from category_matcher.normalization import exact_key, retrieval_terms
 from category_matcher.query import (
     explicit_broad_category,
     is_attribute_only,
+    is_audience_only,
     is_merchandising_label,
+    is_placeholder_label,
     literal_broad_variants,
     literal_group_candidates,
     retrieval_text,
@@ -22,6 +24,7 @@ from category_matcher.query import (
     source_ancestry,
     source_supports_lookup,
     split_context,
+    store_product_terms,
     unsupported_audience_ids,
     weak_promotion_evidence,
 )
@@ -56,6 +59,8 @@ class Matcher:
         for alias in aliases:
             self.aliases[exact_key(alias["alias"])].add(alias["category_id"])
         self.lexical = LexicalRetriever(bundle / "bm25", self.store.categories, aliases)
+        self._source_scope_terms: dict[str, set[str]] = {}
+        self._source_label_cache: dict[str, set[str]] = {}
 
     def close(self) -> None:
         self.store.close()
@@ -68,6 +73,106 @@ class Matcher:
     def _record(self, category_id: str) -> dict:
         category = self.store.categories[category_id]
         return {"id": category.category_id, "label": category.label, "path": category.full_path}
+
+    def _within(self, child: str, parent: str) -> bool:
+        return child == parent or self.store.categories[child].full_path.startswith(
+            self.store.categories[parent].full_path + " > "
+        )
+
+    def _source_label_ids(self, label: str) -> set[str]:
+        key = exact_key(label)
+        if key in self._source_label_cache:
+            return self._source_label_cache[key]
+        ids = (
+            self.exact.get(key, set())
+            or self.aliases.get(key, set())
+            or set(
+                literal_group_candidates(label, self.store.categories, set(self.store.categories))
+            )
+        )
+        if len(self._source_label_cache) >= 256:
+            self._source_label_cache.pop(next(iter(self._source_label_cache)))
+        self._source_label_cache[key] = ids
+        return ids
+
+    def _source_domain(self, cid: str) -> str:
+        parts = self.store.categories[cid].full_path.split(" > ")
+        return next((part for part in parts if not is_merchandising_label(part)), parts[0])
+
+    def _source_ancestor(self, ancestors: list[str], allowed: set[str], text: str):
+        """Ground generic labels in compatible product ancestors, without neural guesses."""
+        anchor = None
+        domain = None
+        unresolved = []
+        evidence = {}
+        for index, raw in enumerate(ancestors):
+            try:
+                label, parts = split_context(raw, "")
+            except ValueError:
+                return None, {"reason": "invalid_source_ancestor_context"}
+            for part in [*parts, label]:
+                if (
+                    is_merchandising_label(part)
+                    or is_placeholder_label(part)
+                    or is_attribute_only(part)
+                    or is_audience_only(part)
+                ):
+                    continue
+                ids = self._source_label_ids(part)
+                if not ids:
+                    if anchor is not None:
+                        unresolved.append(part)
+                    continue
+                compatible = ids & allowed
+                if domain is not None:
+                    compatible = {cid for cid in compatible if self._source_domain(cid) == domain}
+                if len(compatible) != 1:
+                    return None, {
+                        "reason": "conflicting_source_ancestors"
+                        if not compatible
+                        else "ambiguous_source_ancestor",
+                        "source_label": part,
+                    }
+                cid = next(iter(compatible))
+                # Store hierarchy can put canonical siblings under one another;
+                # retain the nearest product type within the same broad domain.
+                if anchor is None or not self._within(anchor, cid):
+                    anchor = cid
+                    domain = self._source_domain(cid)
+                    unresolved = []
+                    evidence = {"category_id": cid, "source_label": part, "source_index": index}
+        if anchor is None:
+            return None, {"reason": "no_grounded_product_ancestor"}
+        # A title naming a product type can refine the inherited product evidence.
+        hints = store_product_terms(text, self.lexical.vocabulary)
+        if hints:
+            hint_ids = self._source_label_ids(" ".join(sorted(hints))) & allowed
+            compatible = {cid for cid in hint_ids if self._source_domain(cid) == domain}
+            if len(compatible) != 1:
+                return None, {**evidence, "reason": "unresolved_product_type_in_store_label"}
+            hint = next(iter(compatible))
+            if not self._within(anchor, hint):
+                anchor = hint
+        if anchor not in self._source_scope_terms:
+            self._source_scope_terms[anchor] = {
+                word
+                for cid in self.store.allowed_ids(anchor)
+                for word in retrieval_terms(self.store.categories[cid].full_path).split()
+            }
+        scope_terms = self._source_scope_terms[anchor]
+        for part in [*unresolved, text]:
+            terms = store_product_terms(part, self.lexical.vocabulary)
+            if terms - scope_terms:
+                return None, {
+                    **evidence,
+                    "reason": "source_product_type_conflict",
+                    "conflicting_label": part,
+                }
+        return anchor, {
+            **evidence,
+            "selected_category_id": anchor,
+            "reason": "grounded_source_ancestor",
+        }
 
     def retrieval_query(
         self, text: str, context: str = "", source_ancestors: list[str] | None = None
@@ -147,6 +252,22 @@ class Matcher:
             canonical = {category_id}
         if canonical and not canonical & allowed:
             raise ValueError("Canonical category text contradicts the parent constraint")
+        placeholder = is_placeholder_label(text) and category_id is None
+        meaningful_context = any(
+            not (
+                is_placeholder_label(part)
+                or is_merchandising_label(part)
+                or is_attribute_only(part)
+                or is_audience_only(part)
+            )
+            for part in context_parts
+        )
+        if placeholder and not meaningful_context:
+            result.status = "needs_clarification"
+            result.reason_code = "placeholder_label_requires_product_context"
+            result.clarification = "Provide a product type or description; a default category name does not identify one."
+            result.query_analysis["placeholder_label"] = {"retrieval_skipped": True}
+            return result
         exact_ids = canonical & allowed
         exact_method = "exact"
         if not exact_ids:
@@ -168,7 +289,31 @@ class Matcher:
             return result
         if method == "exact":
             return result
-        merchandising = is_merchandising_label(text)
+        merchandising = is_merchandising_label(text) or placeholder
+        context_only = merchandising or is_attribute_only(text) or is_audience_only(text)
+        if (
+            context_only
+            and ancestors
+            and (not context_parts or canonical_context)
+            and not placeholder
+        ):
+            inherited, analysis = self._source_ancestor(ancestors, allowed, text)
+            result.query_analysis["source_ancestor"] = analysis
+            if inherited is not None:
+                result.method = "source_ancestor"
+                result.reason_code = "specific_product_ancestor_provisional"
+                result.candidates = [
+                    {**self._record(inherited), "rank": 1, "source": "source_ancestor"}
+                ]
+            else:
+                result.status = "needs_clarification"
+                result.reason_code = analysis["reason"]
+                result.clarification = "Provide the product type; the store hierarchy is missing, ambiguous, or conflicting."
+            return result
+        if placeholder and canonical_context and parent_id:
+            result.reason_code = "explicit_product_context_provisional"
+            result.candidates = [{**self._record(parent_id), "rank": 1, "source": "context_only"}]
+            return result
         if merchandising and (not context_parts or canonical_context):
             result.query_analysis["merchandising_label"] = {"requires_product_context": True}
             result.reason_code = "merchandising_label_requires_product_context"
@@ -199,13 +344,20 @@ class Matcher:
                 result.method += "+rerank"
                 result.ranking_model = self.reranker_metadata
             return self.policy.apply(result) if self.policy else result
-        if is_attribute_only(text) and parent_id and canonical_context:
+        if (is_attribute_only(text) or is_audience_only(text)) and parent_id and canonical_context:
             result.reason_code = "attribute_only_use_broad_context_provisionally"
             result.candidates = [{**self._record(parent_id), "rank": 1, "source": "context_only"}]
             if rerank:
                 result.method += "+rerank"
                 result.ranking_model = self.reranker_metadata
             return self.policy.apply(result) if self.policy is not None else result
+        if context_only and not meaningful_context:
+            result.status = "needs_clarification"
+            result.reason_code = "generic_label_requires_product_context"
+            result.clarification = (
+                "Provide a product type, description, or meaningful product ancestry."
+            )
+            return result
         if not retrieve:
             result.reason_code = "retrieval_required"
             return result

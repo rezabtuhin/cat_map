@@ -6,7 +6,12 @@ from datetime import datetime
 
 from category_matcher.artifacts import digest, read_aliases
 from category_matcher.normalization import exact_key
-from category_matcher.query import is_attribute_only, is_merchandising_label
+from category_matcher.query import (
+    is_attribute_only,
+    is_audience_only,
+    is_merchandising_label,
+    is_placeholder_label,
+)
 from category_matcher.review import write_new
 from category_matcher.taxonomy import read_google_taxonomy
 
@@ -32,6 +37,8 @@ def packets(store):
             and "|" not in request["category"]
             and not is_merchandising_label(request["category"])
             and not is_attribute_only(request["category"])
+            and not is_audience_only(request["category"])
+            and not is_placeholder_label(request["category"])
         )
         yield {
             "format_version": 1,

@@ -7,6 +7,145 @@ from category_matcher.normalization import exact_key, retrieval_terms, search_te
 
 INFANT_CUES = {"baby", "babies", "toddler", "toddlers", "infant", "infants", "newborn", "newborns"}
 ATTRIBUTE_WORDS = {"eco", "friendly", "sustainable", "recycled", "recyclable", "ethical"}
+PLACEHOLDER_WORDS = {
+    "uncategorized",
+    "uncategorised",
+    "unclassified",
+    "unassigned",
+    "unknown",
+    "unspecified",
+    "undefined",
+    "default",
+    "misc",
+    "miscellaneous",
+    "other",
+    "others",
+    "none",
+    "null",
+    "general",
+    "untitled",
+    "tbd",
+    "tba",
+    "test",
+    "demo",
+    "sample",
+}
+GENERIC_STORE_LABELS = {
+    "all",
+    "everything",
+    "new",
+    "latest",
+    "popular",
+    "trending",
+    "all products",
+    "all items",
+    "products",
+    "items",
+    "shop",
+    "shop all",
+    "shop all products",
+    "view all",
+    "browse all",
+    "catalog",
+    "catalogue",
+    "categories",
+    "collection",
+    "collections",
+    "sale",
+    "sales",
+    "sale items",
+    "clearance",
+    "offers",
+    "special offers",
+    "new arrivals",
+    "new products",
+    "latest products",
+    "featured",
+    "featured products",
+    "featured items",
+    "recommended products",
+    "best sellers",
+    "bestsellers",
+    "our picks",
+    "staff picks",
+    "recommendations",
+    "favorites",
+    "favourites",
+}
+AUDIENCE_WORDS = {
+    "men",
+    "mens",
+    "women",
+    "womens",
+    "man",
+    "woman",
+    "boy",
+    "boys",
+    "girl",
+    "girls",
+    "kid",
+    "kids",
+    "children",
+    "child",
+    "adult",
+    "adults",
+    "unisex",
+    "s",
+}
+STORE_QUALIFIERS = (
+    ATTRIBUTE_WORDS
+    | AUDIENCE_WORDS
+    | {
+        "new",
+        "latest",
+        "summer",
+        "winter",
+        "spring",
+        "autumn",
+        "fall",
+        "seasonal",
+        "season",
+        "collection",
+        "collections",
+        "recommendation",
+        "recommendations",
+        "recommend",
+        "recommends",
+        "recommended",
+        "favorite",
+        "favorites",
+        "favourite",
+        "favourites",
+        "sale",
+        "sales",
+        "clearance",
+        "featured",
+        "best",
+        "seller",
+        "sellers",
+        "bestseller",
+        "bestsellers",
+        "arrival",
+        "arrivals",
+        "shop",
+        "catalog",
+        "catalogue",
+        "category",
+        "categories",
+        "item",
+        "items",
+        "product",
+        "products",
+        "pick",
+        "picks",
+        "our",
+        "staff",
+        "all",
+    }
+)
+STORE_QUALIFIERS |= {
+    word for label in GENERIC_STORE_LABELS for word in retrieval_terms(label).split()
+}
 
 
 def source_ancestry(ancestors: list[str] | None) -> list[str]:
@@ -73,9 +212,49 @@ def is_attribute_only(text: str) -> bool:
     return bool(words) and words <= ATTRIBUTE_WORDS
 
 
+def is_placeholder_label(text: str) -> bool:
+    """Default/catch-all labels do not identify any product type."""
+    normalized = search_text(text)
+    words = set(normalized.split())
+    return (
+        not normalized
+        or normalized.isdecimal()
+        or normalized
+        in {
+            "n a",
+            "na",
+            "not set",
+            "not assigned",
+            "no category",
+            "not available",
+            "not applicable",
+            "not categorized",
+            "not categorised",
+            "un categorized",
+            "un categorised",
+        }
+        or bool(
+            words & PLACEHOLDER_WORDS
+            and words
+            <= PLACEHOLDER_WORDS
+            | {"category", "categories", "product", "products", "item", "items", "goods"}
+        )
+    )
+
+
+def is_audience_only(text: str) -> bool:
+    words = set(search_text(text).split())
+    return bool(words) and words <= AUDIENCE_WORDS
+
+
+def store_product_terms(text: str, vocabulary: set[str]) -> set[str]:
+    """Recognized product words can reveal a conflicting ancestor or promotion title."""
+    return (set(retrieval_terms(text).split()) & vocabulary) - STORE_QUALIFIERS
+
+
 def is_merchandising_label(text: str) -> bool:
     normalized = search_text(text)
-    return bool(
+    return normalized in GENERIC_STORE_LABELS or bool(
         re.search(
             r"\b(collections?|recommendations?|favorites?)$|\b(recommends?|recommended)\b",
             normalized,

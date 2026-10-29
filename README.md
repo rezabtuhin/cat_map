@@ -151,7 +151,8 @@ event ID in the response and structured logs. Only `status: "matched"` assigns a
 category. For `provisional` results with candidates, `provisional_category` selects
 the first candidate from the final AI-assisted ranking and `requires_review` is
 `true`; accepted `category` remains `null`. Inputs such as
-`Collections` and `Erin Recommends` remain unmapped. The API uses the same hybrid
+`Collections` and `Erin Recommends` without usable product context remain unmapped.
+The API uses the same hybrid
 pipeline as the default CLI and does not expose experimental decision previews.
 
 The service keeps one matcher, its SQLite connection, and its resident models on
@@ -281,6 +282,14 @@ the WordPress host. Its default is `http://127.0.0.1:8000`; trusted PHP configur
 can override `WPFM_CATEGORY_MATCHER_API_URL`. A readiness capability check prevents
 using an older API without source-ancestry support. Source context cannot be
 promoted into global aliases through the feedback workflow.
+
+Generic store sections and attributes can inherit the nearest grounded product
+ancestor provisionally: `Clothing > Men > Tops > Hoodies & Sweatshirts|Clothing >
+Collections` offers `212 - Apparel & Accessories > Clothing > Shirts & Tops`.
+Conflicting product domains and ambiguous ancestors require clarification.
+Default labels such as `Uncategorized`, `Miscellaneous`, and `N/A` return no
+candidate without explicit product context. These paths skip neural inference;
+ancestor lookups are cached. Human review and policy qualification remain separate.
 
 ```bash
 uv run category-matcher match 'Smart Phone' --rerank

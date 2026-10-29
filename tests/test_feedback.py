@@ -251,6 +251,8 @@ def test_exported_pilot_inputs_are_unlabeled_development_data(pilot, tmp_path):
     [
         ("Collections", {}),
         ("Eco Friendly", {}),
+        ("Uncategorized", {}),
+        ("Men", {}),
         ("handsets|Electronics", {}),
         ("portable handsets", {"context": "phones"}),
         ("portable handsets", {"parent_category_id": "2"}),

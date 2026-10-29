@@ -37,10 +37,9 @@ def test_store_ancestors_preserve_supported_lookup_and_never_force_a_google_scop
         assert not source_supports_lookup(
             ["Electronics", "Products"], matcher.store.categories["3"]
         )
-        assert (
-            matcher.match("Collections", source_ancestors=["Electronics"]).status
-            == "needs_clarification"
-        )
+        collection = matcher.match("Collections", source_ancestors=["Electronics"])
+        assert collection.status == "provisional" and collection.category is None
+        assert collection.candidates[0]["id"] == "2"
         assert matcher.match("Mobile Phones", source_ancestors=["Collections"]).status == "matched"
         # Source IDs have no role in these string-only breadcrumbs.
         assert (
