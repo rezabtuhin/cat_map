@@ -56,3 +56,39 @@ def test_cli_draft_policy_is_preview_only_and_normal_loading_fails(bundle, monke
     monkeypatch.setattr("sys.argv", arguments + ["--policy", str(path)])
     assert main() == 2
     assert "not independently validated" in capsys.readouterr().err
+
+
+def test_runtime_cli_migrate_backup_restore_and_exports_without_models(
+    tmp_path, monkeypatch, capsys
+):
+    runtime = tmp_path / "runtime.sqlite3"
+    base = ["category-matcher", "--runtime-db", str(runtime)]
+    for args in (
+        ["runtime-migrate"],
+        ["runtime-backup", "--output", str(tmp_path / "backup.sqlite3")],
+        [
+            "runtime-restore",
+            "--backup",
+            str(tmp_path / "backup.sqlite3"),
+            "--output",
+            str(tmp_path / "restored.sqlite3"),
+        ],
+        ["feedback-export", "--output", str(tmp_path / "feedback.jsonl")],
+        ["pilot-export", "--output", str(tmp_path / "pilot.jsonl")],
+    ):
+        monkeypatch.setattr("sys.argv", base + args)
+        assert main() == 0
+        assert isinstance(json.loads(capsys.readouterr().out), dict)
+    monkeypatch.setattr(
+        "sys.argv",
+        base
+        + [
+            "runtime-restore",
+            "--backup",
+            str(tmp_path / "backup.sqlite3"),
+            "--output",
+            str(runtime),
+        ],
+    )
+    assert main() == 2
+    assert "exists" in capsys.readouterr().err.lower()

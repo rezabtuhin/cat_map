@@ -271,6 +271,11 @@ This is a local integration milestone. Public hosting, authentication, and inter
 
 Make the working Google application reproducible, recoverable, and capable of collecting trustworthy feedback.
 
+**Status:** implementation and recovery checks are tracked in
+[Sprint 4 status](reports/sprint_4/STATUS.md). Human pilot review and independent
+qualification data remain pending; feedback does not automatically approve labels
+or aliases.
+
 ### Work items
 
 | ID | Work | Verification |

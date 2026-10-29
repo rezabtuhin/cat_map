@@ -2,11 +2,13 @@
 
 import argparse
 import json
+import sqlite3
 import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from category_matcher.artifacts import build, load_manifest, resolve_bundle
+from category_matcher.artifacts import digest
+from category_matcher.bundles import activate, load_active, rollback, stage_build
 from category_matcher.matcher import Matcher
 from category_matcher.retrieval import METHODS
 
@@ -20,6 +22,7 @@ def policy_arguments(command):
 def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(description=__doc__)
     root.add_argument("--artifacts", type=Path, default=Path("artifacts/google"))
+    root.add_argument("--runtime-db", type=Path, default=Path("var/category_matcher.sqlite3"))
     commands = root.add_subparsers(dest="command", required=True)
     builder = commands.add_parser("build", help="Build a pinned offline taxonomy/vector bundle")
     builder.add_argument("--source", type=Path, default=Path("google_category_list.txt"))
@@ -29,6 +32,36 @@ def parser() -> argparse.ArgumentParser:
         "--ranking-profile", type=Path, default=Path("config/category_ranking.json")
     )
     builder.add_argument("--retrieval-only", action="store_true")
+    builder.add_argument(
+        "--activate", action="store_true", help="Activate after staging; API must be stopped"
+    )
+    activation = commands.add_parser(
+        "activate", help="Pin a bundle/models/policy release with the API stopped"
+    )
+    selection = activation.add_mutually_exclusive_group(required=True)
+    selection.add_argument("--bundle")
+    selection.add_argument("--release-id")
+    activation.add_argument("--policy", type=Path)
+    undo = commands.add_parser(
+        "rollback", help="Activate the previous retained release; API must be stopped"
+    )
+    undo.add_argument("--release-id")
+    commands.add_parser("runtime-migrate", help="Create/upgrade the separate runtime database")
+    for name in (
+        "runtime-backup",
+        "runtime-restore",
+        "feedback-export",
+        "aliases-apply",
+        "pilot-export",
+    ):
+        command = commands.add_parser(name)
+        command.add_argument("--output", type=Path, required=True)
+        if name == "runtime-restore":
+            command.add_argument("--backup", type=Path, required=True)
+        if name == "aliases-apply":
+            command.add_argument("--reviews", type=Path, required=True)
+            command.add_argument("--aliases", type=Path, default=Path("data/google/aliases.jsonl"))
+            command.add_argument("--taxonomy", type=Path, default=Path("google_category_list.txt"))
     for name in ("capture-inputs", "review-export", "review-apply"):
         command = commands.add_parser(name)
         command.add_argument("--taxonomy", type=Path, default=Path("google_category_list.txt"))
@@ -115,6 +148,56 @@ def main() -> int:
     args = parser().parse_args()
     matcher = None
     try:
+        if args.command in {"activate", "rollback"}:
+            if args.command == "activate":
+                if args.release_id and args.policy:
+                    raise ValueError("A retained release already pins its policy")
+                report = activate(
+                    args.artifacts, args.bundle, policy=args.policy, release_id=args.release_id
+                )
+            else:
+                report = rollback(args.artifacts, args.release_id)
+            print(json.dumps(report, indent=2))
+            return 0
+        if args.command in {
+            "runtime-migrate",
+            "runtime-backup",
+            "runtime-restore",
+            "feedback-export",
+            "aliases-apply",
+            "pilot-export",
+        }:
+            from category_matcher.alias_review import (
+                apply_alias_reviews,
+                export_feedback,
+                export_pilot_inputs,
+            )
+            from category_matcher.runtime import RuntimeStore, restore
+
+            if args.runtime_db.resolve().is_relative_to(args.artifacts.resolve()):
+                raise ValueError("Runtime database must be outside artifact storage")
+            if hasattr(args, "output") and args.output.resolve().is_relative_to(
+                args.artifacts.resolve()
+            ):
+                raise ValueError("Runtime outputs must be outside artifact storage")
+            store = RuntimeStore(args.runtime_db)
+            if args.command == "runtime-migrate":
+                store.initialize()
+                report = {"runtime_db": str(store.path), "schema_version": 2}
+            elif args.command == "runtime-backup":
+                report = store.backup(args.output)
+            elif args.command == "runtime-restore":
+                report = restore(args.backup, args.output)
+            elif args.command == "feedback-export":
+                report = export_feedback(store, args.output)
+            elif args.command == "pilot-export":
+                report = export_pilot_inputs(store, args.output)
+            else:
+                report = apply_alias_reviews(
+                    store, args.reviews, args.aliases, args.taxonomy, args.output
+                )
+            print(json.dumps(report, indent=2))
+            return 0
         if args.command in {"capture-inputs", "review-export", "review-apply"}:
             from category_matcher.review import apply_reviews, capture_inputs, export_reviews
 
@@ -139,20 +222,26 @@ def main() -> int:
             print(json.dumps(report, indent=2))
             return 0 if report["passed"] else 2
         if args.command == "build":
-            bundle, manifest = build(
+            bundle, manifest, _ = stage_build(
                 args.source,
                 args.aliases,
                 args.model,
                 args.artifacts,
                 None if args.retrieval_only else args.ranking_profile,
             )
-            print(json.dumps({"bundle": str(bundle), "manifest": manifest}, indent=2))
+            report = {
+                "bundle": str(bundle),
+                "artifact_version": manifest["artifact_version"],
+                "activated": args.activate,
+            }
+            if args.activate:
+                report["release"] = activate(args.artifacts, bundle.name)
+            print(json.dumps(report, indent=2))
             return 0
-        bundle = resolve_bundle(args.artifacts)
+        bundle, manifest, release_policy = load_active(args.artifacts)
         if args.command == "inspect":
-            print(json.dumps(load_manifest(bundle), indent=2))
+            print(json.dumps(manifest, indent=2))
             return 0
-        manifest = load_manifest(bundle)
         wants_rerank = getattr(args, "rerank", None)
         override = getattr(args, "reranker_model", None)
         if wants_rerank is None:
@@ -173,8 +262,16 @@ def main() -> int:
         if args.command in {"match", "benchmark"}:
             from category_matcher.decision import DecisionPolicy
 
-            policy_path = args.policy or args.experimental_policy
+            policy_path = args.policy or args.experimental_policy or release_policy
             if policy_path:
+                if (
+                    args.policy
+                    and "release_id" in json.loads((args.artifacts / "active.json").read_text())
+                    and (release_policy is None or digest(args.policy) != digest(release_policy))
+                ):
+                    raise ValueError(
+                        "Activate the release with this policy instead of overriding it"
+                    )
                 matcher.policy = DecisionPolicy.load(
                     policy_path,
                     artifact_version=matcher.manifest["artifact_version"],
@@ -270,7 +367,7 @@ def main() -> int:
                 )
             )
         return 0
-    except (ValueError, OSError, KeyError) as error:
+    except (ValueError, OSError, KeyError, sqlite3.Error) as error:
         print(f"error: {error}", file=sys.stderr)
         return 2
     finally:

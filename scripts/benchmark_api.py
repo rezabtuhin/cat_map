@@ -7,6 +7,7 @@ import os
 import socket
 import subprocess
 import sys
+import tempfile
 import time
 from importlib.metadata import version
 from pathlib import Path
@@ -260,6 +261,10 @@ def main():
         CATEGORY_MATCHER_API_MAX_BODY_BYTES="16384",
         CATEGORY_MATCHER_BENCH_FD=str(listener.fileno()),
     )
+    runtime_directory = tempfile.TemporaryDirectory(prefix="category-api-bench-")
+    environment["CATEGORY_MATCHER_API_RUNTIME_DB"] = str(
+        Path(runtime_directory.name) / "runtime.sqlite3"
+    )
     code = "\n".join(
         [
             "import logging, os, uvicorn",
@@ -288,6 +293,7 @@ def main():
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.wait(timeout=5)
+            runtime_directory.cleanup()
     if any(digest(Path(path)) != value for path, value in api_files.items()):
         raise RuntimeError("API code changed during measurement; repeat using a new directory")
     (args.output_dir / "environment.json").write_text(

@@ -11,12 +11,14 @@ from dataclasses import dataclass
 from types import MappingProxyType
 
 from category_matcher.api.errors import ServiceError
-from category_matcher.api.schemas import CanonicalCategory, MatchResponse, Timings
+from category_matcher.api.schemas import CanonicalCategory, FeedbackResponse, MatchResponse, Timings
 from category_matcher.api.settings import APISettings
-from category_matcher.artifacts import resolve_bundle
-from category_matcher.decision import DecisionPolicy
+from category_matcher.artifacts import digest
+from category_matcher.bundles import FileLease, load_active, validate_policy
+from category_matcher.feedback import FeedbackError, submit_feedback
 from category_matcher.matcher import Matcher
 from category_matcher.memory import process_memory
+from category_matcher.runtime import RuntimeStore
 
 logger = logging.getLogger("category_matcher.api")
 
@@ -25,24 +27,38 @@ def log_event(event, **fields):
     logger.info(json.dumps({"event": event, **fields}))
 
 
-def initialize_matcher(settings: APISettings) -> Matcher:
-    matcher = Matcher(resolve_bundle(settings.artifacts))
+class ResidentMatcher:
+    def __init__(self, matcher, lease):
+        self.matcher, self.lease = matcher, lease
+
+    def __getattr__(self, name):
+        return getattr(self.matcher, name)
+
+    def close(self):
+        try:
+            self.matcher.close()
+        finally:
+            self.lease.close()
+
+
+def initialize_matcher(settings: APISettings):
+    lease = FileLease(settings.artifacts / ".service.lock", shared=True).__enter__()
+    matcher = None
     try:
+        bundle, manifest, policy_path = load_active(settings.artifacts, require_release=True)
         if settings.policy is not None:
-            matcher.policy = DecisionPolicy.load(
-                settings.policy, artifact_version=matcher.manifest["artifact_version"]
-            )
-            expected = "hybrid+rerank" if matcher.default_rerank else "hybrid"
-            if matcher.policy.document["ranking_method"] != expected or (
-                matcher.default_rerank
-                and matcher.policy.document["ranking_model"] != matcher.reranker_metadata
-            ):
-                raise ValueError("Policy is incompatible with the active ranking configuration")
+            validate_policy(settings.policy, manifest)
+            if policy_path is None or digest(policy_path) != digest(settings.policy):
+                raise ValueError("Activate a release with this policy before serving")
+        matcher = Matcher(bundle)
+        matcher.policy = validate_policy(policy_path, manifest)
         vector = matcher.encode_queries(["startup category warmup"])[0]
         matcher.match("startup category warmup", query_vector=vector)
-        return matcher
+        return ResidentMatcher(matcher, lease)
     except BaseException:
-        matcher.close()
+        if matcher is not None:
+            matcher.close()
+        lease.close()
         raise
 
 
@@ -53,6 +69,7 @@ class Job:
     received_at: float
     admitted_at: float
     future: asyncio.Future
+    operation: str = "match"
 
 
 class InferenceService:
@@ -70,6 +87,7 @@ class InferenceService:
         self.active_task = self.startup_task = None
         self.closing_task = None
         self.initialized = asyncio.Event()
+        self.runtime = RuntimeStore(settings.runtime_db)
 
     def start(self):
         self.startup_task = asyncio.create_task(self._bootstrap())
@@ -77,6 +95,9 @@ class InferenceService:
     async def _bootstrap(self):
         started = time.perf_counter()
         try:
+            if self.settings.runtime_db.resolve().is_relative_to(self.settings.artifacts.resolve()):
+                raise ValueError("Runtime database must be outside immutable artifact storage")
+            await asyncio.get_running_loop().run_in_executor(self.executor, self.runtime.initialize)
             self.matcher = await asyncio.get_running_loop().run_in_executor(
                 self.executor, self.factory
             )
@@ -136,11 +157,14 @@ class InferenceService:
             "pending_requests": len(self.pending),
             "queue_capacity": self.settings.queue_size,
             "semantic_auto_acceptance_enabled": self.policy_enabled,
+            "capabilities": {"source_ancestors": True, "provisional_selection": True},
             "process_memory": process_memory(),
         }
 
-    async def submit(self, request, event_id, received_at):
-        self.validate_version(request.taxonomy_version)
+    async def submit(self, request, event_id, received_at, *, operation="match"):
+        self.ensure_ready()
+        if operation == "match":
+            self.validate_version(request.taxonomy_version)
         remaining = received_at + self.settings.timeout_seconds - time.perf_counter()
         if remaining <= 0:
             raise ServiceError("request_timeout", "The request deadline expired", 504)
@@ -152,6 +176,7 @@ class InferenceService:
             received_at,
             time.perf_counter(),
             asyncio.get_running_loop().create_future(),
+            operation,
         )
         if self.active is None:
             self._start_job(job)
@@ -178,12 +203,25 @@ class InferenceService:
     def _perform(self, job):
         started = time.perf_counter()
         payload = job.request
+        if job.operation == "feedback":
+            try:
+                record = submit_feedback(
+                    self.runtime,
+                    payload.model_dump(),
+                    job.event_id,
+                    self.categories,
+                    self.taxonomy_version,
+                )
+            except FeedbackError as error:
+                raise ServiceError(error.code, str(error), error.status) from error
+            return FeedbackResponse.model_validate(record)
         try:
             result = self.matcher.match(
                 payload.category or "",
                 category_id=payload.category_id,
                 parent_id=payload.parent_category_id,
                 context=payload.context or "",
+                source_ancestors=payload.source_ancestors,
                 language=payload.language,
             )
         except ValueError as error:
@@ -206,6 +244,10 @@ class InferenceService:
             if (result.status in {"provisional", "needs_clarification"})
             else []
         )
+        # Candidates already follow the final neural ranking and specificity safeguards.
+        provisional_category = (
+            alternatives[0] if result.status == "provisional" and alternatives else None
+        )
         if (
             result.artifact_version != self.artifact_version
             or result.taxonomy_version != self.taxonomy_version
@@ -213,13 +255,15 @@ class InferenceService:
         ):
             raise RuntimeError("Inference mixed artifact or taxonomy versions")
         finished = time.perf_counter()
-        return MatchResponse(
+        response = MatchResponse(
             status=result.status,
             taxonomy_key="google",
             taxonomy_version=self.taxonomy_version,
             artifact_version=self.artifact_version,
             category=category,
             alternatives=alternatives,
+            provisional_category=provisional_category,
+            requires_review=provisional_category is not None,
             method=result.method,
             reason_code=result.reason_code,
             clarification=result.clarification,
@@ -230,22 +274,34 @@ class InferenceService:
                 total_ms=(finished - job.received_at) * 1000,
             ),
         )
+        self.runtime.record_match(payload.model_dump(), response.model_dump())
+        return response
 
     async def _run_job(self, job):
         try:
             response = await asyncio.get_running_loop().run_in_executor(
                 self.executor, self._perform, job
             )
-            log_event(
-                "match_completed",
-                event_id=job.event_id,
-                artifact_version=self.artifact_version,
-                status=response.status,
-                method=response.method,
-                stage="matching",
-                client_waiting=not job.future.done(),
-                **response.timings.model_dump(),
-            )
+            if job.operation == "match":
+                log_event(
+                    "match_completed",
+                    event_id=job.event_id,
+                    artifact_version=self.artifact_version,
+                    status=response.status,
+                    method=response.method,
+                    stage="matching",
+                    client_waiting=not job.future.done(),
+                    **response.timings.model_dump(),
+                )
+            else:
+                log_event(
+                    "feedback_recorded",
+                    event_id=job.event_id,
+                    artifact_version=response.artifact_version,
+                    stage="feedback",
+                    feedback_id=response.feedback_id,
+                    review_status="pending",
+                )
             if not job.future.done():
                 job.future.set_result(response)
         except ServiceError as error:

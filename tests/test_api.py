@@ -18,6 +18,11 @@ from category_matcher.matcher import Matcher
 ROUTE = "/v1/categories/match"
 
 
+@pytest.fixture(autouse=True)
+def isolated_runtime(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+
+
 def factory(bundle, *, gate=None, threads=None, corrupt=False, crash=False):
     def initialize():
         matcher = Matcher(bundle)

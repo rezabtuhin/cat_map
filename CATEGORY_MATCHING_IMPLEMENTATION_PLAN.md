@@ -725,7 +725,7 @@ Sprint 3 implements this lifecycle in `src/category_matcher/api/`: `app.py` is t
 composition root, `service.py` owns the inference thread and model lifecycle, and
 `schemas.py` defines the HTTP contracts. The broader module layout below remains
 an architecture target. Only Google and its active version are currently enabled;
-feedback recording remains Sprint 4 work. See [the runnable API contract](README.md#run-the-local-api)
+feedback recording and recovery are implemented in [Sprint 4](reports/sprint_4/STATUS.md). See [the runnable API contract](README.md#run-the-local-api)
 for additional response fields, limits, error codes, and configuration.
 
 1. Define Pydantic request/response schemas with the mutually consistent status fields.

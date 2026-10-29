@@ -1,0 +1,15 @@
+{
+  "artifact_version": "eed281a45624da69-a0a29f98cc37",
+  "cli_agreement": "200/200",
+  "user_examples_checked": 10,
+  "feedback_persisted_pending": true,
+  "activation_blocked_while_serving": true,
+  "live_backup_and_restore": "passed",
+  "alternate_profile_restart_and_rollback": "passed",
+  "restored_event_feedback": "passed",
+  "unreviewed_alias_promotion": "rejected",
+  "pilot_export": "unlabeled development inputs only",
+  "test_holdout_scored": false,
+  "human_pilot": "pending",
+  "qualification": "pending"
+}

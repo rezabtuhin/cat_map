@@ -11,6 +11,7 @@ class APISettings(BaseModel):
 
     artifacts: Path = Path("artifacts/google")
     policy: Path | None = None
+    runtime_db: Path = Path("var/category_matcher.sqlite3")
     queue_size: int = Field(default=8, ge=1, le=32)
     timeout_seconds: float = Field(default=30, gt=0, le=120)
     max_body_bytes: int = Field(default=16384, ge=1024, le=65536)
@@ -20,6 +21,7 @@ class APISettings(BaseModel):
         fields = {
             "ARTIFACTS": ("artifacts", Path),
             "POLICY": ("policy", Path),
+            "RUNTIME_DB": ("runtime_db", Path),
             "QUEUE_SIZE": ("queue_size", int),
             "TIMEOUT_SECONDS": ("timeout_seconds", float),
             "MAX_BODY_BYTES": ("max_body_bytes", int),

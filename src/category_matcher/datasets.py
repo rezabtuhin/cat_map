@@ -38,6 +38,7 @@ def check_splits(paths: dict[str, Path]) -> dict:
                 exact_key(row.get("context", "")),
                 row.get("parent_category_id"),
                 row.get("language", "en"),
+                tuple(row.get("source_ancestors") or []),
             )
             family = exact_key(row.get("input_family") or row["query"])
             if query in local_queries:

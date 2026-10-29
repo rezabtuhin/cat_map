@@ -4,6 +4,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from category_matcher.query import source_ancestry
+
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, allow_inf_nan=False)
@@ -16,10 +18,16 @@ class MatchRequest(StrictModel):
     category_id: str | None = Field(default=None, min_length=1, max_length=128)
     parent_category_id: str | None = Field(default=None, min_length=1, max_length=128)
     context: str | None = Field(default=None, max_length=1000)
+    source_ancestors: list[str] = Field(default_factory=list, max_length=20)
     language: str = Field(
         default="en", min_length=2, max_length=32, pattern=r"^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"
     )
     limit: int = Field(default=3, ge=1, le=10)
+
+    @field_validator("source_ancestors")
+    @classmethod
+    def validate_ancestry(cls, value):
+        return source_ancestry(value)
 
     @field_validator(
         "category",
@@ -61,6 +69,8 @@ class MatchResponse(StrictModel):
     artifact_version: str
     category: CanonicalCategory | None
     alternatives: list[CanonicalCategory]
+    provisional_category: CanonicalCategory | None = None
+    requires_review: bool = False
     method: str
     reason_code: str
     clarification: str | None
@@ -71,6 +81,9 @@ class MatchResponse(StrictModel):
     def assignment_contract(self):
         if (self.status == "matched") != (self.category is not None):
             raise ValueError("Only an accepted matched result may contain an assigned category")
+        expected = self.alternatives[0] if self.status == "provisional" and self.alternatives else None
+        if self.provisional_category != expected or self.requires_review != (expected is not None):
+            raise ValueError("A provisional selection must be the top candidate and require review")
         return self
 
 
@@ -100,3 +113,31 @@ class ErrorDetail(StrictModel):
 class ErrorResponse(StrictModel):
     error: ErrorDetail
     event_id: str
+
+
+class FeedbackRequest(StrictModel):
+    match_event_id: str = Field(min_length=1, max_length=128)
+    action: Literal["confirm", "correct", "reject", "needs_clarification"]
+    category_id: str | None = Field(default=None, min_length=1, max_length=128)
+    reviewer: str = Field(min_length=1, max_length=120)
+    note: str = Field(default="", max_length=1000)
+
+    @field_validator("match_event_id", "reviewer", "category_id", "note", mode="before")
+    @classmethod
+    def trim_text(cls, value):
+        return value.strip() if isinstance(value, str) else value
+
+
+class FeedbackResponse(StrictModel):
+    feedback_id: str
+    match_event_id: str
+    created_at: str
+    action: Literal["confirm", "correct", "reject", "needs_clarification"]
+    category: CanonicalCategory | None
+    reviewer: str
+    note: str
+    event_id: str
+    review_status: Literal["pending"]
+    taxonomy_key: Literal["google"]
+    taxonomy_version: str
+    artifact_version: str

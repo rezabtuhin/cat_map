@@ -14,6 +14,8 @@ from category_matcher.api.errors import ServiceError, error_response
 from category_matcher.api.schemas import (
     CategoryResponse,
     ErrorResponse,
+    FeedbackRequest,
+    FeedbackResponse,
     MatchRequest,
     MatchResponse,
     TaxonomyInfo,
@@ -52,7 +54,7 @@ class RequestBoundary:
         try:
             if scope["method"] == "POST":
                 headers = dict(scope.get("headers", []))
-                if scope["path"] == "/v1/categories/match" and (
+                if scope["path"] in {"/v1/categories/match", "/v1/categories/feedback"} and (
                     headers.get(b"content-type", b"").split(b";", 1)[0].strip().lower()
                     != b"application/json"
                 ):
@@ -133,7 +135,7 @@ def create_app(settings: APISettings | None = None, *, matcher_factory=None) -> 
 
     app = FastAPI(
         title="Category Matcher Development API",
-        version="0.3.0",
+        version="0.4.0",
         lifespan=lifespan,
         description="Local development API. Only accepted matches assign a category.",
     )
@@ -232,6 +234,17 @@ def create_app(settings: APISettings | None = None, *, matcher_factory=None) -> 
     async def match(payload: MatchRequest, request: Request):
         return await service(request).submit(
             payload, request.state.event_id, request.state.received_at
+        )
+
+    @app.post(
+        "/v1/categories/feedback",
+        response_model=FeedbackResponse,
+        status_code=201,
+        responses={code: {"model": ErrorResponse} for code in (404, 409, 413, 415, 422, 503, 504)},
+    )
+    async def feedback(payload: FeedbackRequest, request: Request):
+        return await service(request).submit(
+            payload, request.state.event_id, request.state.received_at, operation="feedback"
         )
 
     return app
