@@ -1,5 +1,7 @@
 # Implementation status
 
+Historical Sprint 1 snapshot. See [Sprint 2 status](../sprint_2/STATUS.md) for current work.
+
 Sprint 1's executable components are implemented. Acceptance of Sprint 1 remains
 pending human review of its 200 development labels; the benchmark is explicitly
 diagnostic. The first matching-quality gate has not passed.

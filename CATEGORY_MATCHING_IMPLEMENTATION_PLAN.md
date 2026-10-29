@@ -10,7 +10,7 @@ Build a **local Python service that selects a category from the supplied taxonom
 
 The matching engine is vendor-independent. Google is the first planned source; future sources such as a vendor-supplied `meta_category_list` use the same engine through source adapters and taxonomy-scoped artifacts. A Meta file has not been supplied or inspected, so its format, identifiers, and hierarchy are not assumed here.
 
-The implementation stack is Python 3.11, uv, FastAPI, Pydantic, SQLite with `sqlite-vec`, NumPy, BM25S, RapidFuzz, Sentence Transformers, and PyTorch. Use `BAAI/bge-base-en-v1.5` for embeddings and `cross-encoder/ms-marco-MiniLM-L6-v2` for reranking. Run one application worker on the existing Mac initially.
+The implementation stack is Python 3.11, uv, FastAPI, Pydantic, SQLite with `sqlite-vec`, NumPy, BM25S, RapidFuzz, Sentence Transformers, and PyTorch. Use `BAAI/bge-base-en-v1.5` for embeddings and the pinned `cross-encoder/nli-deberta-v3-small` category-entailment rank-fusion profile for the current development matcher. FastAPI/Pydantic integration is implemented as a local development service in [Sprint 3](reports/sprint_3/FINDINGS.md), following the user's authorization to advance while qualification remains pending. Run one application worker on the existing Mac initially.
 
 Build a **modular monolith with explicit interfaces and dependency injection**. Future features, retrieval methods, models, and storage providers must be addable through focused modules with stable contracts. The initial single-process deployment is a resource setting, not a restriction on the architecture. Section 4.6 defines the required module boundaries, change workflows, and capacity-growth path.
 
@@ -37,7 +37,7 @@ These findings come from inspecting the workspace, parsing the entire category f
 
 ### 2.1 Project contents
 
-At the initial inspection, the directory contained only `google_category_list.txt`. This implementation plan has since been added. There is still no application code, project environment, dependency manifest, test suite, database, model index, or Git repository in this directory. No applicable `AGENTS.md` was found in the checked ancestor directories.
+At the initial inspection, the directory contained only `google_category_list.txt`; application code, environment, dependencies, tests, database, index, and Git repository were absent. No applicable `AGENTS.md` was found in the checked ancestor directories. This is the original audit, not the current inventory. The CLI, local development API, model bundles, and tests now exist; see [README](README.md) and the sprint reports for current behavior and outstanding qualification work.
 
 ### 2.2 Category data
 
@@ -148,7 +148,7 @@ The largest accuracy gap is **missing labeled input/output data**, not missing G
 | Embedding model | `BAAI/bge-base-en-v1.5` through Sentence Transformers | Retrieve candidates with similar meaning |
 | Vector storage and search | SQLite + `sqlite-vec`, normalized float32 BLOBs | Persist vectors and execute exact cosine-distance retrieval |
 | Numeric conversion | NumPy | Normalize and serialize model output and validate numerical equivalence |
-| Reranker | `cross-encoder/ms-marco-MiniLM-L6-v2` through Sentence Transformers | Rank query/category pairs |
+| Reranker | `cross-encoder/nli-deberta-v3-small` through Sentence Transformers | Category entailment ranks fused with retrieval ranks |
 | Model execution | PyTorch, initially CPU float32 | Predictable baseline on the observed machine |
 | Verification | pytest, HTTPX, SciPy | Functional tests, API tests, precision confidence bounds |
 | Quality checks | Ruff | Formatting and static linting |
@@ -157,9 +157,23 @@ Resolve compatible package versions during environment creation, commit the gene
 
 BM25S provides local BM25 retrieval, and RapidFuzz supplies spelling-distance and fuzzy-string matching. [BM25S documentation](https://bm25s.github.io/), [RapidFuzz documentation](https://rapidfuzz.github.io/RapidFuzz/)
 
-The embedding model produces 768-dimensional vectors. Apply the model's retrieval instruction exactly once to queries and no instruction to stored category text. Record that encoding choice in the manifest. [BGE model card](https://huggingface.co/BAAI/bge-base-en-v1.5)
+The embedding model produces 768-dimensional vectors. Sprint 2 development comparisons selected plain query encoding, omitting the initial retrieval instruction; stored category text also has no instruction. The active artifact records this choice. [BGE model card](https://huggingface.co/BAAI/bge-base-en-v1.5)
 
-The selected reranker is an English MS MARCO passage-ranking model. Its performance on short category labels is unverified; taxonomy-specific evaluation is a release requirement. Its raw scores are ranking signals, not correctness probabilities. [MiniLM reranker model card](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2)
+The CPU execution profile remains float32 after the measured
+[quantization comparison](reports/sprint_2/quantization/FINDINGS.md). Full int8
+regressed on development rankings, and word-embedding-only int8 did not improve
+the observed process-memory peak or footprint. Experimental packed-weight byte
+counts must not be treated as measurements of runtime memory.
+
+The initial MiniLM passage reranker worsened development ranking. The current
+development configuration instead uses the NLI model with category-entailment
+pair formatting and rank fusion. It scores the first 100 candidates and combines
+model/retrieval ranks with weights 3:1 and rank constant 10. The selected profile
+and immutable revision are stored in `config/category_ranking.json` and the
+artifact. Raw entailment margins and fused scores are ranking signals, not
+correctness probabilities. This improves draft development ranking but is not
+independently qualified. See [measured findings](reports/sprint_2/revision_3/FINDINGS.md)
+and the [NLI model card](https://huggingface.co/cross-encoder/nli-deberta-v3-small).
 
 Store and search vectors through the SQLite adapter using `sqlite-vec`. Keep NumPy for model-output conversion and correctness checks. Exact vector search is appropriate for this corpus size; it does not require an additional database service. Sentence Transformers documents direct similarity search for small corpora. [Semantic search documentation](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html)
 
@@ -179,7 +193,7 @@ taxonomy key + input category + optional context
     -> if unresolved: BM25 + fuzzy + semantic candidate retrieval
     -> deduplicate by category ID + reciprocal rank fusion
     -> include relevant immediate parents
-    -> cross-encoder reranking
+    -> selected category-entailment rank fusion, or explicit retrieval-only mode
     -> ambiguity, context, and specificity checks
     -> calibrated decision
     -> matched | needs_clarification | no_match | unsupported_language
@@ -226,13 +240,13 @@ The current labels have no collisions under conservative normalization. The load
 
 ### 4.3 Candidate retrieval
 
-Initial fixed retrieval configuration:
+Current Sprint 2 development configuration, superseding the initial Sprint 1 limits:
 
 | Branch | Representation | Candidate count |
 |---|---|---:|
-| BM25 | Canonical label plus full hierarchy path, tokenized with the same rules as input | 50 |
-| Semantic | Maximum similarity over label and full-path embedding views | 50 distinct category IDs |
-| Fuzzy | Normalized canonical labels and approved aliases, deduplicated by category ID | 20 |
+| BM25 | Canonical label only; retrieval-only content-word and light plural normalization | 100 |
+| Semantic | Maximum similarity over label and full-path embedding views | 100 distinct category IDs |
+| Fuzzy | Normalized canonical labels and approved aliases, deduplicated by category ID | 50 |
 
 For semantic retrieval, precompute two normalized vectors per category: one for its label and one for its full path. Score all vectors, take the maximum score per category, then select the best category IDs. The two views contribute one semantic ranking, not two independent fusion votes.
 
@@ -240,21 +254,20 @@ Store vector rows with an explicit category-ID/view mapping in `category_embeddi
 
 Use `sqlite-vec` cosine-distance functions over the persisted vectors. Group both views by category ID and take the minimum distance, equivalent to maximum cosine similarity. Apply parent-scope filtering before ranking and limiting. For the current file, two 768-dimensional float32 views require approximately 32.7 MiB of raw vector storage, excluding SQLite overhead. Model weights, Python, indexes, and inference buffers use additional memory and must be measured separately.
 
-Use the BGE query instruction:
-
-```text
-Represent this sentence for searching relevant passages: 
-```
+Use plain BGE queries in the active Sprint 2 configuration. The prefixed and plain
+forms were compared on development examples; this change has not been validated
+on an independent reviewed holdout. Exact-match keys retain conservative normalization.
 
 Fuzzy matching supplies candidates; a high fuzzy score alone never authorizes a match. Drop zero-evidence BM25 hits, and exclude fuzzy hits below the configured retrieval floor. An empty branch contributes no votes.
 
 Merge the three branch rankings using reciprocal rank fusion:
 
 ```text
-rrf(category) = sum(1 / (60 + rank_in_branch))
+rrf(category) = sum(branch_weight / (10 + rank_in_branch))
+branch_weights = {semantic: 5, bm25: 1, fuzzy: 1}
 ```
 
-Ranks start at 1. Deduplicate each branch before fusion within the selected taxonomy/version. Sort ties deterministically by native string category ID. Keep the top 40 fused candidates and add at most five distinct immediate parents of the top five, where absent. Prioritize the higher-ranked child's parents, then native parent ID for ties. This cap also applies to future graphs with multiple parents. At most 45 candidates enter reranking.
+Ranks start at 1. Deduplicate each branch before fusion within the selected taxonomy/version. Sort ties deterministically by native string category ID. Keep up to 200 fused candidates and add at most five distinct immediate parents of the top five, where absent. Prioritize the higher-ranked child's parents, then native parent ID for ties. At most 205 candidates enter optional reranking. The wider pool improves diagnostic recall at a higher potential reranking cost; serial runtime measurements and independent quality validation remain required.
 
 Do not discard entire top-level branches before retrieval; an incorrect early branch decision would make the correct category unreachable. Apply an explicitly supplied parent constraint consistently to all branches instead.
 
@@ -262,14 +275,40 @@ RRF combines ranks without equating incompatible raw scores. [RRF definition](ht
 
 ### 4.4 Reranking and hierarchy handling
 
-For each candidate, construct a pair:
+For each of the first 100 candidates, the selected profile constructs a pair:
 
 ```text
-query: input category plus any supplied context
-candidate: Category: <canonical label>. Path: <canonical full path>.
+premise: The product category is <retrieval query>.
+hypothesis: The product category is <canonical label>.
 ```
 
-Batch the pairs through the cross-encoder and sort by descending score. Keep the first three results for the decision policy and response alternatives. Record first and second scores, their margin, retrieval ranks, and parent/child relationships.
+Batch the pairs through the cross-encoder and rank by entailment logit minus
+log-sum-exp of the two other logits. Fuse those ranks with retrieval ranks:
+`1/(10 + retrieval_rank) + 3/(10 + entailment_rank)`. Candidates outside the
+scored prefix retain their retrieval term. Apply the unique eligible whole-label
+spelling priority without converting it into a verified alias. Record raw model
+margins, fused scores, retrieval ranks, and parent/child relationships. Preserve
+the full shortlist; return alternatives according to the response limit.
+
+If only the supplied parent receives positive NLI support and every scored
+descendant is rejected, preserve retrieval order and record a specificity
+conflict. Retain model scores/ranks and require clarification even under a
+qualified policy. This is a conservative disagreement fallback, not acceptance
+of the retrieval winner. Missing scores do not imply a rejected descendant.
+
+The current weak-promotion guard also protects the retrieval winner when both
+semantic scores exist, its semantic support is more than 0.03 higher, and the
+promoted candidate's entailment margin is below 1.0. These development-selected
+values are ranking heuristics and are pinned in the artifact. The conflict must
+abstain under a policy. Whole coordinated-label alternatives give provisional
+group evidence; collection/recommendation titles without product information stay
+unmapped. See the current findings for regressions, test evidence, and limits.
+
+Canonical ID/path/label lookup and approved aliases run first. Conservative
+literal general-category wrappers can also resolve a canonical label directly.
+The current adapter preserves parent constraints and the existing infant-apparel
+exclusion, but remaining broad-parent/related-product ranking failures still need
+work before qualification. Retrieve-only mode is available through `--no-rerank`.
 
 Choose a category at the specificity supported by the input. For example, `phone accessories` supports Mobile Phone Accessories; it does not justify Mobile Phone Cases. An unclear competition between sibling or parent/child categories produces clarification unless a reviewed rule or validated decision threshold resolves it.
 
@@ -280,6 +319,13 @@ Retrieve-and-rerank is the selected two-stage design; its quality improvement fo
 ### 4.5 Acceptance policy
 
 Implement a versioned policy with these outcomes:
+
+Only an accepted `matched` result may populate the assigned `category` field.
+Provisional, clarification, no-match, and unsupported-language results must keep
+`category: null`. Consumers must never automatically assign the first ranked
+candidate or an experimental decision preview. Unsupported store-section titles
+stay unmapped; an unsupported specific category must not become a forced broad
+fallback. Human review can leave the input unmapped rather than inventing an ID.
 
 | Outcome | Required behavior |
 |---|---|
@@ -436,7 +482,7 @@ Use `(taxonomy_key, taxonomy_version, category_id)` category keys and correspond
 
 ### 5.1 SQLite and sqlite-vec integration
 
-Use ordinary SQLite tables for embeddings and `sqlite-vec` scalar cosine-distance search in the first release. This permits exact aggregation over label/path views and arbitrary parent-scope filtering before the top-50 limit. Keep all vector SQL inside the vector-store adapter. [sqlite-vec KNN methods](https://alexgarcia.xyz/sqlite-vec/features/knn.html)
+Use ordinary SQLite tables for embeddings and `sqlite-vec` scalar cosine-distance search in the first release. This permits exact aggregation over label/path views and arbitrary parent-scope filtering before the configured candidate limit. Keep all vector SQL inside the vector-store adapter. [sqlite-vec KNN methods](https://alexgarcia.xyz/sqlite-vec/features/knn.html)
 
 The embedding table has a composite primary key `(taxonomy_key, taxonomy_version, category_id, view)`, a matching category foreign key, a `view` enum check, and an embedding BLOB check for float32 type, 768 dimensions, and 3,072 bytes for the selected initial model. Reject nonfinite or zero-norm model output in the adapter before insertion. A different dimensionality creates a new compatible schema/bundle; it must never be mixed into the active 768-dimensional space.
 
@@ -654,8 +700,8 @@ An independently reviewed subset must resolve labeling disagreements before eval
 ### Step 7 — Implement and verify reranking
 
 1. Load one cross-encoder instance for the process.
-2. Score candidate pairs in batches of 8 under inference mode.
-3. Preserve raw scores, top-result margin, and retrieval evidence.
+2. Score the configured prefix of candidate pairs in batches of 8 under inference mode.
+3. Fuse model and retrieval ranks; preserve raw scores, top-result margin, and retrieval evidence.
 4. Check parent/child competition and explicit parent constraints.
 5. Compare reranked top-1 performance with fused retrieval on development data.
 6. Freeze candidate formatting and model revisions before calibration.
@@ -675,6 +721,13 @@ An independently reviewed subset must resolve labeling disagreements before eval
 
 ### Step 9 — Implement the API and lifecycle
 
+Sprint 3 implements this lifecycle in `src/category_matcher/api/`: `app.py` is the
+composition root, `service.py` owns the inference thread and model lifecycle, and
+`schemas.py` defines the HTTP contracts. The broader module layout below remains
+an architecture target. Only Google and its active version are currently enabled;
+feedback recording and recovery are implemented in [Sprint 4](reports/sprint_4/STATUS.md). See [the runnable API contract](README.md#run-the-local-api)
+for additional response fields, limits, error codes, and configuration.
+
 1. Define Pydantic request/response schemas with the mutually consistent status fields.
 2. Build the application through `bootstrap.py`: load compatible artifact handles, construct the configured adapters, and initialize both models during FastAPI startup.
 3. Mark readiness only after load and a small inference check succeed.
@@ -687,7 +740,7 @@ An independently reviewed subset must resolve labeling disagreements before eval
 Start the implemented service with:
 
 ```bash
-uv run uvicorn category_matcher.presentation.api:app --host 127.0.0.1 --port 8000 --workers 1
+uv run category-matcher-api --host 127.0.0.1 --port 8000
 ```
 
 One process bounds duplicated model memory. FastAPI documents worker-based deployment and process management. [FastAPI workers documentation](https://fastapi.tiangolo.com/deployment/server-workers/)
@@ -921,6 +974,7 @@ The implementation can proceed with the fixed decisions above. The following evi
 
 This document specifies the intended full application. The initial CLI prototype and
 local SQLite/vector integration have since been implemented; broader service work,
-trusted evaluation, calibration, migrations, and release qualification remain.
-See [Sprint 1 status](reports/sprint_1/STATUS.md) for the current implementation and
-[findings](reports/sprint_1/FINDINGS.md) for measured diagnostic results.
+trusted evaluation, qualified calibration, migrations, and release qualification remain.
+See [Sprint 2 status](reports/sprint_2/STATUS.md) for the current implementation and
+[latest findings](reports/sprint_2/revision_3/FINDINGS.md) for measured diagnostic
+results, remaining ranking regressions, and phase-specific resource observations.

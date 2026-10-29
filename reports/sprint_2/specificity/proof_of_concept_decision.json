@@ -1,0 +1,361 @@
+{
+  "artifact_version": "eed281a45624da69-3cf82ad83e4d",
+  "decision": "revise",
+  "automatic_semantic_acceptance_enabled": false,
+  "label_status": "UNREVIEWED_DRAFT_DIAGNOSTIC_ONLY",
+  "dataset_sha256": "2821da626f6d9fb302279e6e8df16f1979f36715ab6cb5fda358e31cff112d45",
+  "comparison_report_sha256": "47c45e881decbd565e77a271c90f22221f5224008a7093d1b0b84fed40fd01a6",
+  "previous_non_exact": {
+    "examples": 160,
+    "resolvable_examples": 120,
+    "top1_correct": 93,
+    "top3_correct": 105,
+    "recall20_correct": 114,
+    "shortlist_correct": 118,
+    "automatic_matches": 14,
+    "correct_automatic_matches": 14,
+    "incorrect_automatic_matches": 0,
+    "resolvable_automatic_matches": 14,
+    "top1_accuracy": 0.775,
+    "top3_recall": 0.875,
+    "candidate_recall_at_20": 0.95,
+    "final_shortlist_recall": 0.9833333333333333,
+    "automatic_match_precision": 1.0,
+    "resolvable_automatic_coverage": 0.11666666666666667,
+    "unresolvable_examples": 40,
+    "unresolvable_false_acceptances": 0
+  },
+  "current_non_exact": {
+    "examples": 160,
+    "resolvable_examples": 120,
+    "top1_correct": 94,
+    "top3_correct": 108,
+    "recall20_correct": 114,
+    "shortlist_correct": 118,
+    "automatic_matches": 14,
+    "correct_automatic_matches": 14,
+    "incorrect_automatic_matches": 0,
+    "resolvable_automatic_matches": 14,
+    "top1_accuracy": 0.7833333333333333,
+    "top3_recall": 0.9,
+    "candidate_recall_at_20": 0.95,
+    "final_shortlist_recall": 0.9833333333333333,
+    "automatic_match_precision": 1.0,
+    "resolvable_automatic_coverage": 0.11666666666666667,
+    "unresolvable_examples": 40,
+    "unresolvable_false_acceptances": 0
+  },
+  "top1_changes": [
+    {
+      "example_id": "draft-042",
+      "query": "protective shells for cellphones",
+      "previous_top1": [
+        "280"
+      ],
+      "current_top1": [
+        "2353"
+      ],
+      "previous_rank": 3,
+      "current_rank": 1
+    },
+    {
+      "example_id": "draft-046",
+      "query": "kibble for pet dogs",
+      "previous_top1": [
+        "5015"
+      ],
+      "current_top1": [
+        "3530"
+      ],
+      "previous_rank": 2,
+      "current_rank": 1
+    },
+    {
+      "example_id": "draft-047",
+      "query": "playthings for cats",
+      "previous_top1": [
+        "1253"
+      ],
+      "current_top1": [
+        "5001"
+      ],
+      "previous_rank": 2,
+      "current_rank": 1
+    },
+    {
+      "example_id": "draft-066",
+      "query": "machines for cutting lawn grass",
+      "previous_top1": [
+        "694"
+      ],
+      "current_top1": [
+        "2218"
+      ],
+      "previous_rank": 1,
+      "current_rank": 3
+    },
+    {
+      "example_id": "draft-068",
+      "query": "bed frames for sleeping",
+      "previous_top1": [
+        "2696"
+      ],
+      "current_top1": [
+        "569"
+      ],
+      "previous_rank": 12,
+      "current_rank": 7
+    },
+    {
+      "example_id": "draft-080",
+      "query": "printed reading books",
+      "previous_top1": [
+        "784"
+      ],
+      "current_top1": [
+        "543543"
+      ],
+      "previous_rank": 1,
+      "current_rank": 2
+    },
+    {
+      "example_id": "draft-081",
+      "query": "movies on DVD",
+      "previous_top1": [
+        "839"
+      ],
+      "current_top1": [
+        "386"
+      ],
+      "previous_rank": 1,
+      "current_rank": 2
+    },
+    {
+      "example_id": "draft-086",
+      "query": "feed for aquarium fish",
+      "previous_top1": [
+        "422"
+      ],
+      "current_top1": [
+        "5024"
+      ],
+      "previous_rank": 4,
+      "current_rank": 1
+    },
+    {
+      "example_id": "draft-104",
+      "query": "Soas",
+      "previous_top1": [
+        "5687"
+      ],
+      "current_top1": [
+        "7302"
+      ],
+      "previous_rank": 88,
+      "current_rank": 84
+    },
+    {
+      "example_id": "draft-126",
+      "query": "Lan Mowers",
+      "previous_top1": [
+        "8485"
+      ],
+      "current_top1": [
+        "3798"
+      ],
+      "previous_rank": 3,
+      "current_rank": 3
+    },
+    {
+      "example_id": "draft-162",
+      "query": "charger",
+      "previous_top1": [
+        "6790"
+      ],
+      "current_top1": [
+        "275"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-164",
+      "query": "case",
+      "previous_top1": [
+        "1801"
+      ],
+      "current_top1": [
+        "1594"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-165",
+      "query": "cover",
+      "previous_top1": [
+        "1594"
+      ],
+      "current_top1": [
+        "543662"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-166",
+      "query": "stand",
+      "previous_top1": [
+        "772"
+      ],
+      "current_top1": [
+        "7422"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-167",
+      "query": "rack",
+      "previous_top1": [
+        "464"
+      ],
+      "current_top1": [
+        "632"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-174",
+      "query": "filter",
+      "previous_top1": [
+        "2182"
+      ],
+      "current_top1": [
+        "6930"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-179",
+      "query": "holder",
+      "previous_top1": [
+        "587"
+      ],
+      "current_top1": [
+        "631"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-180",
+      "query": "pad",
+      "previous_top1": [
+        "569"
+      ],
+      "current_top1": [
+        "3769"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-182",
+      "query": "tax accounting service",
+      "previous_top1": [
+        "923"
+      ],
+      "current_top1": [
+        "5304"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-186",
+      "query": "car insurance policy",
+      "previous_top1": [
+        "1267"
+      ],
+      "current_top1": [
+        "3436"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-189",
+      "query": "cloud server rental",
+      "previous_top1": [
+        "331"
+      ],
+      "current_top1": [
+        "4026"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-190",
+      "query": "mobile app development service",
+      "previous_top1": [
+        "2092"
+      ],
+      "current_top1": [
+        "318"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-191",
+      "query": "dog grooming appointment",
+      "previous_top1": [
+        "4508"
+      ],
+      "current_top1": [
+        "529"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-192",
+      "query": "home moving service",
+      "previous_top1": [
+        "630"
+      ],
+      "current_top1": [
+        "519"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    },
+    {
+      "example_id": "draft-196",
+      "query": "asdfghjklzzz",
+      "previous_top1": [
+        "499972"
+      ],
+      "current_top1": [
+        "6568"
+      ],
+      "previous_rank": 0,
+      "current_rank": 0
+    }
+  ],
+  "remaining_original_label_failures": 26,
+  "calibration_point_targets_met": false,
+  "independent_qualification_passed": false,
+  "resource_checks": {
+    "at_least_200_requests": true,
+    "p95_under_3_seconds": true,
+    "peak_under_3GB": true,
+    "no_observed_system_swapouts": false
+  },
+  "resource_targets_passed": false,
+  "test_predictions_run_by_this_workflow": false
+}

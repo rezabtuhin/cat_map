@@ -1,0 +1,549 @@
+{
+  "purpose": "draft development-only exploration",
+  "results": [
+    {
+      "query_view": "instruction",
+      "semantic_weight": 1,
+      "rrf_constant": 10,
+      "correct": 71,
+      "total": 123,
+      "recalled80": 119,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "207",
+            "2745"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "267",
+            "1745",
+            "264"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "6031",
+            "5697"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "instruction",
+      "semantic_weight": 1,
+      "rrf_constant": 60,
+      "correct": 66,
+      "total": 123,
+      "recalled80": 119,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "207",
+            "2745"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "264",
+            "1745",
+            "543514"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "3188",
+            "2302"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "instruction",
+      "semantic_weight": 2,
+      "rrf_constant": 10,
+      "correct": 68,
+      "total": 123,
+      "recalled80": 119,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "1604",
+            "203"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "267",
+            "543514",
+            "264"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "5697",
+            "5322",
+            "6006"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "instruction",
+      "semantic_weight": 2,
+      "rrf_constant": 60,
+      "correct": 67,
+      "total": 123,
+      "recalled80": 118,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "2745",
+            "204"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "264",
+            "543514",
+            "543513"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "5697",
+            "5322"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "instruction",
+      "semantic_weight": 3,
+      "rrf_constant": 10,
+      "correct": 71,
+      "total": 123,
+      "recalled80": 121,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "1604",
+            "203"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "267",
+            "543514",
+            "500002"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "5697",
+            "5322",
+            "6006"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "instruction",
+      "semantic_weight": 3,
+      "rrf_constant": 60,
+      "correct": 67,
+      "total": 123,
+      "recalled80": 118,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "204",
+            "2745"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "543514",
+            "264",
+            "543513"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "5697",
+            "1604",
+            "5322"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "instruction",
+      "semantic_weight": 5,
+      "rrf_constant": 10,
+      "correct": 70,
+      "total": 123,
+      "recalled80": 119,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "1604",
+            "203"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "267",
+            "543514",
+            "500002"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "5697",
+            "5322",
+            "6006"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "instruction",
+      "semantic_weight": 5,
+      "rrf_constant": 60,
+      "correct": 68,
+      "total": 123,
+      "recalled80": 117,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "204",
+            "211"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "543514",
+            "267",
+            "543513"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "5697",
+            "5322",
+            "6006"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "plain",
+      "semantic_weight": 1,
+      "rrf_constant": 10,
+      "correct": 71,
+      "total": 123,
+      "recalled80": 119,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "207",
+            "2745"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "264",
+            "267",
+            "1745"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "5322",
+            "6031"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "plain",
+      "semantic_weight": 1,
+      "rrf_constant": 60,
+      "correct": 68,
+      "total": 123,
+      "recalled80": 119,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "2745",
+            "207"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "264",
+            "1745",
+            "1924"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "1772",
+            "2302"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "plain",
+      "semantic_weight": 2,
+      "rrf_constant": 10,
+      "correct": 69,
+      "total": 123,
+      "recalled80": 119,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "1604",
+            "2745"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "267",
+            "264",
+            "271"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "5322",
+            "5697"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "plain",
+      "semantic_weight": 2,
+      "rrf_constant": 60,
+      "correct": 67,
+      "total": 123,
+      "recalled80": 117,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "2745",
+            "204"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "264",
+            "267",
+            "1924"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "5322",
+            "5697"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "plain",
+      "semantic_weight": 3,
+      "rrf_constant": 10,
+      "correct": 68,
+      "total": 123,
+      "recalled80": 119,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "1604",
+            "203"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "267",
+            "264",
+            "271"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "5322",
+            "5697"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "plain",
+      "semantic_weight": 3,
+      "rrf_constant": 60,
+      "correct": 65,
+      "total": 123,
+      "recalled80": 116,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "2745",
+            "204"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "264",
+            "267",
+            "1924"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "5322",
+            "5697"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "plain",
+      "semantic_weight": 5,
+      "rrf_constant": 10,
+      "correct": 73,
+      "total": 123,
+      "recalled80": 117,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "1604",
+            "203"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "267",
+            "264",
+            "271"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "5322",
+            "5697"
+          ]
+        ]
+      ]
+    },
+    {
+      "query_view": "plain",
+      "semantic_weight": 5,
+      "rrf_constant": 60,
+      "correct": 64,
+      "total": 123,
+      "recalled80": 116,
+      "user_examples": [
+        [
+          "Hoodies & Sweatshirts|Clothing",
+          [
+            "212",
+            "204",
+            "2745"
+          ]
+        ],
+        [
+          "Smart Phone",
+          [
+            "264",
+            "267",
+            "271"
+          ]
+        ],
+        [
+          "Eco Friendly|Clothing",
+          [
+            "1604",
+            "5322",
+            "5697"
+          ]
+        ]
+      ]
+    }
+  ]
+}

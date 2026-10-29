@@ -1,0 +1,5 @@
+{
+  "quantization_module_sha256": "0925e4188ac3c82ef285a9fdf760c8895a7b8aa197660211485eb24e9bbf00e2",
+  "experiment_script_sha256": "37c91a8f736a2296ef0ae19dfa6dfbb094c24c364168bd783719d9fcf368b790",
+  "notes": "Pre-no_grad converter/runner snapshot captured after formatting, before the cleanup investigation. Initial runs did not record per-process code hashes."
+}

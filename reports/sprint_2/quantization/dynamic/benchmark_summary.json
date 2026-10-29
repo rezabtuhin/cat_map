@@ -1,0 +1,53 @@
+{
+  "baseline_artifact_version": "eed281a45624da69-a0a29f98cc37",
+  "runtime_override": {
+    "name": "cross-encoder/nli-deberta-v3-small",
+    "revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+    "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--cross-encoder--nli-deberta-v3-small/snapshots/fa2804872c3b4bd748f38c0185cc85775361e735",
+    "score_profile": "category_entailment_v1",
+    "entailment_index": 1,
+    "premise_template": "The product category is {query}.",
+    "hypothesis_template": "The product category is {label}.",
+    "candidate_limit": 100,
+    "rank_fusion_weight": 3.0,
+    "rank_constant": 10,
+    "inference_profile": "int8_dynamic_v1"
+  },
+  "dataset_sha256": "2821da626f6d9fb302279e6e8df16f1979f36715ab6cb5fda358e31cff112d45",
+  "action": "benchmark",
+  "conversion": {
+    "profile": "int8_dynamic_v1",
+    "backend": "qnnpack",
+    "converted_linear": 38,
+    "converted_embedding": 1
+  },
+  "conversion_seconds": 0.34474862500064773,
+  "reranker_tensors": {
+    "floating_parameter_bytes": 1658880,
+    "packed_weight_and_bias_bytes": 141609228,
+    "quantization_metadata_bytes": 1025408,
+    "estimated_parameter_tensor_bytes": 144293516
+  },
+  "process_memory_after_tensor_diagnostics": {
+    "resident_bytes": 1012547584,
+    "peak_resident_bytes": 1656045568,
+    "private_internal_bytes": 634241024,
+    "compressed_bytes": 348192768,
+    "physical_footprint_bytes": 983782464
+  },
+  "result": {
+    "end_to_end_warm_latency_ms": {
+      "p50": 1421.2335419979354,
+      "p95": 1614.724849849517,
+      "max": 1724.80670799996
+    },
+    "process_peak_resident_bytes": 1656045568,
+    "resource_targets_passed": false
+  },
+  "notes": [
+    "Experimental runtime override; active artifact and default config are unchanged.",
+    "Encoder and stored document embeddings remain float32 for this reranker experiment.",
+    "No test examples, calibration fitting, or human approvals are used here.",
+    "Tensor unpacking diagnostics occur after the benchmark, outside timed requests."
+  ]
+}

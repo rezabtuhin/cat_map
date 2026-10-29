@@ -125,3 +125,12 @@ def test_injected_reranker_cannot_turn_candidates_into_confirmed_matches(bundle)
         assert result.ranking_model == {"name": "unit-test-double"}
     finally:
         matcher.close()
+
+
+def test_weighted_fusion_can_prioritize_semantic_evidence():
+    branches = {
+        "fuzzy": [Hit("a", 90, "fuzzy", 1), Hit("z", 80, "fuzzy", 2)],
+        "semantic": [Hit("z", 0.9, "semantic", 1), Hit("a", 0.8, "semantic", 2)],
+    }
+    assert fuse(branches, 2, 10)[0].category_id == "a"
+    assert fuse(branches, 2, 10, {"semantic": 5, "fuzzy": 1})[0].category_id == "z"

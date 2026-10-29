@@ -1,5 +1,6 @@
 """Save an inspectable comparison for the five inputs supplied in this conversation."""
 
+import argparse
 import json
 import resource
 import sys
@@ -9,13 +10,15 @@ from pathlib import Path
 
 from category_matcher.artifacts import resolve_bundle
 from category_matcher.matcher import Matcher
-from category_matcher.reranker import MiniLMReranker
 
 
 def main():
-    metadata = json.loads(Path("models/reranker_model.json").read_text())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=Path("reports/sprint_2/user_examples.json"))
+    args = parser.parse_args()
     started = time.perf_counter()
-    matcher = Matcher(resolve_bundle(Path("artifacts/google")), MiniLMReranker(metadata), metadata)
+    matcher = Matcher(resolve_bundle(Path("artifacts/google")))
+    metadata = matcher.reranker_metadata
     matcher.encode_queries(["warmup category"])
     load_seconds = time.perf_counter() - started
     records = [
@@ -28,7 +31,7 @@ def main():
             started = time.perf_counter()
             vector = matcher.encode_queries([matcher.retrieval_query(row["query"])])[0]
             encode_ms = (time.perf_counter() - started) * 1000
-            baseline = matcher.match(row["query"], query_vector=vector)
+            baseline = matcher.match(row["query"], query_vector=vector, rerank=False)
             started = time.perf_counter()
             ranked = matcher.match(row["query"], query_vector=vector, rerank=True)
             rank_ms = (time.perf_counter() - started) * 1000
@@ -64,7 +67,7 @@ def main():
             ],
             "examples": details,
         }
-        output = Path("reports/sprint_1/user_examples.json")
+        output = args.output
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     finally:

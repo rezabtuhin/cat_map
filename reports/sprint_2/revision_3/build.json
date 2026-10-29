@@ -1,0 +1,95 @@
+{
+  "bundle": "/Users/linno/Documents/code/RAG/artifacts/google/eed281a45624da69-a0a29f98cc37",
+  "manifest": {
+    "source_sha256": "eed281a45624da690a1e0fcbbf64529ad331c75488816ab51d641db3d11459fa",
+    "aliases_sha256": "28b3608a10837984acb00419ab342218888105bc627db04cf3922c5bc917dbd9",
+    "model": {
+      "name": "BAAI/bge-base-en-v1.5",
+      "revision": "a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--BAAI--bge-base-en-v1.5/snapshots/a5beb1e3e68b9ab74eb54cfd186867f64f240e1a",
+      "dimension": 768,
+      "query_instruction": ""
+    },
+    "normalization": "nfkc-casefold-ampersand-v1",
+    "retrieval_text_version": "english-light-plurals-content-words-v2",
+    "retrieval": {
+      "bm25_limit": 100,
+      "semantic_limit": 100,
+      "fuzzy_limit": 50,
+      "fuzzy_floor": 45,
+      "fusion_limit": 200,
+      "parent_limit": 5,
+      "rrf_k": 10,
+      "branch_weights": {
+        "bm25": 1,
+        "fuzzy": 1,
+        "semantic": 5
+      },
+      "semantic_query_instruction": "",
+      "bm25_representation": "label_only",
+      "spelling_min_characters": 5,
+      "spelling_distance": 1,
+      "promotion_guard": {
+        "minimum_semantic_gap": 0.03,
+        "minimum_entailment_support": 1.0
+      }
+    },
+    "schema_version": 1,
+    "packages": {
+      "bm25s": "0.3.15",
+      "numpy": "2.4.6",
+      "rapidfuzz": "3.14.6",
+      "sentence-transformers": "5.7.0",
+      "torch": "2.14.1",
+      "sqlite-vec": "0.1.9",
+      "transformers": "4.57.6"
+    },
+    "implementation_fingerprint": {
+      "domain.py": "dc97ad93e528b9d0b902f4fd784b142c874319be200241e1511122a55bde5e16",
+      "normalization.py": "d5465cbf1516fc58e66e7c43c3fda35bf361d177d20f26b44de15ee05662fb78",
+      "taxonomy.py": "a2f71a5d91e4fcbf6c4304780743ee8f1a2516bbaa84cd6cc32afa47a4f5b492",
+      "storage.py": "a2302cadc53a21e5350b75521ae1d37a1cdef6cebe4148dd167df547f0e37304",
+      "retrieval.py": "210f1d9d73d5551a637a786988e7e67db16ca5e3825a1907adef7f0720604432",
+      "encoder.py": "334b3cc3378ef5f14091600a4544c59b7293150306d6781be32dec9e482567c7",
+      "matcher.py": "2ff438814fb27afec57642fa02807c1a9442af85a573aa77b56120cc76485658",
+      "query.py": "e44e40a3b7da277cea197e01041c06466c49b7bcc77f0571d70b22d1638741bf",
+      "artifacts.py": "ca25d9fec5e2cece8edcc43cbc237848d18d5cf4362d45f060cee9554bd6f649",
+      "decision.py": "e3849c3e398492d084a181dc7b6080ed29f9a2c34db8e8d7bc569c16335f1a86",
+      "reranker.py": "6b473b66a47cee44e5a37b697e7300f97fd32c74ec9cfad2cb283b6c32bdfea5"
+    },
+    "ranking_model": {
+      "name": "cross-encoder/nli-deberta-v3-small",
+      "revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+      "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--cross-encoder--nli-deberta-v3-small/snapshots/fa2804872c3b4bd748f38c0185cc85775361e735",
+      "score_profile": "category_entailment_v1",
+      "entailment_index": 1,
+      "premise_template": "The product category is {query}.",
+      "hypothesis_template": "The product category is {label}.",
+      "candidate_limit": 100,
+      "rank_fusion_weight": 3.0,
+      "rank_constant": 10
+    },
+    "taxonomy_key": "google",
+    "taxonomy_version": "eed281a45624da69",
+    "artifact_version": "eed281a45624da69-a0a29f98cc37",
+    "created_at": "2026-10-26T08:14:58.288963+00:00",
+    "record_count": 5582,
+    "embedding_rows": 11164,
+    "approved_alias_count": 1,
+    "inactive_alias_count": 3,
+    "sqlite_version": "3.53.1",
+    "sqlite_vec_version": "v0.1.9",
+    "checksums": {
+      "audit.json": "b364ba5c871934151d32196278fe651251b4fc45074147f879d1bf8ec9c012ce",
+      "aliases.json": "6be1c025feae7b39d0d0a2a0b262d22a66f169152e86cc8e026e6167209f137d",
+      "taxonomy.sqlite3": "0534a5ac6b7117ca0467a0aac7af7bbf90c53b60c3d470c0f29334215c9ae1b3",
+      "bm25/category_ids.json": "a01e3b7d7e1bee0ad2a2a2c8a9aed23828c495c235bf5e56fdab5bb2bbd538ac",
+      "bm25/params.index.json": "5a071945b70e30f8f8dee20200421b9e8e390925ba833ee330a78632d7832204",
+      "bm25/vocab.index.json": "371fc65aae9d96184b476e480bec11bb727425362fbd2e6dba1fb6d44c826ecb",
+      "bm25/indices.csc.index.npy": "a785c76cda49ec38d68c01c58cbc5b8daf6fed0144b0b43e228d1384656dd421",
+      "bm25/data.csc.index.npy": "358cd1b2a8dd0801cd3bbdbf4b3bbab3fa5d3a92bbe69ffb2fcaffef4c9eac7f",
+      "bm25/indptr.csc.index.npy": "7272483a5579c98801aec7bd0ad1f7baa4c22961b9b641358a81581e7beb60cb"
+    },
+    "decision_policy": "sprint-1-provisional-only"
+  }
+}

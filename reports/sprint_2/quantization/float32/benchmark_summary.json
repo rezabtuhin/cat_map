@@ -1,0 +1,52 @@
+{
+  "baseline_artifact_version": "eed281a45624da69-a0a29f98cc37",
+  "runtime_override": {
+    "name": "cross-encoder/nli-deberta-v3-small",
+    "revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+    "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--cross-encoder--nli-deberta-v3-small/snapshots/fa2804872c3b4bd748f38c0185cc85775361e735",
+    "score_profile": "category_entailment_v1",
+    "entailment_index": 1,
+    "premise_template": "The product category is {query}.",
+    "hypothesis_template": "The product category is {label}.",
+    "candidate_limit": 100,
+    "rank_fusion_weight": 3.0,
+    "rank_constant": 10,
+    "inference_profile": "float32"
+  },
+  "dataset_sha256": "2821da626f6d9fb302279e6e8df16f1979f36715ab6cb5fda358e31cff112d45",
+  "action": "benchmark",
+  "conversion": {
+    "profile": "float32",
+    "converted_linear": 0,
+    "converted_embedding": 0
+  },
+  "conversion_seconds": 0.0009361670017824508,
+  "reranker_tensors": {
+    "floating_parameter_bytes": 567588876,
+    "packed_weight_and_bias_bytes": 0,
+    "quantization_metadata_bytes": 0,
+    "estimated_parameter_tensor_bytes": 567588876
+  },
+  "process_memory_after_tensor_diagnostics": {
+    "resident_bytes": 931594240,
+    "peak_resident_bytes": 1161314304,
+    "private_internal_bytes": 556417024,
+    "compressed_bytes": 546635776,
+    "physical_footprint_bytes": 1104368576
+  },
+  "result": {
+    "end_to_end_warm_latency_ms": {
+      "p50": 760.1971870008128,
+      "p95": 818.1528295006501,
+      "max": 907.1277909970377
+    },
+    "process_peak_resident_bytes": 1161314304,
+    "resource_targets_passed": false
+  },
+  "notes": [
+    "Experimental runtime override; active artifact and default config are unchanged.",
+    "Encoder and stored document embeddings remain float32 for this reranker experiment.",
+    "No test examples, calibration fitting, or human approvals are used here.",
+    "Tensor unpacking diagnostics occur after the benchmark, outside timed requests."
+  ]
+}

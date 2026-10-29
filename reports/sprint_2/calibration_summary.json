@@ -1,0 +1,38 @@
+{
+  "output": "reports/sprint_2/draft_policy.json",
+  "policy_id": "ace95523327a052bfea2",
+  "calibration": {
+    "dataset": "data/google/evaluation/calibration.draft.jsonl",
+    "dataset_sha256": "cd1fbe7f45b50f954975ae13ed0b5d6e46db0e04b597d3fc4087c9ecfcb1aaf7",
+    "example_count": 200,
+    "unreviewed_examples": 200,
+    "development_sha256": "2821da626f6d9fb302279e6e8df16f1979f36715ab6cb5fda358e31cff112d45",
+    "metrics": {
+      "examples": 200,
+      "resolvable": 140,
+      "accepted": 56,
+      "correct": 56,
+      "errors": 0,
+      "precision": 1.0,
+      "precision_lower_95_one_sided": 0.9479104727912205,
+      "coverage": 0.4,
+      "candidate_recall": 1.0,
+      "model_accepted": 26,
+      "model_precision": 1.0,
+      "confusion": {
+        "matched -> needs_clarification": 83,
+        "matched -> matched": 56,
+        "matched -> no_match": 1,
+        "needs_clarification -> needs_clarification": 30,
+        "no_match -> needs_clarification": 18,
+        "no_match -> no_match": 8,
+        "unsupported_language -> unsupported_language": 4
+      }
+    },
+    "point_targets_met": false
+  },
+  "qualification": {
+    "passed": false,
+    "reason": "Independent reviewed holdout required"
+  }
+}

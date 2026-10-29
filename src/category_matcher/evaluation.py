@@ -10,6 +10,7 @@ import numpy as np
 
 from category_matcher.artifacts import digest
 from category_matcher.matcher import Matcher
+from category_matcher.query import source_ancestry, source_ancestry_options
 from category_matcher.retrieval import METHODS
 
 
@@ -17,6 +18,7 @@ def read_examples(path: Path, matcher: Matcher, allow_draft: bool) -> list[dict]
     records = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
     seen = set()
     for row in records:
+        source_ancestry(row.get("source_ancestors"))
         if row["example_id"] in seen:
             raise ValueError("Duplicate evaluation example ID")
         seen.add(row["example_id"])
@@ -90,7 +92,13 @@ def summarize(rows: list[dict]) -> dict:
     return summary
 
 
-def evaluate(matcher: Matcher, dataset: Path, *, allow_draft: bool = False) -> dict:
+def evaluate(
+    matcher: Matcher,
+    dataset: Path,
+    *,
+    allow_draft: bool = False,
+    include_reranking: bool | None = None,
+) -> dict:
     records = read_examples(dataset, matcher, allow_draft)
     queries = {}
     exact_results = {}
@@ -102,11 +110,12 @@ def evaluate(matcher: Matcher, dataset: Path, *, allow_draft: bool = False) -> d
             parent_id=row.get("parent_category_id"),
             language=row.get("language", "en"),
             context=row.get("context", ""),
+            **source_ancestry_options(row),
         )
         exact_results[row["example_id"]] = exact
         if exact.status == "provisional":
             queries[row["example_id"]] = matcher.retrieval_query(
-                row["query"], row.get("context", "")
+                row["query"], row.get("context", ""), **source_ancestry_options(row)
             )
     started = time.perf_counter()
     vectors = matcher.encode_queries(list(queries.values())) if queries else []
@@ -114,7 +123,9 @@ def evaluate(matcher: Matcher, dataset: Path, *, allow_draft: bool = False) -> d
     by_example_vector = dict(zip(queries, vectors, strict=True))
     method_reports = {}
     details = {}
-    methods = list(METHODS) + (["hybrid_rerank"] if matcher.reranker is not None else [])
+    if include_reranking is None:
+        include_reranking = matcher.default_rerank or matcher.reranker is not None
+    methods = list(METHODS) + (["hybrid_rerank"] if include_reranking else [])
     for method in methods:
         method_rows = []
         durations = []
@@ -129,6 +140,7 @@ def evaluate(matcher: Matcher, dataset: Path, *, allow_draft: bool = False) -> d
                 context=row.get("context", ""),
                 query_vector=by_example_vector.get(row["example_id"]),
                 rerank=method == "hybrid_rerank",
+                **source_ancestry_options(row),
             )
             durations.append((time.perf_counter() - started) * 1000)
             ids = [candidate["id"] for candidate in result.candidates]
@@ -144,6 +156,9 @@ def evaluate(matcher: Matcher, dataset: Path, *, allow_draft: bool = False) -> d
                     "expected_status": row["expected_status"],
                     "acceptable_category_ids": row["acceptable_category_ids"],
                     "actual_status": result.status,
+                    "actual_method": result.method,
+                    "reason_code": result.reason_code,
+                    "query_analysis": result.query_analysis,
                     "accepted_id": result.category["id"] if result.category else None,
                     "first_relevant_rank": rank,
                     "candidate_ids": ids,
@@ -188,12 +203,13 @@ def evaluate(matcher: Matcher, dataset: Path, *, allow_draft: bool = False) -> d
         "batch_query_encoding_seconds_including_first_model_load": encoding_seconds,
         "notes": [
             "Draft labels are not ground truth or evidence of real-world accuracy.",
-            "Non-exact candidates are provisional; no semantic acceptance policy is calibrated.",
+            "Model-based candidates remain provisional; no decision policy is applied in this run.",
             "All methods share canonical/approved-alias shortcuts; non-exact results are separate.",
             "Recall at 20 uses the same result budget; final shortlist sizes vary by branch.",
             "Retrieval latency excludes batch query encoding; it is not end-to-end latency.",
-            "Automatic precision/coverage reflect deterministic shortcuts only in Sprint 1.",
-            "Needs-clarification versus no-match classification is deferred to Sprint 2.",
+            "Methods share canonical, broad-label, and spelling rules: a pipeline comparison.",
+            "Automatic precision/coverage here describe deterministic shortcuts only.",
+            "Decision-policy outcomes are measured separately during calibration/qualification.",
         ],
         "methods": method_reports,
         "examples": details,

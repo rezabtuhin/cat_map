@@ -1,0 +1,7 @@
+/Users/linno/Documents/code/RAG/.venv/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+Clothing => matched [('1604', 'Clothing')]
+Tops => matched [('212', 'Shirts & Tops')]
+Hoodies & Sweatshirts|Clothing => provisional [('1604', 'Clothing'), ('203', 'Outerwear'), ('7313', 'Outfit Sets')]
+Smart Phone => provisional [('267', 'Mobile Phones'), ('270', 'Telephony'), ('298', 'Handheld Devices')]
+Eco Friendly|Clothing => provisional [('1604', 'Clothing')]

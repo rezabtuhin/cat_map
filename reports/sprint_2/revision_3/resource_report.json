@@ -1,0 +1,221 @@
+{
+  "artifact_version": "eed281a45624da69-a0a29f98cc37",
+  "dataset_sha256": "2821da626f6d9fb302279e6e8df16f1979f36715ab6cb5fda358e31cff112d45",
+  "requests": 200,
+  "unique_inputs_available": 137,
+  "concurrent_inference": 1,
+  "ranking_method": "hybrid+rerank",
+  "ranking_model": {
+    "name": "cross-encoder/nli-deberta-v3-small",
+    "revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+    "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--cross-encoder--nli-deberta-v3-small/snapshots/fa2804872c3b4bd748f38c0185cc85775361e735",
+    "score_profile": "category_entailment_v1",
+    "entailment_index": 1,
+    "premise_template": "The product category is {query}.",
+    "hypothesis_template": "The product category is {label}.",
+    "candidate_limit": 100,
+    "rank_fusion_weight": 3.0,
+    "rank_constant": 10
+  },
+  "policy_id": null,
+  "query_model_load_and_warmup_seconds": 6.628916124998796,
+  "model_load_and_warmup_seconds": 6.628916124998796,
+  "end_to_end_warm_latency_ms": {
+    "p50": 845.3857499989681,
+    "p95": 1429.2460305980035,
+    "max": 2077.650958999584
+  },
+  "serial_requests_per_second": 1.0678200606594368,
+  "process_peak_resident_bytes": 1365999616,
+  "system_swapout_pages_delta": 113112,
+  "resource_diagnostics": {
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "idle_baseline_seconds": 5.0,
+    "idle_system_swapout_pages_delta": 0,
+    "load_and_warmup_system_swapout_pages_delta": 8772,
+    "timed_inference_system_swapout_pages_delta": 104340,
+    "inference_windows": [
+      {
+        "first_request": 1,
+        "last_request": 20,
+        "p95_ms": 874.4298312487446,
+        "system_swapout_pages_delta": 0,
+        "process_memory": {
+          "resident_bytes": 783990784,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 381779968,
+          "compressed_bytes": 741621760,
+          "physical_footprint_bytes": 1124717504
+        }
+      },
+      {
+        "first_request": 21,
+        "last_request": 40,
+        "p95_ms": 886.8309726001827,
+        "system_swapout_pages_delta": 0,
+        "process_memory": {
+          "resident_bytes": 795000832,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 391495680,
+          "compressed_bytes": 734904320,
+          "physical_footprint_bytes": 1127715776
+        }
+      },
+      {
+        "first_request": 41,
+        "last_request": 60,
+        "p95_ms": 935.3205228982915,
+        "system_swapout_pages_delta": 0,
+        "process_memory": {
+          "resident_bytes": 735330304,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 331005952,
+          "compressed_bytes": 800342016,
+          "physical_footprint_bytes": 1132663744
+        }
+      },
+      {
+        "first_request": 61,
+        "last_request": 80,
+        "p95_ms": 1364.333766647724,
+        "system_swapout_pages_delta": 8836,
+        "process_memory": {
+          "resident_bytes": 675954688,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 310951936,
+          "compressed_bytes": 822968320,
+          "physical_footprint_bytes": 1135236032
+        }
+      },
+      {
+        "first_request": 81,
+        "last_request": 100,
+        "p95_ms": 904.6589187530118,
+        "system_swapout_pages_delta": 0,
+        "process_memory": {
+          "resident_bytes": 714899456,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 349798400,
+          "compressed_bytes": 754008064,
+          "physical_footprint_bytes": 1105122240
+        }
+      },
+      {
+        "first_request": 101,
+        "last_request": 120,
+        "p95_ms": 1667.924983052035,
+        "system_swapout_pages_delta": 28444,
+        "process_memory": {
+          "resident_bytes": 678346752,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 316211200,
+          "compressed_bytes": 788119552,
+          "physical_footprint_bytes": 1105646528
+        }
+      },
+      {
+        "first_request": 121,
+        "last_request": 140,
+        "p95_ms": 1803.845362799075,
+        "system_swapout_pages_delta": 8876,
+        "process_memory": {
+          "resident_bytes": 692862976,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 330252288,
+          "compressed_bytes": 774094848,
+          "physical_footprint_bytes": 1105662912
+        }
+      },
+      {
+        "first_request": 141,
+        "last_request": 160,
+        "p95_ms": 1655.0904607513078,
+        "system_swapout_pages_delta": 24060,
+        "process_memory": {
+          "resident_bytes": 659947520,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 298123264,
+          "compressed_bytes": 810205184,
+          "physical_footprint_bytes": 1109644224
+        }
+      },
+      {
+        "first_request": 161,
+        "last_request": 180,
+        "p95_ms": 1335.2155934528128,
+        "system_swapout_pages_delta": 20256,
+        "process_memory": {
+          "resident_bytes": 655753216,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 300728320,
+          "compressed_bytes": 807600128,
+          "physical_footprint_bytes": 1109644224
+        }
+      },
+      {
+        "first_request": 181,
+        "last_request": 200,
+        "p95_ms": 1642.106554498969,
+        "system_swapout_pages_delta": 13868,
+        "process_memory": {
+          "resident_bytes": 682770432,
+          "peak_resident_bytes": 1365999616,
+          "private_internal_bytes": 320307200,
+          "compressed_bytes": 788185088,
+          "physical_footprint_bytes": 1109808064
+        }
+      }
+    ],
+    "process_before_model_load": {
+      "resident_bytes": 76120064,
+      "peak_resident_bytes": 76120064,
+      "private_internal_bytes": 58998784,
+      "compressed_bytes": 0,
+      "physical_footprint_bytes": 59360576
+    },
+    "process_after_warmup": {
+      "resident_bytes": 824049664,
+      "peak_resident_bytes": 1365999616,
+      "private_internal_bytes": 403193856,
+      "compressed_bytes": 715603968,
+      "physical_footprint_bytes": 1120113600
+    },
+    "process_after_inference": {
+      "resident_bytes": 682852352,
+      "peak_resident_bytes": 1365999616,
+      "private_internal_bytes": 320389120,
+      "compressed_bytes": 788103168,
+      "physical_footprint_bytes": 1109808064
+    },
+    "process_after_python_gc": {
+      "resident_bytes": 892272640,
+      "peak_resident_bytes": 1365999616,
+      "private_internal_bytes": 528990208,
+      "compressed_bytes": 579502080,
+      "physical_footprint_bytes": 1109808064
+    },
+    "embedding_parameter_bytes": 437928960,
+    "reranker_parameter_bytes": 567588876
+  },
+  "checks": {
+    "at_least_200_requests": true,
+    "p95_under_3_seconds": true,
+    "peak_under_3GB": true,
+    "no_observed_system_swapouts": false
+  },
+  "resource_targets_passed": false,
+  "outcomes": {
+    "provisional": 200
+  },
+  "notes": [
+    "Each timed request includes query encoding, retrieval, and selected ranking/policy.",
+    "Inference requests run serially; this does not establish multi-user capacity.",
+    "Repeated draft queries measure execution cost, not matching accuracy.",
+    "Peak memory is for this process; system swap counters can include other applications.",
+    "Model loading and the first prediction occur in the untimed warmup.",
+    "Idle/load/inference swap observations are system-wide and do not prove attribution.",
+    "Native process memory includes compressed pages/footprint on macOS when available.",
+    "Parameter byte counts exclude activations, allocator caches, and framework overhead."
+  ]
+}

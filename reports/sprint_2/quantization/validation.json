@@ -1,0 +1,13 @@
+{
+  "active_artifact": "eed281a45624da69-a0a29f98cc37",
+  "default_float32_retained": true,
+  "source_and_original_splits_unchanged": true,
+  "pending_review_decisions": 405,
+  "new_approvals": 0,
+  "artifact_integrity_passed": true,
+  "report_links_valid": true,
+  "overwrite_protection_verified": true,
+  "tests_passed": 102,
+  "test_warnings": 5,
+  "warning_origin": "Installed PyTorch experimental quantization API deprecations"
+}

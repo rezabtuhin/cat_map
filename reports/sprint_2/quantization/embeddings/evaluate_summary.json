@@ -1,0 +1,64 @@
+{
+  "baseline_artifact_version": "eed281a45624da69-a0a29f98cc37",
+  "runtime_override": {
+    "name": "cross-encoder/nli-deberta-v3-small",
+    "revision": "fa2804872c3b4bd748f38c0185cc85775361e735",
+    "snapshot": "/Users/linno/Documents/code/RAG/models/hub/models--cross-encoder--nli-deberta-v3-small/snapshots/fa2804872c3b4bd748f38c0185cc85775361e735",
+    "score_profile": "category_entailment_v1",
+    "entailment_index": 1,
+    "premise_template": "The product category is {query}.",
+    "hypothesis_template": "The product category is {label}.",
+    "candidate_limit": 100,
+    "rank_fusion_weight": 3.0,
+    "rank_constant": 10,
+    "inference_profile": "int8_embeddings_v1"
+  },
+  "dataset_sha256": "2821da626f6d9fb302279e6e8df16f1979f36715ab6cb5fda358e31cff112d45",
+  "action": "evaluate",
+  "conversion": {
+    "profile": "int8_embeddings_v1",
+    "backend": "qnnpack",
+    "converted_linear": 0,
+    "converted_embedding": 1
+  },
+  "conversion_seconds": 0.3112459590010985,
+  "reranker_tensors": {
+    "floating_parameter_bytes": 174065676,
+    "packed_weight_and_bias_bytes": 98380800,
+    "quantization_metadata_bytes": 1024800,
+    "estimated_parameter_tensor_bytes": 273471276
+  },
+  "process_memory_after_tensor_diagnostics": {
+    "resident_bytes": 902103040,
+    "peak_resident_bytes": 1602191360,
+    "private_internal_bytes": 510410752,
+    "compressed_bytes": 407142400,
+    "physical_footprint_bytes": 918852480
+  },
+  "result": {
+    "examples": 160,
+    "resolvable_examples": 120,
+    "top1_correct": 96,
+    "top3_correct": 109,
+    "recall20_correct": 114,
+    "shortlist_correct": 118,
+    "automatic_matches": 14,
+    "correct_automatic_matches": 14,
+    "incorrect_automatic_matches": 0,
+    "resolvable_automatic_matches": 14,
+    "top1_accuracy": 0.8,
+    "top3_recall": 0.9083333333333333,
+    "candidate_recall_at_20": 0.95,
+    "final_shortlist_recall": 0.9833333333333333,
+    "automatic_match_precision": 1.0,
+    "resolvable_automatic_coverage": 0.11666666666666667,
+    "unresolvable_examples": 40,
+    "unresolvable_false_acceptances": 0
+  },
+  "notes": [
+    "Experimental runtime override; active artifact and default config are unchanged.",
+    "Encoder and stored document embeddings remain float32 for this reranker experiment.",
+    "No test examples, calibration fitting, or human approvals are used here.",
+    "Tensor unpacking diagnostics occur after the benchmark, outside timed requests."
+  ]
+}

@@ -6,7 +6,7 @@ Reference: [Architecture and implementation plan](CATEGORY_MATCHING_IMPLEMENTATI
 
 ## 1. Immediate objective and execution order
 
-**First prove that the Google category matcher works on real inputs.** Complete Sprints 1 and 2 before investing in API integration or broader infrastructure. Multi-vendor support and larger architecture improvements remain later work.
+**First prove that the Google category matcher works on real inputs.** The original execution order required completing Sprint 2 qualification before API integration. On 26 October 2026, the user explicitly requested Sprint 3 implementation while deferring human review and further matching tests. Sprint 3 therefore proceeds as a local development integration. This changes the development order; it does not pass the outstanding quality or resource gates. Multi-vendor support and larger architecture improvements remain later work.
 
 This document sets the execution order for the current scope. The architecture document remains the technical reference; its full multi-vendor design is not a prerequisite for the first experiment.
 
@@ -20,8 +20,23 @@ The first validation must answer:
 
 At planning time, the project contained only the category source and planning documents.
 Implementation has now started. Track current work in
-[Sprint 1 status](reports/sprint_1/STATUS.md) and
-[measured diagnostic findings](reports/sprint_1/FINDINGS.md).
+[Sprint 2 status](reports/sprint_2/STATUS.md) and
+[latest measured diagnostic findings](reports/sprint_2/revision_3/FINDINGS.md).
+The current Sprint 2 revision selects NLI entailment rank fusion after the initial
+MiniLM comparison failed. The current revision reaches 80.0% top-1 on reused
+draft non-exact inputs, guards weak promotions, and leaves unsupported store
+section titles unmapped. Human-review export/apply and unlabeled-input capture
+are implemented, with pending review packets ready.
+Trusted label review, independent qualification, and remaining ranking regressions
+still require work before qualifying the matcher for release. Resource evidence now separates idle/load/
+inference swap observations and native process memory; the swap check remains
+unpassed. See the current report for measurements and limits.
+
+The [CPU quantization comparison](reports/sprint_2/quantization/FINDINGS.md) has
+also completed. It does not support replacing float32: the dynamic-int8 profile
+regresses on ranking, and embedding-only int8 does not lower the measured process
+memory. Sprint 2 qualification remains pending; current integration work is tracked
+in [Sprint 3 findings](reports/sprint_3/FINDINGS.md).
 The sprint descriptions below define planned scope and acceptance criteria.
 
 ## 2. Sprint cadence and scope
@@ -32,7 +47,7 @@ Use five-working-day sprints. The allocation below assumes one developer and an 
 |---|---|---|---|
 | 1 | Build an executable retrieval prototype | CLI matcher over all 5,582 categories, with baseline evaluation | Existing source file |
 | 2 | Validate matching quality and local feasibility | Reranking, uncertainty policy, untouched-test report, resource report | Sprint 1 |
-| 3 | Expose the validated matcher through an API | Tested local API using the same matching service | Sprint 2 proof-of-concept gate passes |
+| 3 | Expose the current matcher through a development API | Tested local API using the same matching service | Current frozen Sprint 2 bundle; user authorized early integration while qualification remains pending |
 | 4 | Make builds and pilot operation repeatable | Versioned artifacts, migrations, feedback capture, recovery checks | Sprint 3 |
 | 5 | Qualify the Google release | Independent qualification report and release decision | Sprint 4 and sufficient labeled pilot inputs |
 
@@ -124,7 +139,7 @@ Determine whether the complete planned approach is accurate enough and practical
 | ID | Work | Verification |
 |---|---|---|
 | S2-01 | Complete the initial 600-example dataset | 200 development, 200 calibration, and 200 untouched test examples |
-| S2-02 | Add `cross-encoder/ms-marco-MiniLM-L6-v2` reranking | Same candidate sets can be evaluated with and without reranking |
+| S2-02 | Compare cross-encoder ranking; current profile uses `cross-encoder/nli-deberta-v3-small` rank fusion | Same candidate sets can be evaluated with and without reranking; keep the measured configuration |
 | S2-03 | Add scope, parent/child, and ambiguity checks | Broad terms do not gain unsupported child qualifiers |
 | S2-04 | Implement acceptance, clarification, no-match, and declared-language outcomes | Uncertain inputs remain unassigned |
 | S2-05 | Calibrate score/margin/support thresholds on calibration data | Versioned policy records selected values and evidence |
@@ -195,13 +210,27 @@ A component that adds complexity without demonstrated quality benefit must be re
 - **Revise:** matching runs, but a quality target fails. Work on the failing stage using development/calibration data, then use a fresh holdout. Defer API and infrastructure expansion.
 - **Locally infeasible:** the implementation cannot meet the resource target on this host after focused measurement and correction. Record the measured bottleneck and the required execution change before integration.
 
+The user's subsequent authorization advances Sprint 3 development work despite
+the original API entry gate. Preserve these thresholds for qualification; API
+implementation or CLI/API agreement does not count as passing them. No draft
+policy may enable automatic semantic mapping through the API.
+
 Even a passing 200-example holdout cannot substantiate the full production precision claim. Sprint 5 provides independent qualification.
 
 ## 5. Sprint 3 — Local API and practical integration
 
 ### Goal
 
-Expose the validated matcher through FastAPI while preserving the results measured in Sprint 2.
+Expose the current frozen matcher through FastAPI while preserving its Sprint 2
+behavior and its rule that uncertain inputs stay unmapped. This is development
+integration authorized before the pending qualification work is complete.
+
+**Implementation status:** S3-01 through S3-07 are complete for local development.
+All 129 tests pass, including 27 API cases. Real HTTP checks agree with all 200
+frozen CLI predictions and their alternatives; a ten-request burst admits nine
+and rejects one with 503 while health remains responsive. See
+[Sprint 3 findings and measurements](reports/sprint_3/FINDINGS.md). Qualification
+remains pending; these checks establish integration behavior, not accuracy.
 
 ### Work items
 
@@ -241,6 +270,11 @@ This is a local integration milestone. Public hosting, authentication, and inter
 ### Goal
 
 Make the working Google application reproducible, recoverable, and capable of collecting trustworthy feedback.
+
+**Status:** implementation and recovery checks are tracked in
+[Sprint 4 status](reports/sprint_4/STATUS.md). Human pilot review and independent
+qualification data remain pending; feedback does not automatically approve labels
+or aliases.
 
 ### Work items
 
