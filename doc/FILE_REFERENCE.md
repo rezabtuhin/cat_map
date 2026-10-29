@@ -9,6 +9,9 @@ of enumerating their installation-specific internal files. Paths are repository-
 | File | Purpose |
 |---|---|
 | [.gitignore](../.gitignore) | Excludes generated environments, caches, models, bundles, runtime state, and reports from Git. |
+| [.dockerignore](../.dockerignore) | Keeps host environments, generated state, credentials, and caches out of the Docker build context. |
+| [Dockerfile](../Dockerfile) | Builds the non-root Python 3.11 CPU development image with locked dependencies and health checks. |
+| [compose.yaml](../compose.yaml) | Runs the local API with editable host sources, loopback publishing, and persistent named volumes. |
 | [.python-version](../.python-version) | Selects the Python version expected by the uv project. |
 | [README.md](../README.md) | Provides the quick start, folder tree, and links into the developer guide. |
 | [AGENTS.md](../AGENTS.md) | Provides Codex-native instructions and shared agent invariants, verification rules, and data-handling expectations. |
@@ -27,6 +30,7 @@ of enumerating their installation-specific internal files. Paths are repository-
 |---|---|
 | [config/model_pins.json](../config/model_pins.json) | Pins immutable embedding/ranking model revisions and download metadata. |
 | [config/category_ranking.json](../config/category_ranking.json) | Selects the NLI ranking model, pair templates, candidate budget, and rank-fusion settings. |
+| [docker/entrypoint.py](../docker/entrypoint.py) | Prepares first-use Docker models/releases, checks dependency identity, launches the API, or executes developer tools. |
 
 ## Matching and supporting modules
 
@@ -136,6 +140,7 @@ of enumerating their installation-specific internal files. Paths are repository-
 | File | Purpose |
 |---|---|
 | [doc/README.md](../doc/README.md) | Provides reading order, current implementation status, resumption checklist, and outstanding work. |
+| [doc/DOCKER.md](../doc/DOCKER.md) | Explains container setup, isolated persistence, developer commands, rebuilding, and recovery boundaries. |
 | [doc/ARCHITECTURE.md](../doc/ARCHITECTURE.md) | Explains runtime ownership, matching stages, storage boundaries, and Mermaid architecture/build diagrams. |
 | [doc/DECISIONS.md](../doc/DECISIONS.md) | Records implemented architecture decisions, constraints, and explicitly deferred platform work. |
 | [doc/API.md](../doc/API.md) | Defines HTTP routes, request/response semantics, error behavior, and the WooCommerce contract. |

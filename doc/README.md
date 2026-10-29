@@ -4,6 +4,9 @@ This guide describes the current source tree after removal of the feedback featu
 It is the starting point for a developer resuming implementation. Coding agents
 start with [AGENTS.md](../AGENTS.md) and [WORKFLOW.md](../WORKFLOW.md).
 
+For a fresh developer machine, use the [Docker setup](DOCKER.md) to prepare the
+backend without installing Python, uv, or SQLite on the host.
+
 ## Reading order
 
 1. [Architecture](ARCHITECTURE.md): trace a match and understand the storage boundaries.
@@ -21,6 +24,7 @@ start with [AGENTS.md](../AGENTS.md) and [WORKFLOW.md](../WORKFLOW.md).
 | Taxonomy | Google English; the inspected local bundle contains 5,582 records and 11,164 embedding rows |
 | Matching | Canonical/alias fast paths, scoped hybrid retrieval, local NLI reranking, and specificity safeguards |
 | Serving | Loopback FastAPI service, one inference thread, bounded pending queue, persistent match events |
+| Containers | Compose development service with CPU dependencies, source mounts, and separate persistent volumes |
 | Review | Source-bound dataset review tools and manually maintained approved aliases |
 | Feedback | Endpoint, handlers, storage accessors, and feedback-to-alias commands removed |
 | Database compatibility | Historical runtime migration 2 retained; runtime schema remains version 2 |

@@ -29,6 +29,9 @@ files you loaded." Follow the shared workflow and security rules below.
 - Python 3.11, uv, FastAPI/Pydantic, local CPU models, SQLite with `sqlite-vec`.
   Current executable taxonomy support is Google English; no public-network auth
   or admin UI is implemented. Feedback capture/promotion was deliberately removed.
+- Docker development is documented in [DOCKER.md](doc/DOCKER.md). Edit sources on
+  the host; container model/bundle/runtime volumes stay separate from native state.
+  Core matching changes still require rebuilding artifacts with the API stopped.
 - `matched` alone assigns `category`. A provisional candidate remains reviewable;
   preserve `provisional_category` / `requires_review` consistency. Scores are not
   probabilities and draft policies cannot authorize semantic auto-acceptance.

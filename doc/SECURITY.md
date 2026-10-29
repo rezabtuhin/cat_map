@@ -13,7 +13,7 @@ files are not a security sandbox, an audit result, or a replacement for enforcem
 | SQLite access | Bound values, foreign keys, short runtime transactions, separate taxonomy state | Parameterized values, validated identifiers, thread ownership, and rollback on failure |
 | Artifact loading | Source/implementation/package identity, file checksums, release/model inventory | Trusted acquisition, containment, immutable snapshots, and compatibility checks |
 | Models | Pinned revisions, local-only inference, remote model code disabled | Explicit downloads and safe model formats from trusted sources |
-| HTTP exposure | Loopback-only launcher; no application authentication | Keep local-only behavior until a separately implemented protected deployment path exists |
+| HTTP exposure | Native loopback-only launcher; Docker publishes on host loopback; no application authentication | Keep local-only publishing; only trusted containers may share the Docker network |
 | Review files | Source hashes and explicit reviewer declarations | Preserve provenance; a declared reviewer name is not an authenticated account |
 
 ## Validate input without changing product meaning

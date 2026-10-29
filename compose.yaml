@@ -1,0 +1,39 @@
+services:
+  api:
+    build: .
+    init: true
+    ports:
+      - "127.0.0.1:${CATEGORY_MATCHER_PORT:-8000}:8000"
+    environment:
+      CATEGORY_MATCHER_MODEL_DOWNLOAD: ${CATEGORY_MATCHER_MODEL_DOWNLOAD:-auto}
+      CATEGORY_MATCHER_API_QUEUE_SIZE: ${CATEGORY_MATCHER_API_QUEUE_SIZE:-8}
+      CATEGORY_MATCHER_API_TIMEOUT_SECONDS: ${CATEGORY_MATCHER_API_TIMEOUT_SECONDS:-30}
+      CATEGORY_MATCHER_API_MAX_BODY_BYTES: ${CATEGORY_MATCHER_API_MAX_BODY_BYTES:-16384}
+    volumes:
+      - ./src:/app/src:ro
+      - ./scripts:/app/scripts:ro
+      - ./config:/app/config:ro
+      - ./data:/app/data:ro
+      - ./tests:/app/tests:ro
+      - ./docker:/app/docker:ro
+      - ./google_category_list.txt:/app/google_category_list.txt:ro
+      - ./pyproject.toml:/app/pyproject.toml:ro
+      - ./uv.lock:/app/uv.lock:ro
+      - ./README.md:/app/README.md:ro
+      - models:/app/models
+      - artifacts:/app/artifacts
+      - runtime:/app/var
+      - reports:/app/reports
+      - cache:/home/matcher/.cache
+    stop_grace_period: 60s
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  models:
+  artifacts:
+  runtime:
+  reports:
+  cache:

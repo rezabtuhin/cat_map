@@ -7,7 +7,17 @@ Models run locally on the CPU.
 
 ## Start the application
 
-Run from the repository root using Python 3.11 and uv:
+With Docker and Compose v2 installed, run from the repository root:
+
+```bash
+docker compose up --build
+```
+
+First startup downloads pinned models and builds a separate Linux taxonomy bundle.
+Models, artifacts, and runtime data persist in named volumes. See
+[Docker development](doc/DOCKER.md) for editing, rebuilding, backups, and offline use.
+
+For a native installation using Python 3.11 and uv:
 
 ```bash
 uv sync --frozen
@@ -48,8 +58,12 @@ The service currently has no qualified policy for automatic semantic acceptance.
 ├── CLAUDE.md                              # Claude import of the shared instructions
 ├── GEMINI.md                              # Gemini import of the shared instructions
 ├── WORKFLOW.md                            # Contributor and agent development workflow
+├── Dockerfile                             # Locked CPU development image
+├── compose.yaml                           # Local API, source mounts, and persistent volumes
+├── docker/entrypoint.py                    # First-start preparation and container launcher
 ├── doc/                                   # Developer documentation
 │   ├── README.md                          # Handoff guide and reading order
+│   ├── DOCKER.md                          # Container setup and development lifecycle
 │   ├── ARCHITECTURE.md                     # Components, matching, and Mermaid diagrams
 │   ├── DECISIONS.md                        # Architecture decisions and consequences
 │   ├── API.md                             # HTTP contract and integration examples
@@ -86,6 +100,7 @@ Start with [the handoff guide](doc/README.md).
 
 | Document | Contents |
 |---|---|
+| [Docker development](doc/DOCKER.md) | One-command setup, persistence, editing, and container rebuilds |
 | [Architecture](doc/ARCHITECTURE.md) | Runtime topology, matching pipeline, storage, and build flow diagrams |
 | [Architecture decisions](doc/DECISIONS.md) | Why the current design works this way and its tradeoffs |
 | [API](doc/API.md) | Routes, inputs, outputs, error behavior, and WooCommerce integration |

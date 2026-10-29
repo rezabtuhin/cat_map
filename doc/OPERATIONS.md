@@ -2,6 +2,10 @@
 
 ## Requirements and first setup
 
+For the container workflow, see [Docker development](DOCKER.md). The instructions
+below describe the native installation; do not mix its model paths or bundles
+with the container's isolated volumes.
+
 Use Python 3.11 and uv from a POSIX environment; file leases depend on `fcntl`.
 The current development installation is on macOS. Dependencies are pinned by
 `uv.lock`; SQLite's vector extension is loaded through the `sqlite-vec` Python

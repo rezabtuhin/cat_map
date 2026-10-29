@@ -4,6 +4,11 @@ The application is a modular Python service with a CLI over the same matching
 engine. Inference returns canonical records from a versioned taxonomy bundle.
 The WooCommerce plugins are separate projects; PHP calls this service over HTTP.
 
+The [Docker development setup](DOCKER.md) runs the same backend in one Linux CPU
+container. Host source mounts feed the editable package; named volumes hold
+container-specific models, bundles, runtime events, and diagnostics. Bootstrap
+prepares a first release, then serves through the existing single-owner API.
+
 ## Runtime topology
 
 ```mermaid

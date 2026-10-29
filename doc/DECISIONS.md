@@ -16,6 +16,7 @@ These decisions describe the implemented design, not a proposal for a larger pla
 | ADR-10 | Separate draft evaluation from reviewed holdout qualification | AI-authored labels and inspected real examples are useful development data but cannot establish independent accuracy; draft policies stay previews. | `datasets.py`, `evaluation.py`, `calibration.py`, `review.py` |
 | ADR-11 | Use atomic activation plus an API-held file lease | A resident matcher must not serve one release while activation selects another; API downtime is required for switching releases. Locking uses POSIX `fcntl`. | `bundles.py`, `api/service.py` |
 | ADR-12 | Retire feedback capture and promotion | The feature was removed at the user's request; old migrations retain checksum compatibility, while matching, event logging, and dataset review continue. | `api/app.py`, `runtime.py`, `migrations.py` |
+| ADR-13 | Provide one isolated Docker development service | A locked Linux CPU environment avoids host Python/SQLite setup; editable source mounts and persistent volumes retain development state. First startup prepares models and a release; later identity changes require explicit rebuilding. Host publishing remains loopback-only. | `Dockerfile`, `compose.yaml`, `docker/entrypoint.py`, `doc/DOCKER.md` |
 
 ## Constraints to preserve
 

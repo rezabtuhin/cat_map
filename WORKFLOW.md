@@ -3,6 +3,10 @@
 The shared agent instructions are [AGENTS.md](AGENTS.md). Human contributors and
 agents use the same code boundaries, validation rules, and release procedures.
 
+The [Docker workflow](doc/DOCKER.md) provides a locked development environment.
+Edit sources on the host; use `docker compose run --rm api <command>` for tools.
+API-only edits need a restart; matching edits still need an artifact rebuild.
+
 ## 1. Orient and define the change
 
 - Inspect `git status --short` and the relevant diff; preserve work already present.
