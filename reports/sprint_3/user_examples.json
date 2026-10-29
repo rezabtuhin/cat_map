@@ -1,0 +1,283 @@
+{
+  "artifact_version": "eed281a45624da69-a0a29f98cc37",
+  "examples": [
+    {
+      "query": "Clothing",
+      "response": {
+        "status": "matched",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": {
+          "id": "1604",
+          "label": "Clothing",
+          "path": "Apparel & Accessories > Clothing"
+        },
+        "alternatives": [],
+        "method": "exact",
+        "reason_code": "canonical_lookup",
+        "clarification": null,
+        "event_id": "b2f749dc-047f-4f5e-944a-e79ab3970006",
+        "timings": {
+          "queue_wait_ms": 0.05308300023898482,
+          "inference_ms": 0.43250000089756213,
+          "total_ms": 0.6737500007147901
+        }
+      }
+    },
+    {
+      "query": "Tops",
+      "response": {
+        "status": "matched",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": {
+          "id": "212",
+          "label": "Shirts & Tops",
+          "path": "Apparel & Accessories > Clothing > Shirts & Tops"
+        },
+        "alternatives": [],
+        "method": "approved_alias",
+        "reason_code": "reviewed_alias",
+        "clarification": null,
+        "event_id": "6f7b06f7-47e6-4a71-953b-a30cba359ab5",
+        "timings": {
+          "queue_wait_ms": 0.040915998397395015,
+          "inference_ms": 0.24033400040934794,
+          "total_ms": 0.4281250003259629
+        }
+      }
+    },
+    {
+      "query": "Hoodies & Sweatshirts|Clothing",
+      "response": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": null,
+        "alternatives": [
+          {
+            "id": "212",
+            "label": "Shirts & Tops",
+            "path": "Apparel & Accessories > Clothing > Shirts & Tops"
+          },
+          {
+            "id": "1604",
+            "label": "Clothing",
+            "path": "Apparel & Accessories > Clothing"
+          },
+          {
+            "id": "203",
+            "label": "Outerwear",
+            "path": "Apparel & Accessories > Clothing > Outerwear"
+          }
+        ],
+        "method": "hybrid+rerank",
+        "reason_code": "scope_only_model_support_retrieval_order_preserved",
+        "clarification": "The parent category is clear, but the product type is uncertain. Please clarify which type of product this category contains.",
+        "event_id": "2e225d29-33ba-4ada-90e0-2df384877e6d",
+        "timings": {
+          "queue_wait_ms": 0.045208002120489255,
+          "inference_ms": 786.7105000004813,
+          "total_ms": 786.9071670029371
+        }
+      }
+    },
+    {
+      "query": "Smart Phone",
+      "response": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": null,
+        "alternatives": [
+          {
+            "id": "267",
+            "label": "Mobile Phones",
+            "path": "Electronics > Communications > Telephony > Mobile Phones"
+          },
+          {
+            "id": "270",
+            "label": "Telephony",
+            "path": "Electronics > Communications > Telephony"
+          },
+          {
+            "id": "298",
+            "label": "Handheld Devices",
+            "path": "Electronics > Computers > Handheld Devices"
+          }
+        ],
+        "method": "hybrid+rerank",
+        "reason_code": "uncalibrated_reranking",
+        "clarification": null,
+        "event_id": "36bd03f1-30f7-43e3-9a07-10cfa26477eb",
+        "timings": {
+          "queue_wait_ms": 0.05545800013351254,
+          "inference_ms": 792.5171669994597,
+          "total_ms": 792.7697079976497
+        }
+      }
+    },
+    {
+      "query": "Eco Friendly|Clothing",
+      "response": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": null,
+        "alternatives": [
+          {
+            "id": "1604",
+            "label": "Clothing",
+            "path": "Apparel & Accessories > Clothing"
+          }
+        ],
+        "method": "hybrid+rerank",
+        "reason_code": "attribute_only_use_broad_context_provisionally",
+        "clarification": null,
+        "event_id": "21c55225-b963-4c92-b534-3848b0a1b85e",
+        "timings": {
+          "queue_wait_ms": 0.04658300167648122,
+          "inference_ms": 0.9907499988912605,
+          "total_ms": 1.259500000742264
+        }
+      }
+    },
+    {
+      "query": "Jackets",
+      "response": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": null,
+        "alternatives": [
+          {
+            "id": "5598",
+            "label": "Coats & Jackets",
+            "path": "Apparel & Accessories > Clothing > Outerwear > Coats & Jackets"
+          },
+          {
+            "id": "2020",
+            "label": "Headwear",
+            "path": "Apparel & Accessories > Clothing Accessories > Headwear"
+          },
+          {
+            "id": "203",
+            "label": "Outerwear",
+            "path": "Apparel & Accessories > Clothing > Outerwear"
+          }
+        ],
+        "method": "hybrid+rerank",
+        "reason_code": "literal_group_candidate_provisional",
+        "clarification": null,
+        "event_id": "9c16592f-b277-46e3-92cc-c526c242d094",
+        "timings": {
+          "queue_wait_ms": 0.04058299964526668,
+          "inference_ms": 875.9374580004078,
+          "total_ms": 876.129915999627
+        }
+      }
+    },
+    {
+      "query": "Collections",
+      "response": {
+        "status": "needs_clarification",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": null,
+        "alternatives": [],
+        "method": "hybrid",
+        "reason_code": "merchandising_label_requires_product_context",
+        "clarification": "What product types are included in this collection or recommendation?",
+        "event_id": "910f4bb4-cebc-4306-bdfd-336260970b86",
+        "timings": {
+          "queue_wait_ms": 0.049124999350169674,
+          "inference_ms": 0.2869589989131782,
+          "total_ms": 0.5376249973778613
+        }
+      }
+    },
+    {
+      "query": "Fitness Equipment",
+      "response": {
+        "status": "provisional",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": null,
+        "alternatives": [
+          {
+            "id": "990",
+            "label": "Exercise & Fitness",
+            "path": "Sporting Goods > Exercise & Fitness"
+          },
+          {
+            "id": "2890",
+            "label": "Fitness & Nutrition",
+            "path": "Health & Beauty > Health Care > Fitness & Nutrition"
+          },
+          {
+            "id": "5870",
+            "label": "Occupational & Physical Therapy Equipment",
+            "path": "Health & Beauty > Health Care > Occupational & Physical Therapy Equipment"
+          }
+        ],
+        "method": "hybrid+rerank",
+        "reason_code": "literal_group_candidate_provisional",
+        "clarification": null,
+        "event_id": "e121484b-4451-42be-88c3-51a91440ca9b",
+        "timings": {
+          "queue_wait_ms": 0.04795799759449437,
+          "inference_ms": 1113.8141250012268,
+          "total_ms": 1114.0505830007896
+        }
+      }
+    },
+    {
+      "query": "New Luma Yoga Collection",
+      "response": {
+        "status": "needs_clarification",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": null,
+        "alternatives": [],
+        "method": "hybrid",
+        "reason_code": "merchandising_label_requires_product_context",
+        "clarification": "What product types are included in this collection or recommendation?",
+        "event_id": "77342297-ded2-44c5-905f-403a2165dba3",
+        "timings": {
+          "queue_wait_ms": 0.12116699872422032,
+          "inference_ms": 0.4024170011689421,
+          "total_ms": 1.8163749991799705
+        }
+      }
+    },
+    {
+      "query": "Erin Recommends",
+      "response": {
+        "status": "needs_clarification",
+        "taxonomy_key": "google",
+        "taxonomy_version": "eed281a45624da69",
+        "artifact_version": "eed281a45624da69-a0a29f98cc37",
+        "category": null,
+        "alternatives": [],
+        "method": "hybrid",
+        "reason_code": "merchandising_label_requires_product_context",
+        "clarification": "What product types are included in this collection or recommendation?",
+        "event_id": "74c3cfac-394e-4bf2-bc4b-856f5e389a1d",
+        "timings": {
+          "queue_wait_ms": 0.04004200309282169,
+          "inference_ms": 0.2323749977222178,
+          "total_ms": 0.4174169989710208
+        }
+      }
+    }
+  ]
+}

@@ -1,5 +1,10 @@
 # Sprint 2 implementation status
 
+**Integration update:** the user authorized Sprint 3 local development API work
+while deferring review. See [Sprint 3 findings](../sprint_3/FINDINGS.md). This
+changes the development order; Sprint 2 qualification and the resource swap gate
+remain pending, and automatic semantic acceptance remains disabled.
+
 **Current update:** see [the latest findings](revision_3/FINDINGS.md) and
 [updated decision](revision_3/proof_of_concept_decision.json). The current
 pipeline reaches 80.0% draft non-exact top-1 versus 78.3% in the previous

@@ -10,7 +10,7 @@ Build a **local Python service that selects a category from the supplied taxonom
 
 The matching engine is vendor-independent. Google is the first planned source; future sources such as a vendor-supplied `meta_category_list` use the same engine through source adapters and taxonomy-scoped artifacts. A Meta file has not been supplied or inspected, so its format, identifiers, and hierarchy are not assumed here.
 
-The implementation stack is Python 3.11, uv, FastAPI, Pydantic, SQLite with `sqlite-vec`, NumPy, BM25S, RapidFuzz, Sentence Transformers, and PyTorch. Use `BAAI/bge-base-en-v1.5` for embeddings and the pinned `cross-encoder/nli-deberta-v3-small` category-entailment rank-fusion profile for the current development matcher. FastAPI/Pydantic integration remains a later sprint. Run one application worker on the existing Mac initially.
+The implementation stack is Python 3.11, uv, FastAPI, Pydantic, SQLite with `sqlite-vec`, NumPy, BM25S, RapidFuzz, Sentence Transformers, and PyTorch. Use `BAAI/bge-base-en-v1.5` for embeddings and the pinned `cross-encoder/nli-deberta-v3-small` category-entailment rank-fusion profile for the current development matcher. FastAPI/Pydantic integration is implemented as a local development service in [Sprint 3](reports/sprint_3/FINDINGS.md), following the user's authorization to advance while qualification remains pending. Run one application worker on the existing Mac initially.
 
 Build a **modular monolith with explicit interfaces and dependency injection**. Future features, retrieval methods, models, and storage providers must be addable through focused modules with stable contracts. The initial single-process deployment is a resource setting, not a restriction on the architecture. Section 4.6 defines the required module boundaries, change workflows, and capacity-growth path.
 
@@ -37,7 +37,7 @@ These findings come from inspecting the workspace, parsing the entire category f
 
 ### 2.1 Project contents
 
-At the initial inspection, the directory contained only `google_category_list.txt`. This implementation plan has since been added. There is still no application code, project environment, dependency manifest, test suite, database, model index, or Git repository in this directory. No applicable `AGENTS.md` was found in the checked ancestor directories.
+At the initial inspection, the directory contained only `google_category_list.txt`; application code, environment, dependencies, tests, database, index, and Git repository were absent. No applicable `AGENTS.md` was found in the checked ancestor directories. This is the original audit, not the current inventory. The CLI, local development API, model bundles, and tests now exist; see [README](README.md) and the sprint reports for current behavior and outstanding qualification work.
 
 ### 2.2 Category data
 
@@ -721,6 +721,13 @@ An independently reviewed subset must resolve labeling disagreements before eval
 
 ### Step 9 — Implement the API and lifecycle
 
+Sprint 3 implements this lifecycle in `src/category_matcher/api/`: `app.py` is the
+composition root, `service.py` owns the inference thread and model lifecycle, and
+`schemas.py` defines the HTTP contracts. The broader module layout below remains
+an architecture target. Only Google and its active version are currently enabled;
+feedback recording and recovery are implemented in [Sprint 4](reports/sprint_4/STATUS.md). See [the runnable API contract](README.md#run-the-local-api)
+for additional response fields, limits, error codes, and configuration.
+
 1. Define Pydantic request/response schemas with the mutually consistent status fields.
 2. Build the application through `bootstrap.py`: load compatible artifact handles, construct the configured adapters, and initialize both models during FastAPI startup.
 3. Mark readiness only after load and a small inference check succeed.
@@ -733,7 +740,7 @@ An independently reviewed subset must resolve labeling disagreements before eval
 Start the implemented service with:
 
 ```bash
-uv run uvicorn category_matcher.presentation.api:app --host 127.0.0.1 --port 8000 --workers 1
+uv run category-matcher-api --host 127.0.0.1 --port 8000
 ```
 
 One process bounds duplicated model memory. FastAPI documents worker-based deployment and process management. [FastAPI workers documentation](https://fastapi.tiangolo.com/deployment/server-workers/)

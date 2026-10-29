@@ -17,8 +17,12 @@ int8 preserves the observed top-1 results but raises measured process memory.
 **Non-exact results are provisional candidates.** Similarity and reranker scores
 are ranking signals, not correctness probabilities. Sprint 2 implements calibration,
 clarification/no-match policy rules, and qualification checks. The fitted draft
-policy is not validated and can only preview decisions. An API and production
-qualification remain future sprint work.
+policy is not validated and can only preview decisions. A local development API
+is implemented in [Sprint 3](reports/sprint_3/FINDINGS.md). Production qualification
+remains pending.
+
+[Sprint 4](reports/sprint_4/STATUS.md) adds persistent feedback, reviewed alias
+promotion, staged builds, and recovery commands.
 
 **Uncertain inputs stay unmapped.** Only `status: "matched"` may have an assigned
 `category`. Every other result keeps `category: null`. Do not assign an ID from
@@ -34,16 +38,13 @@ Run these commands from the project root. Python 3.11 and uv are required.
 
 ```bash
 uv sync --frozen
-uv run python -m category_matcher.encoder
-uv run python -m category_matcher.reranker \
-  --model-name cross-encoder/nli-deberta-v3-small \
-  --revision fa2804872c3b4bd748f38c0185cc85775361e735 \
-  --output models/nli_reranker_model.json
-uv run category-matcher build
+uv run python scripts/prepare_models.py --download
+uv run category-matcher build --activate
 uv run category-matcher verify
 ```
 
-The explicit model-download commands require network access. Build and inference
+Model preparation uses [checked-in revisions](config/model_pins.json); omit
+`--download` to use the local cache only. The download command requires network access. Build and inference
 use the downloaded model locally. Model weights are cached under `models/`;
 generated taxonomy/vector bundles live under `artifacts/google/`. Both are ignored
 by Git. A source, alias, dependency, or matching-code change requires rebuilding;
@@ -103,7 +104,192 @@ The `Tops` alias was
 approved from the user's explicit confirmation of ID `212`. Other draft aliases
 are inactive until reviewed. Rebuild after changing aliases.
 
+## Run the local API
+
+After setup, start the service from the project root:
+
+```bash
+uv run category-matcher-api
+```
+
+The server listens at `http://127.0.0.1:8000` with one worker. Interactive API docs
+are at `/docs`; the schema is at `/openapi.json`. Startup validates the selected
+bundle and loads and warms the models on the inference thread. `/health/live`
+responds during initialization; `/health/ready` returns 503 until initialization
+succeeds, and remains 503 if artifacts, models, or a configured policy fail
+validation. Inspect the structured startup log for the cause.
+
+```bash
+curl http://127.0.0.1:8000/health/ready
+curl http://127.0.0.1:8000/v1/taxonomies
+curl http://127.0.0.1:8000/v1/taxonomies/google/categories/1604
+curl -X POST http://127.0.0.1:8000/v1/categories/match \
+  -H 'Content-Type: application/json' \
+  -d '{"taxonomy_key":"google","category":"Clothing"}'
+uv run python scripts/api_client.py 'Hoodies & Sweatshirts|Clothing'
+```
+
+`POST /v1/categories/match` accepts the following JSON fields. Unknown fields and
+incorrect types are rejected with 422; category IDs are strings.
+
+| Field | Contract |
+|---|---|
+| `taxonomy_key` | Required; currently only `"google"` |
+| `taxonomy_version` | Optional; if supplied, must equal the active version listed by `/v1/taxonomies` |
+| `category` | Category text, at most 300 characters; required unless `category_id` is supplied |
+| `category_id` | Optional canonical category ID for a direct lookup |
+| `parent_category_id` | Optional canonical parent ID restricting the matching hierarchy |
+| `context` | Optional product description, at most 1,000 characters |
+| `source_ancestors` | Optional store ancestor names, root to immediate parent; at most 20 labels and 1,000 characters total. These are contextual evidence, not Google IDs or hard parent constraints. |
+| `language` | Defaults to `"en"`; unsupported languages return `unsupported_language` |
+| `limit` | Number of displayed alternatives, integer 1–10; defaults to 3 |
+
+Responses include `status`, canonical `category` or `null`, `alternatives`, method,
+reason, clarification, taxonomy/artifact versions, `event_id`, and queue/inference/
+total timings in milliseconds. The `X-Request-ID` response header matches the
+event ID in the response and structured logs. Only `status: "matched"` assigns a
+category. For `provisional` results with candidates, `provisional_category` selects
+the first candidate from the final AI-assisted ranking and `requires_review` is
+`true`; accepted `category` remains `null`. Inputs such as
+`Collections` and `Erin Recommends` without usable product context remain unmapped.
+The API uses the same hybrid
+pipeline as the default CLI and does not expose experimental decision previews.
+
+The service keeps one matcher, its SQLite connection, and its resident models on
+one dedicated inference thread. Canonical GET lookups use an immutable category
+snapshot. One match request runs at a time, with eight pending requests by default;
+further requests receive 503 `queue_full` with `Retry-After: 1`. Health and canonical
+lookup endpoints remain available while inference runs. Feedback uses the same
+bounded queue. Match requests and their responses are stored in the separate
+runtime database before a successful response is returned.
+
+The default 30-second HTTP deadline includes reading the body, queueing, and
+inference. An expired request receives 504; an expired queued job or one whose
+application task is cancelled is removed. A disconnected HTTP client does not
+necessarily cancel the application task; the deadline still bounds its wait.
+A native model call already running finishes before another job starts,
+even if its caller times out or its application task is cancelled. Shutdown waits for active inference and
+closes SQLite on its owner thread. A native call that hangs requires process
+recovery; the HTTP deadline cannot interrupt native model execution.
+
+| Environment variable | Default | Allowed configuration |
+|---|---|---|
+| `CATEGORY_MATCHER_API_ARTIFACTS` | `artifacts/google` | Active-bundle root containing `active.json` |
+| `CATEGORY_MATCHER_API_POLICY` | Unset | Optional assertion of the policy already pinned by activation; overrides are rejected |
+| `CATEGORY_MATCHER_API_RUNTIME_DB` | `var/category_matcher.sqlite3` | Writable runtime state outside artifact storage |
+| `CATEGORY_MATCHER_API_QUEUE_SIZE` | `8` | Integer 1–32 |
+| `CATEGORY_MATCHER_API_TIMEOUT_SECONDS` | `30` | Greater than 0, at most 120 seconds |
+| `CATEGORY_MATCHER_API_MAX_BODY_BYTES` | `16384` | Integer 1,024–65,536 bytes |
+
+Equivalent launcher flags are `--artifacts`, `--policy`, `--runtime-db`, `--queue-size`,
+`--timeout-seconds`, and `--max-body-bytes`. Flags override environment values.
+`--port` selects another port; `--host` permits only loopback addresses. Unknown
+`CATEGORY_MATCHER_API_*` settings fail startup. Oversized bodies return 413 and
+non-JSON match requests return 415. Error responses contain `error.code`,
+`error.message`, and `event_id`; requests made before readiness return 503.
+
+The default service has no qualified semantic acceptance policy. It preserves the
+canonical/approved-alias acceptance behavior described above and leaves other
+results provisional or unmapped. This is a local development integration; trusted
+label review, independent accuracy qualification, and the outstanding resource
+gate remain separate work.
+
+Reproduce the real-model HTTP checks with a new report directory:
+
+```bash
+uv run python scripts/benchmark_api.py --requests 200 \
+  --output-dir reports/sprint_3/repeat_1
+```
+
+The benchmark starts and stops its own loopback server, compares all 200 frozen
+development CLI outcomes, runs the ten supplied user examples, measures 200 warm
+model-path requests, and exercises overload while probing health. It does not
+score the test holdout or establish matching accuracy.
+
+## Feedback and recovery
+
+Restart the API to load Sprint 4. Match inputs, contexts, responses, and pending
+feedback persist locally in `var/category_matcher.sqlite3`. Runtime migrations
+are automatic and checksum-verified; taxonomy bundles remain read-only at schema
+version 1. Runtime schema version 2 supports an upgrade from version 1.
+
+Use the `event_id` from a match response to submit feedback:
+
+```bash
+curl -X POST http://127.0.0.1:8000/v1/categories/feedback \
+  -H 'Content-Type: application/json' \
+  -d '{"match_event_id":"<match event_id>","action":"confirm","reviewer":"Your name"}'
+```
+
+`confirm` accepts the assigned category, or requires `category_id` to select a
+displayed alternative. `correct` requires a canonical `category_id`; `reject` and
+`needs_clarification` omit it. Feedback stays **pending** and does not change
+matching. References to older artifact generations retain the original version;
+the feedback API requires that original taxonomy version to be active.
+
+```bash
+uv run category-matcher feedback-export --output var/feedback.pending.jsonl
+# Edit eligible decisions with explicit human reviewer, timestamp, and reason.
+uv run category-matcher aliases-apply --reviews var/feedback.pending.jsonl \
+  --output data/google/aliases.reviewed.jsonl
+uv run category-matcher build --aliases data/google/aliases.reviewed.jsonl
+# Stop the API, then activate the version printed by build and restart it.
+uv run category-matcher activate --bundle '<artifact_version>'
+uv run category-matcher-api
+```
+
+Contextual, merchandising, and attribute-only feedback cannot become global
+aliases. `build` stages and verifies without activation; `build --activate`
+combines both operations while the API is stopped. Activation pins the bundle,
+model-file checksums, and optional qualified `--policy` in an immutable release.
+Changing weights, policies, or bundle files after activation fails readiness.
+Activation/rollback is blocked while the updated API holds resident models.
+Existing bundles need one `activate --bundle '<artifact_version>'` before first
+serving under Sprint 4; the current local bundle has already been activated.
+
+```bash
+uv run category-matcher runtime-migrate
+uv run category-matcher runtime-backup --output var/backups/pilot.sqlite3
+uv run category-matcher runtime-restore --backup var/backups/pilot.sqlite3 \
+  --output var/restored.sqlite3
+# Stop the API before switching to restored state:
+uv run category-matcher-api --runtime-db var/restored.sqlite3
+# With the API stopped, restore the previous retained release:
+uv run category-matcher rollback
+```
+
+Backups include a `.sha256` sidecar. Restore verifies it and writes a new database;
+existing files are never overwritten. Rollback requires a retained release
+compatible with the current code and lockfile; it preserves runtime feedback.
+The initial activation has no previous release to roll back to.
+
+`pilot-export --output var/pilot.unlabeled.jsonl` exports deduplicated inputs for
+review. These already-inspected inputs are development data, not an independent
+qualification holdout. To rerun isolated live/recovery checks, use
+`uv run python scripts/check_sprint4.py --output /tmp/sprint4-checks.json`.
+
 ## Ranking configuration
+
+WooCommerce integration: the shared `best-woocommerce-feed` category mapper now
+offers **Category Matcher API** by default, including when Pro is active. Start
+this API, select a Google-taxonomy-backed merchant, and run AI Category Mapping.
+Accepted matches and the best provisional candidate fill dropdowns. Provisional
+selections display **Provisioning needed** until manually replaced or marked
+reviewed; the flag persists after Save/reopen. Other results show review notes.
+Save remains an explicit user action. The plugin resolves names/ancestry from WooCommerce term
+IDs and calls the API from PHP, so the configured address must be reachable from
+the WordPress host. Its default is `http://127.0.0.1:8000`; trusted PHP configuration
+can override `WPFM_CATEGORY_MATCHER_API_URL`. A readiness capability check prevents
+using an older API without source-ancestry support. Source context cannot be
+promoted into global aliases through the feedback workflow.
+
+Generic store sections and attributes can inherit the nearest grounded product
+ancestor provisionally: `Clothing > Men > Tops > Hoodies & Sweatshirts|Clothing >
+Collections` offers `212 - Apparel & Accessories > Clothing > Shirts & Tops`.
+Conflicting product domains and ambiguous ancestors require clarification.
+Default labels such as `Uncategorized`, `Miscellaneous`, and `N/A` return no
+candidate without explicit product context. These paths skip neural inference;
+ancestor lookups are cached. Human review and policy qualification remain separate.
 
 ```bash
 uv run category-matcher match 'Smart Phone' --rerank
@@ -230,8 +416,9 @@ renaming AI fixtures or inputs already inspected during development.
 ## Current scope
 
 - Google English taxonomy only; 5,582 categories and two vectors per category.
-- CLI prototype, local CPU inference, one command process at a time.
+- CLI and local FastAPI development service, with local CPU inference.
+- API inference is bounded to one active job with a configurable pending queue.
 - Small modules separate domain records, parsing, storage, retrieval, and orchestration.
-- No remote API calls during inference, web service, frontend, or deployed site.
+- No remote model calls during inference, frontend, or deployed site.
 - Additional vendors and broader scaling work remain deferred until the matching
   approach has been validated, as requested.

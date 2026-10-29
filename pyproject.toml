@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "google-category-matcher"
-version = "0.2.0"
+version = "0.4.0"
 description = "Local, evaluated category retrieval over the Google product taxonomy"
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
@@ -17,13 +17,21 @@ dependencies = [
   "torch>=2.5,<3",
   "transformers>=4.41,<5",
   "scipy>=1.15,<2",
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.34,<1",
+  "pydantic>=2.10,<3",
 ]
 
 [project.scripts]
 category-matcher = "category_matcher.cli:main"
+category-matcher-api = "category_matcher.api.server:main"
 
 [dependency-groups]
-dev = ["pytest>=8,<10", "ruff>=0.11,<1"]
+dev = [
+    "httpx>=0.28,<1",
+    "pytest>=8,<10",
+    "ruff>=0.11,<1",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/category_matcher"]

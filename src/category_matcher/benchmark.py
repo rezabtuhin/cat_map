@@ -15,6 +15,7 @@ from category_matcher.artifacts import digest
 from category_matcher.datasets import read_jsonl
 from category_matcher.matcher import Matcher
 from category_matcher.memory import parameter_bytes, process_memory
+from category_matcher.query import source_ancestry_options
 
 
 def swapouts() -> int | None:
@@ -62,6 +63,7 @@ def benchmark(
             context=row.get("context", ""),
             parent_id=row.get("parent_category_id"),
             retrieve=False,
+            **source_ancestry_options(row),
         )
         if exact.reason_code == "retrieval_required":
             samples.append(row)
@@ -74,13 +76,20 @@ def benchmark(
     memory_before = process_memory()
     started = time.perf_counter()
     matcher.encode_queries(
-        [matcher.retrieval_query(samples[0]["query"], samples[0].get("context", ""))]
+        [
+            matcher.retrieval_query(
+                samples[0]["query"],
+                samples[0].get("context", ""),
+                **source_ancestry_options(samples[0]),
+            )
+        ]
     )
     matcher.match(
         samples[0]["query"],
         context=samples[0].get("context", ""),
         parent_id=samples[0].get("parent_category_id"),
         rerank=rerank,
+        **source_ancestry_options(samples[0]),
     )
     warmup = time.perf_counter() - started
     swaps_after_warmup = swapouts()
@@ -96,6 +105,7 @@ def benchmark(
             context=row.get("context", ""),
             parent_id=row.get("parent_category_id"),
             rerank=rerank,
+            **source_ancestry_options(row),
         )
         durations.append((time.perf_counter() - started) * 1000)
         outcomes[result.status] = outcomes.get(result.status, 0) + 1
