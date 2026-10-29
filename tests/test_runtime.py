@@ -107,13 +107,3 @@ def test_live_backup_ignores_uncommitted_writes_and_restore_never_overwrites(tmp
     with pytest.raises(ValueError, match="checksum"):
         restore(backup, tmp_path / "bad.sqlite3")
     assert not (tmp_path / "bad.sqlite3").exists()
-
-
-def test_feedback_foreign_keys_are_enforced(tmp_path):
-    store = RuntimeStore(tmp_path / "runtime.sqlite3")
-    store.initialize()
-    with store.connection() as connection, pytest.raises(sqlite3.IntegrityError):
-        connection.execute(
-            "INSERT INTO feedback VALUES "
-            "('f','unknown','now','reject',NULL,'r','','pending','request')"
-        )

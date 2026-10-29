@@ -11,11 +11,10 @@ from dataclasses import dataclass
 from types import MappingProxyType
 
 from category_matcher.api.errors import ServiceError
-from category_matcher.api.schemas import CanonicalCategory, FeedbackResponse, MatchResponse, Timings
+from category_matcher.api.schemas import CanonicalCategory, MatchResponse, Timings
 from category_matcher.api.settings import APISettings
 from category_matcher.artifacts import digest
 from category_matcher.bundles import FileLease, load_active, validate_policy
-from category_matcher.feedback import FeedbackError, submit_feedback
 from category_matcher.matcher import Matcher
 from category_matcher.memory import process_memory
 from category_matcher.runtime import RuntimeStore
@@ -69,7 +68,6 @@ class Job:
     received_at: float
     admitted_at: float
     future: asyncio.Future
-    operation: str = "match"
 
 
 class InferenceService:
@@ -161,10 +159,8 @@ class InferenceService:
             "process_memory": process_memory(),
         }
 
-    async def submit(self, request, event_id, received_at, *, operation="match"):
-        self.ensure_ready()
-        if operation == "match":
-            self.validate_version(request.taxonomy_version)
+    async def submit(self, request, event_id, received_at):
+        self.validate_version(request.taxonomy_version)
         remaining = received_at + self.settings.timeout_seconds - time.perf_counter()
         if remaining <= 0:
             raise ServiceError("request_timeout", "The request deadline expired", 504)
@@ -176,7 +172,6 @@ class InferenceService:
             received_at,
             time.perf_counter(),
             asyncio.get_running_loop().create_future(),
-            operation,
         )
         if self.active is None:
             self._start_job(job)
@@ -203,18 +198,6 @@ class InferenceService:
     def _perform(self, job):
         started = time.perf_counter()
         payload = job.request
-        if job.operation == "feedback":
-            try:
-                record = submit_feedback(
-                    self.runtime,
-                    payload.model_dump(),
-                    job.event_id,
-                    self.categories,
-                    self.taxonomy_version,
-                )
-            except FeedbackError as error:
-                raise ServiceError(error.code, str(error), error.status) from error
-            return FeedbackResponse.model_validate(record)
         try:
             result = self.matcher.match(
                 payload.category or "",
@@ -282,26 +265,16 @@ class InferenceService:
             response = await asyncio.get_running_loop().run_in_executor(
                 self.executor, self._perform, job
             )
-            if job.operation == "match":
-                log_event(
-                    "match_completed",
-                    event_id=job.event_id,
-                    artifact_version=self.artifact_version,
-                    status=response.status,
-                    method=response.method,
-                    stage="matching",
-                    client_waiting=not job.future.done(),
-                    **response.timings.model_dump(),
-                )
-            else:
-                log_event(
-                    "feedback_recorded",
-                    event_id=job.event_id,
-                    artifact_version=response.artifact_version,
-                    stage="feedback",
-                    feedback_id=response.feedback_id,
-                    review_status="pending",
-                )
+            log_event(
+                "match_completed",
+                event_id=job.event_id,
+                artifact_version=self.artifact_version,
+                status=response.status,
+                method=response.method,
+                stage="matching",
+                client_waiting=not job.future.done(),
+                **response.timings.model_dump(),
+            )
             if not job.future.done():
                 job.future.set_result(response)
         except ServiceError as error:

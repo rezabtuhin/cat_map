@@ -1,4 +1,4 @@
-"""Short-lived SQLite connections for events, pending feedback, and backups."""
+"""Short-lived SQLite connections for match events and backups."""
 
 import hashlib
 import json
@@ -73,38 +73,6 @@ class RuntimeStore:
                 )
             ]
         return [self.event(identifier) for identifier in identifiers]
-
-    def add_feedback(self, record):
-        with self.connection() as connection, connection:
-            connection.execute(
-                """INSERT INTO feedback (
-                    feedback_id, match_event_id, created_at, action, category_json,
-                    reviewer, note, request_id
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                (
-                    record["feedback_id"],
-                    record["match_event_id"],
-                    record["created_at"],
-                    record["action"],
-                    json.dumps(record["category"]),
-                    record["reviewer"],
-                    record["note"],
-                    record["event_id"],
-                ),
-            )
-
-    def feedback_rows(self):
-        with self.connection(readonly=True) as connection:
-            rows = connection.execute(
-                "SELECT * FROM feedback ORDER BY created_at, feedback_id"
-            ).fetchall()
-        return [
-            {
-                **{k: r[k] for k in r.keys() if k != "category_json"},
-                "category": json.loads(r["category_json"]),
-            }
-            for r in rows
-        ]
 
     def backup(self, output: Path):
         output = output.resolve()

@@ -54,14 +54,14 @@ ranking signals, not correctness probabilities.
 Generic store labels such as `Collections` can inherit a grounded product ancestor
 provisionally. Conflicting ancestry requires clarification. Default labels such as
 `Uncategorized`, `Miscellaneous`, and `N/A` have no candidate without explicit
-product context. Context-dependent feedback cannot become a global alias.
+product context.
 
 ## API operation
 
 The service keeps resident models and a SQLite connection on one inference thread.
 It processes one match at a time, with eight pending jobs by default. Excess work
 receives 503 `queue_full`; the default HTTP deadline is 30 seconds. Health and
-canonical lookups remain available during inference. Successful matches and feedback
+canonical lookups remain available during inference. Successful matches
 are persisted in the separate runtime database.
 
 Useful endpoints:
@@ -70,7 +70,6 @@ Useful endpoints:
 - `GET /v1/taxonomies`
 - `GET /v1/taxonomies/google/categories/{id}`
 - `POST /v1/categories/match`
-- `POST /v1/categories/feedback`
 
 Launcher options include `--port`, `--artifacts`, `--runtime-db`, `--queue-size`,
 `--timeout-seconds`, and `--max-body-bytes`. The host is restricted to loopback.
@@ -87,7 +86,7 @@ Provisional selections display **Provisioning needed** until reviewed.
 
 | Path | Purpose |
 |---|---|
-| `src/category_matcher/` | Matching, API, build, feedback, and evaluation code |
+| `src/category_matcher/` | Matching, API, build, and evaluation code |
 | `google_category_list.txt` | Source Google taxonomy |
 | `config/` | Pinned model and ranking configuration |
 | `data/google/aliases.jsonl` | Reviewed and pending aliases |
@@ -95,7 +94,7 @@ Provisional selections display **Provisioning needed** until reviewed.
 | `data/google/reviews/` | Human review packets and retained label audit evidence |
 | `models/` | Downloaded weights and generated model metadata; ignored by Git |
 | `artifacts/google/` | Versioned taxonomy/vector databases and release pointers; ignored by Git |
-| `var/category_matcher.sqlite3` | Mutable request and feedback database; ignored by Git |
+| `var/category_matcher.sqlite3` | Mutable match-event database; ignored by Git |
 | `reports/` | Generated diagnostics; ignored by Git |
 | `tests/` | Regression coverage |
 | `scripts/` | Model preparation, API client, and reusable measurement tools |
@@ -133,20 +132,7 @@ uv run category-matcher runtime-restore --backup var/backups/pilot.sqlite3 \
 Restore writes a new database. Stop the API before selecting restored state with
 `--runtime-db var/restored.sqlite3`.
 
-## Feedback and label review
-
-Submit feedback using the `event_id` from a match response. `confirm` accepts an
-assigned category or requires `category_id` for a displayed alternative; `correct`
-requires a canonical ID. `reject` and `needs_clarification` omit it. Feedback remains
-pending and never changes matching automatically.
-
-```bash
-uv run category-matcher feedback-export --output var/feedback.pending.jsonl
-# Supply explicit human decisions in the exported packet, then:
-uv run category-matcher aliases-apply --reviews var/feedback.pending.jsonl \
-  --output data/google/aliases.reviewed.jsonl
-uv run category-matcher build --aliases data/google/aliases.reviewed.jsonl
-```
+## Label review
 
 Human label review is still pending. The 600 development/calibration/test proposals
 are AI-authored and do not establish real-world accuracy. Retained audit notes are

@@ -73,7 +73,6 @@ def test_runtime_cli_migrate_backup_restore_and_exports_without_models(
             "--output",
             str(tmp_path / "restored.sqlite3"),
         ],
-        ["feedback-export", "--output", str(tmp_path / "feedback.jsonl")],
         ["pilot-export", "--output", str(tmp_path / "pilot.jsonl")],
     ):
         monkeypatch.setattr("sys.argv", base + args)

@@ -2,6 +2,7 @@
 
 Historical planning document. See [README.md](README.md) for current usage.
 Generated sprint outputs were removed during cleanup; earlier evidence remains in Git history.
+The feedback API and feedback-to-alias workflow described below have since been removed.
 
 Prepared: 26 October 2026 (Asia/Dhaka)
 

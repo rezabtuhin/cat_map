@@ -93,6 +93,11 @@ def test_api_agrees_with_engine_and_owns_sqlite_on_one_thread(bundle, caplog):
 
     async def scenario():
         async with client_for(app) as client:
+            schema = (await client.get("/openapi.json")).json()
+            assert "/v1/categories/feedback" not in schema["paths"]
+            assert "FeedbackRequest" not in schema["components"]["schemas"]
+            assert "FeedbackResponse" not in schema["components"]["schemas"]
+            assert (await client.post("/v1/categories/feedback", json={})).status_code == 404
             for (text, language), reference in zip(cases, expected, strict=True):
                 response = await client.post(
                     ROUTE, json={"taxonomy_key": "google", "category": text, "language": language}

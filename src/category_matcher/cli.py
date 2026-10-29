@@ -50,18 +50,12 @@ def parser() -> argparse.ArgumentParser:
     for name in (
         "runtime-backup",
         "runtime-restore",
-        "feedback-export",
-        "aliases-apply",
         "pilot-export",
     ):
         command = commands.add_parser(name)
         command.add_argument("--output", type=Path, required=True)
         if name == "runtime-restore":
             command.add_argument("--backup", type=Path, required=True)
-        if name == "aliases-apply":
-            command.add_argument("--reviews", type=Path, required=True)
-            command.add_argument("--aliases", type=Path, default=Path("data/google/aliases.jsonl"))
-            command.add_argument("--taxonomy", type=Path, default=Path("google_category_list.txt"))
     for name in ("capture-inputs", "review-export", "review-apply"):
         command = commands.add_parser(name)
         command.add_argument("--taxonomy", type=Path, default=Path("google_category_list.txt"))
@@ -157,15 +151,9 @@ def main() -> int:
             "runtime-migrate",
             "runtime-backup",
             "runtime-restore",
-            "feedback-export",
-            "aliases-apply",
             "pilot-export",
         }:
-            from category_matcher.alias_review import (
-                apply_alias_reviews,
-                export_feedback,
-                export_pilot_inputs,
-            )
+            from category_matcher.review import export_pilot_inputs
             from category_matcher.runtime import RuntimeStore, restore
 
             if args.runtime_db.resolve().is_relative_to(args.artifacts.resolve()):
@@ -182,14 +170,8 @@ def main() -> int:
                 report = store.backup(args.output)
             elif args.command == "runtime-restore":
                 report = restore(args.backup, args.output)
-            elif args.command == "feedback-export":
-                report = export_feedback(store, args.output)
-            elif args.command == "pilot-export":
-                report = export_pilot_inputs(store, args.output)
             else:
-                report = apply_alias_reviews(
-                    store, args.reviews, args.aliases, args.taxonomy, args.output
-                )
+                report = export_pilot_inputs(store, args.output)
             print(json.dumps(report, indent=2))
             return 0
         if args.command in {"capture-inputs", "review-export", "review-apply"}:
