@@ -264,3 +264,47 @@ def capture_inputs(inputs: Path, taxonomy: Path, output: Path, source_name: str)
         "labeled": 0,
         "independent_holdout_created": False,
     }
+
+
+def export_pilot_inputs(store, output):
+    events = {}
+    for event in store.events():
+        request = event["request"]
+        key = (
+            exact_key(request.get("category") or ""),
+            exact_key(request.get("context") or ""),
+            request.get("category_id"),
+            request.get("parent_category_id"),
+            request.get("language", "en"),
+            tuple(request.get("source_ancestors") or []),
+        )
+        events.setdefault(key, event)
+    rows = [
+        {
+            "example_id": "pilot-" + event["event_id"],
+            "taxonomy_key": event["taxonomy_key"],
+            "taxonomy_version": event["taxonomy_version"],
+            "query": event["request"].get("category") or "",
+            "context": event["request"].get("context") or "",
+            "parent_category_id": event["request"].get("parent_category_id"),
+            "category_id": event["request"].get("category_id"),
+            "language": event["request"].get("language", "en"),
+            "source_ancestors": event["request"].get("source_ancestors", []),
+            "input_family": exact_key(
+                event["request"].get("category") or event["request"]["category_id"]
+            ),
+            "slice": "pilot_input",
+            "source": "pilot_input_with_model_output_already_inspected",
+            "dataset_role": "pilot_development_only",
+            "review_status": "pending_review",
+            "expected_status": None,
+            "acceptable_category_ids": [],
+            "collection_provenance": {
+                "match_event_id": event["event_id"],
+                "artifact_version": event["artifact_version"],
+            },
+        }
+        for event in events.values()
+    ]
+    write_new(output, rows)
+    return {"output": str(output), "examples": len(rows), "independent_holdout_created": False}

@@ -1,9 +1,0 @@
-{
-  "artifact_version": "eed281a45624da69-8f86c745339e",
-  "category_count": 5582,
-  "canonical_roundtrip_checks": 16746,
-  "embedding_count": 11164,
-  "normalized_embeddings": true,
-  "sqlite_vs_numpy_scoped_queries": 16,
-  "status": "passed"
-}

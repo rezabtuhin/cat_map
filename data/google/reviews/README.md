@@ -3,6 +3,11 @@
 The packets in this directory are ready for human review. Exporting them does not
 approve any label. Original evaluation files remain unchanged.
 
+Historical development evidence is retained in `development_audit.json`,
+`development_followups.md`, and `development_failure_notes.jsonl`. These contain
+unapproved proposals and old rankings, not current-release results or packets
+for `review-apply`. Use the pending packets below to record decisions.
+
 | Packet | Inputs | Origin |
 |---|---:|---|
 | `development.pending.jsonl` | 200 | Original AI-authored development fixtures |

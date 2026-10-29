@@ -1,5 +1,9 @@
 # Multi-Vendor Category Matching: Architecture, System Audit, and Implementation Plan
 
+Historical planning document. See [README.md](README.md) for current usage.
+Generated sprint outputs were removed during cleanup; earlier evidence remains in Git history.
+The feedback API and feedback-to-alias workflow described below have since been removed.
+
 Prepared: 26 October 2026 (Asia/Dhaka)
 
 Project: `/Users/linno/Documents/code/RAG`
@@ -10,7 +14,7 @@ Build a **local Python service that selects a category from the supplied taxonom
 
 The matching engine is vendor-independent. Google is the first planned source; future sources such as a vendor-supplied `meta_category_list` use the same engine through source adapters and taxonomy-scoped artifacts. A Meta file has not been supplied or inspected, so its format, identifiers, and hierarchy are not assumed here.
 
-The implementation stack is Python 3.11, uv, FastAPI, Pydantic, SQLite with `sqlite-vec`, NumPy, BM25S, RapidFuzz, Sentence Transformers, and PyTorch. Use `BAAI/bge-base-en-v1.5` for embeddings and the pinned `cross-encoder/nli-deberta-v3-small` category-entailment rank-fusion profile for the current development matcher. FastAPI/Pydantic integration is implemented as a local development service in [Sprint 3](reports/sprint_3/FINDINGS.md), following the user's authorization to advance while qualification remains pending. Run one application worker on the existing Mac initially.
+The implementation stack is Python 3.11, uv, FastAPI, Pydantic, SQLite with `sqlite-vec`, NumPy, BM25S, RapidFuzz, Sentence Transformers, and PyTorch. Use `BAAI/bge-base-en-v1.5` for embeddings and the pinned `cross-encoder/nli-deberta-v3-small` category-entailment rank-fusion profile for the current development matcher. FastAPI/Pydantic integration is implemented as a local development service in Sprint 3 (historical), following the user's authorization to advance while qualification remains pending. Run one application worker on the existing Mac initially.
 
 Build a **modular monolith with explicit interfaces and dependency injection**. Future features, retrieval methods, models, and storage providers must be addable through focused modules with stable contracts. The initial single-process deployment is a resource setting, not a restriction on the architecture. Section 4.6 defines the required module boundaries, change workflows, and capacity-growth path.
 
@@ -160,7 +164,7 @@ BM25S provides local BM25 retrieval, and RapidFuzz supplies spelling-distance an
 The embedding model produces 768-dimensional vectors. Sprint 2 development comparisons selected plain query encoding, omitting the initial retrieval instruction; stored category text also has no instruction. The active artifact records this choice. [BGE model card](https://huggingface.co/BAAI/bge-base-en-v1.5)
 
 The CPU execution profile remains float32 after the measured
-[quantization comparison](reports/sprint_2/quantization/FINDINGS.md). Full int8
+quantization comparison (historical). Full int8
 regressed on development rankings, and word-embedding-only int8 did not improve
 the observed process-memory peak or footprint. Experimental packed-weight byte
 counts must not be treated as measurements of runtime memory.
@@ -172,7 +176,7 @@ model/retrieval ranks with weights 3:1 and rank constant 10. The selected profil
 and immutable revision are stored in `config/category_ranking.json` and the
 artifact. Raw entailment margins and fused scores are ranking signals, not
 correctness probabilities. This improves draft development ranking but is not
-independently qualified. See [measured findings](reports/sprint_2/revision_3/FINDINGS.md)
+independently qualified. See measured findings (historical)
 and the [NLI model card](https://huggingface.co/cross-encoder/nli-deberta-v3-small).
 
 Store and search vectors through the SQLite adapter using `sqlite-vec`. Keep NumPy for model-output conversion and correctness checks. Exact vector search is appropriate for this corpus size; it does not require an additional database service. Sentence Transformers documents direct similarity search for small corpora. [Semantic search documentation](https://www.sbert.net/examples/sentence_transformer/applications/semantic-search/README.html)
@@ -725,7 +729,7 @@ Sprint 3 implements this lifecycle in `src/category_matcher/api/`: `app.py` is t
 composition root, `service.py` owns the inference thread and model lifecycle, and
 `schemas.py` defines the HTTP contracts. The broader module layout below remains
 an architecture target. Only Google and its active version are currently enabled;
-feedback recording and recovery are implemented in [Sprint 4](reports/sprint_4/STATUS.md). See [the runnable API contract](README.md#run-the-local-api)
+feedback recording and recovery are implemented in Sprint 4 (historical). See [the runnable API contract](doc/API.md)
 for additional response fields, limits, error codes, and configuration.
 
 1. Define Pydantic request/response schemas with the mutually consistent status fields.
@@ -975,6 +979,6 @@ The implementation can proceed with the fixed decisions above. The following evi
 This document specifies the intended full application. The initial CLI prototype and
 local SQLite/vector integration have since been implemented; broader service work,
 trusted evaluation, qualified calibration, migrations, and release qualification remain.
-See [Sprint 2 status](reports/sprint_2/STATUS.md) for the current implementation and
-[latest findings](reports/sprint_2/revision_3/FINDINGS.md) for measured diagnostic
+See Sprint 2 status (historical) for the current implementation and
+latest findings (historical) for measured diagnostic
 results, remaining ranking regressions, and phase-specific resource observations.

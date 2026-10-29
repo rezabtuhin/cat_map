@@ -50,18 +50,12 @@ def parser() -> argparse.ArgumentParser:
     for name in (
         "runtime-backup",
         "runtime-restore",
-        "feedback-export",
-        "aliases-apply",
         "pilot-export",
     ):
         command = commands.add_parser(name)
         command.add_argument("--output", type=Path, required=True)
         if name == "runtime-restore":
             command.add_argument("--backup", type=Path, required=True)
-        if name == "aliases-apply":
-            command.add_argument("--reviews", type=Path, required=True)
-            command.add_argument("--aliases", type=Path, default=Path("data/google/aliases.jsonl"))
-            command.add_argument("--taxonomy", type=Path, default=Path("google_category_list.txt"))
     for name in ("capture-inputs", "review-export", "review-apply"):
         command = commands.add_parser(name)
         command.add_argument("--taxonomy", type=Path, default=Path("google_category_list.txt"))
@@ -95,9 +89,7 @@ def parser() -> argparse.ArgumentParser:
     evaluate.add_argument(
         "--dataset", type=Path, default=Path("data/google/evaluation/development.jsonl")
     )
-    evaluate.add_argument(
-        "--output", type=Path, default=Path("reports/sprint_2/retrieval_comparison.json")
-    )
+    evaluate.add_argument("--output", type=Path, default=Path("reports/retrieval_comparison.json"))
     evaluate.add_argument(
         "--allow-draft",
         action="store_true",
@@ -121,9 +113,7 @@ def parser() -> argparse.ArgumentParser:
             )
         if name in {"calibrate", "qualify"}:
             command.add_argument("--allow-draft", action="store_true")
-            command.add_argument(
-                "--output", type=Path, default=Path(f"reports/sprint_2/{name}_policy.json")
-            )
+            command.add_argument("--output", type=Path, default=Path(f"reports/{name}_policy.json"))
             command.add_argument("--reranker-model", type=Path)
         if name == "calibrate":
             command.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None)
@@ -135,9 +125,7 @@ def parser() -> argparse.ArgumentParser:
     )
     timing.add_argument("--requests", type=int, default=200)
     timing.add_argument("--idle-baseline-seconds", type=float, default=0)
-    timing.add_argument(
-        "--output", type=Path, default=Path("reports/sprint_2/resource_report.json")
-    )
+    timing.add_argument("--output", type=Path, default=Path("reports/resource_report.json"))
     timing.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None)
     timing.add_argument("--reranker-model", type=Path)
     policy_arguments(timing)
@@ -163,15 +151,9 @@ def main() -> int:
             "runtime-migrate",
             "runtime-backup",
             "runtime-restore",
-            "feedback-export",
-            "aliases-apply",
             "pilot-export",
         }:
-            from category_matcher.alias_review import (
-                apply_alias_reviews,
-                export_feedback,
-                export_pilot_inputs,
-            )
+            from category_matcher.review import export_pilot_inputs
             from category_matcher.runtime import RuntimeStore, restore
 
             if args.runtime_db.resolve().is_relative_to(args.artifacts.resolve()):
@@ -188,14 +170,8 @@ def main() -> int:
                 report = store.backup(args.output)
             elif args.command == "runtime-restore":
                 report = restore(args.backup, args.output)
-            elif args.command == "feedback-export":
-                report = export_feedback(store, args.output)
-            elif args.command == "pilot-export":
-                report = export_pilot_inputs(store, args.output)
             else:
-                report = apply_alias_reviews(
-                    store, args.reviews, args.aliases, args.taxonomy, args.output
-                )
+                report = export_pilot_inputs(store, args.output)
             print(json.dumps(report, indent=2))
             return 0
         if args.command in {"capture-inputs", "review-export", "review-apply"}:

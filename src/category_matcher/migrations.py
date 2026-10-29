@@ -18,6 +18,8 @@ MIGRATIONS = (
             "CREATE INDEX events_created ON match_events(created_at, event_id)",
         ),
     ),
+    # Retained verbatim for checksum compatibility with existing runtime databases.
+    # The retired feature has no application handlers or storage methods.
     (
         2,
         "pending_feedback",

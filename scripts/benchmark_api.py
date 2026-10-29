@@ -28,7 +28,7 @@ def percentiles(values):
     }
 
 
-async def run_checks(url, output, manifest, count):
+async def run_checks(url, output, manifest, count, reference_file):
     async with httpx.AsyncClient(base_url=url, timeout=45) as client:
         startup = time.perf_counter()
         observed_starting = False
@@ -54,7 +54,6 @@ async def run_checks(url, output, manifest, count):
         print(f"Ready in {ready_seconds:.2f}s; comparing frozen CLI inputs", flush=True)
         dataset = Path("data/google/evaluation/development.jsonl")
         rows = read_jsonl(dataset)
-        reference_file = Path("reports/sprint_2/revision_3/retrieval_comparison.json")
         reference = json.loads(reference_file.read_text())
         if reference["artifact_version"] != manifest["artifact_version"] or reference[
             "dataset_sha256"
@@ -239,7 +238,13 @@ async def run_checks(url, output, manifest, count):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-dir", type=Path, default=Path("reports/sprint_3"))
+    parser.add_argument("--output-dir", type=Path, default=Path("reports/api"))
+    parser.add_argument(
+        "--reference",
+        type=Path,
+        default=Path("reports/retrieval_comparison.json"),
+        help="Fresh CLI evaluation report for the active artifact and development dataset",
+    )
     parser.add_argument("--requests", type=int, default=200)
     args = parser.parse_args()
     if not 1 <= args.requests <= 10000:
@@ -248,6 +253,11 @@ def main():
     if (args.output_dir / "resource_report.json").exists():
         raise SystemExit("Use a new output directory to preserve previous evidence")
     manifest = load_manifest(resolve_bundle(Path("artifacts/google")))
+    reference = json.loads(args.reference.read_text())
+    if reference["artifact_version"] != manifest["artifact_version"] or reference[
+        "dataset_sha256"
+    ] != digest(Path("data/google/evaluation/development.jsonl")):
+        raise ValueError("Regenerate the CLI reference for the active artifact and dataset")
     api_files = {str(path): digest(path) for path in Path("src/category_matcher/api").glob("*.py")}
     listener = socket.socket()
     listener.bind(("127.0.0.1", 0))
@@ -284,7 +294,13 @@ def main():
         listener.close()
         try:
             resource = asyncio.run(
-                run_checks(f"http://127.0.0.1:{port}", args.output_dir, manifest, args.requests)
+                run_checks(
+                    f"http://127.0.0.1:{port}",
+                    args.output_dir,
+                    manifest,
+                    args.requests,
+                    args.reference,
+                )
             )
         finally:
             process.terminate()

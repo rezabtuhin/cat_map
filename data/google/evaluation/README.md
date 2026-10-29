@@ -14,11 +14,10 @@ an independent real-world holdout has been collected.
 `development.audited.draft.jsonl` is a separate, still-unreviewed derivative of the
 original development data. It proposes six label/ambiguity changes after a failure
 audit. It does not replace the original primary benchmark. The
-[audit](../../../reports/sprint_2/improvement/label_audit.json) and
-[findings](../../../reports/sprint_2/improvement/FINDINGS.md) distinguish those
+[retained audit](../reviews/development_audit.json) distinguishes those
 proposals from human review. Do not use this derivative as an independent split.
 
-The [current review queue](../../../reports/sprint_2/revision_3/LABEL_REVIEW.md)
+The [historical review queue](../reviews/development_followups.md)
 shows remaining development failures, the earlier audit proposals, and canonical
 paths for comparison. It does not approve labels or cover all required review.
 
