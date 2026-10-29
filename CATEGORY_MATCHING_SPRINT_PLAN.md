@@ -1,5 +1,8 @@
 # Category Matching: Sprint Execution Plan
 
+Historical planning document. See [README.md](README.md) for current usage.
+Generated sprint outputs were removed during cleanup; earlier evidence remains in Git history.
+
 Prepared: 26 October 2026 (Asia/Dhaka)
 
 Reference: [Architecture and implementation plan](CATEGORY_MATCHING_IMPLEMENTATION_PLAN.md)
@@ -20,8 +23,8 @@ The first validation must answer:
 
 At planning time, the project contained only the category source and planning documents.
 Implementation has now started. Track current work in
-[Sprint 2 status](reports/sprint_2/STATUS.md) and
-[latest measured diagnostic findings](reports/sprint_2/revision_3/FINDINGS.md).
+Sprint 2 status (historical) and
+latest measured diagnostic findings (historical).
 The current Sprint 2 revision selects NLI entailment rank fusion after the initial
 MiniLM comparison failed. The current revision reaches 80.0% top-1 on reused
 draft non-exact inputs, guards weak promotions, and leaves unsupported store
@@ -32,11 +35,11 @@ still require work before qualifying the matcher for release. Resource evidence 
 inference swap observations and native process memory; the swap check remains
 unpassed. See the current report for measurements and limits.
 
-The [CPU quantization comparison](reports/sprint_2/quantization/FINDINGS.md) has
+The CPU quantization comparison (historical) has
 also completed. It does not support replacing float32: the dynamic-int8 profile
 regresses on ranking, and embedding-only int8 does not lower the measured process
 memory. Sprint 2 qualification remains pending; current integration work is tracked
-in [Sprint 3 findings](reports/sprint_3/FINDINGS.md).
+in Sprint 3 findings (historical).
 The sprint descriptions below define planned scope and acceptance criteria.
 
 ## 2. Sprint cadence and scope
@@ -229,7 +232,7 @@ integration authorized before the pending qualification work is complete.
 All 129 tests pass, including 27 API cases. Real HTTP checks agree with all 200
 frozen CLI predictions and their alternatives; a ten-request burst admits nine
 and rejects one with 503 while health remains responsive. See
-[Sprint 3 findings and measurements](reports/sprint_3/FINDINGS.md). Qualification
+Sprint 3 findings and measurements (historical). Qualification
 remains pending; these checks establish integration behavior, not accuracy.
 
 ### Work items
@@ -272,7 +275,7 @@ This is a local integration milestone. Public hosting, authentication, and inter
 Make the working Google application reproducible, recoverable, and capable of collecting trustworthy feedback.
 
 **Status:** implementation and recovery checks are tracked in
-[Sprint 4 status](reports/sprint_4/STATUS.md). Human pilot review and independent
+Sprint 4 status (historical). Human pilot review and independent
 qualification data remain pending; feedback does not automatically approve labels
 or aliases.
 

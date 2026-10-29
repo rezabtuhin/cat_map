@@ -1,4 +1,6 @@
-# Development label review queue
+# Historical development label review queue
+
+These rankings describe an earlier development run, not the current release.
 
 Every label below is an AI draft awaiting human review. The original development
 dataset remains unchanged. Rankings are diagnostic alternatives, not label approvals.

@@ -14,7 +14,7 @@ from category_matcher.matcher import Matcher
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", type=Path, default=Path("reports/sprint_2/user_examples.json"))
+    parser.add_argument("--output", type=Path, default=Path("reports/user_examples.json"))
     args = parser.parse_args()
     started = time.perf_counter()
     matcher = Matcher(resolve_bundle(Path("artifacts/google")))

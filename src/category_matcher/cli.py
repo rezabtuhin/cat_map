@@ -95,9 +95,7 @@ def parser() -> argparse.ArgumentParser:
     evaluate.add_argument(
         "--dataset", type=Path, default=Path("data/google/evaluation/development.jsonl")
     )
-    evaluate.add_argument(
-        "--output", type=Path, default=Path("reports/sprint_2/retrieval_comparison.json")
-    )
+    evaluate.add_argument("--output", type=Path, default=Path("reports/retrieval_comparison.json"))
     evaluate.add_argument(
         "--allow-draft",
         action="store_true",
@@ -121,9 +119,7 @@ def parser() -> argparse.ArgumentParser:
             )
         if name in {"calibrate", "qualify"}:
             command.add_argument("--allow-draft", action="store_true")
-            command.add_argument(
-                "--output", type=Path, default=Path(f"reports/sprint_2/{name}_policy.json")
-            )
+            command.add_argument("--output", type=Path, default=Path(f"reports/{name}_policy.json"))
             command.add_argument("--reranker-model", type=Path)
         if name == "calibrate":
             command.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None)
@@ -135,9 +131,7 @@ def parser() -> argparse.ArgumentParser:
     )
     timing.add_argument("--requests", type=int, default=200)
     timing.add_argument("--idle-baseline-seconds", type=float, default=0)
-    timing.add_argument(
-        "--output", type=Path, default=Path("reports/sprint_2/resource_report.json")
-    )
+    timing.add_argument("--output", type=Path, default=Path("reports/resource_report.json"))
     timing.add_argument("--rerank", action=argparse.BooleanOptionalAction, default=None)
     timing.add_argument("--reranker-model", type=Path)
     policy_arguments(timing)
