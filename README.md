@@ -44,12 +44,18 @@ The service currently has no qualified policy for automatic semantic acceptance.
 ```text
 .
 ├── README.md                              # Quick start and documentation links
+├── AGENTS.md                              # Codex-native instructions shared by agents
+├── CLAUDE.md                              # Claude import of the shared instructions
+├── GEMINI.md                              # Gemini import of the shared instructions
+├── WORKFLOW.md                            # Contributor and agent development workflow
 ├── doc/                                   # Developer documentation
 │   ├── README.md                          # Handoff guide and reading order
 │   ├── ARCHITECTURE.md                     # Components, matching, and Mermaid diagrams
 │   ├── DECISIONS.md                        # Architecture decisions and consequences
 │   ├── API.md                             # HTTP contract and integration examples
 │   ├── OPERATIONS.md                      # Builds, recovery, review, and troubleshooting
+│   ├── SECURITY.md                        # Security, validation, and sensitive-data rules
+│   ├── LIMITATIONS_AND_ROADMAP.md          # Limitations, future work, and scaling stages
 │   └── FILE_REFERENCE.md                  # One-line description of each maintained file
 ├── src/category_matcher/                  # Matching engine and supporting workflows
 │   └── api/                               # FastAPI routes, contracts, settings, and queue
@@ -85,10 +91,22 @@ Start with [the handoff guide](doc/README.md).
 | [API](doc/API.md) | Routes, inputs, outputs, error behavior, and WooCommerce integration |
 | [Operations](doc/OPERATIONS.md) | Setup, updates, configuration, backups, diagnostics, and troubleshooting |
 | [File reference](doc/FILE_REFERENCE.md) | One-line purpose and ownership of every maintained project file |
+| [Limitations and scaling](doc/LIMITATIONS_AND_ROADMAP.md) | Current constraints, enhancement priorities, and staged scaling path |
+| [Security](doc/SECURITY.md) | Trust boundaries, validation, safe storage/process execution, and data handling |
+| [Development workflow](WORKFLOW.md) | Contributor steps, verification, and shared agent entry points |
 
 The historical plans describe earlier scope; these developer docs describe the
 current implementation. The feedback endpoint and feedback-to-alias workflow have
 been removed. Dataset review and manually maintained approved aliases remain.
+
+## Coding agents
+
+[AGENTS.md](AGENTS.md) is Codex's native project instruction file and the shared
+source of project rules. Codex reads it directly; `CLAUDE.md` and `GEMINI.md`
+import it for their respective tools. Start in this repository and
+follow [WORKFLOW.md](WORKFLOW.md); if an agent does not load instructions
+automatically, ask it to read `AGENTS.md` first. These files define development
+expectations; security and quality controls still need code and appropriate checks.
 
 ## Development checks
 

@@ -11,6 +11,10 @@ of enumerating their installation-specific internal files. Paths are repository-
 | [.gitignore](../.gitignore) | Excludes generated environments, caches, models, bundles, runtime state, and reports from Git. |
 | [.python-version](../.python-version) | Selects the Python version expected by the uv project. |
 | [README.md](../README.md) | Provides the quick start, folder tree, and links into the developer guide. |
+| [AGENTS.md](../AGENTS.md) | Provides Codex-native instructions and shared agent invariants, verification rules, and data-handling expectations. |
+| [CLAUDE.md](../CLAUDE.md) | Imports AGENTS.md as the shared project instructions for Claude Code. |
+| [GEMINI.md](../GEMINI.md) | Imports AGENTS.md as the shared project instructions for Gemini CLI. |
+| [WORKFLOW.md](../WORKFLOW.md) | Defines the contributor/agent change lifecycle, checks, release impact, and handoff steps. |
 | [pyproject.toml](../pyproject.toml) | Declares package metadata, dependencies, command entry points, and tooling configuration. |
 | [uv.lock](../uv.lock) | Locks dependency resolution for reproducible installation with uv. |
 | [google_category_list.txt](../google_category_list.txt) | Supplies canonical Google category IDs and paths to the taxonomy builder. |
@@ -137,6 +141,8 @@ of enumerating their installation-specific internal files. Paths are repository-
 | [doc/API.md](../doc/API.md) | Defines HTTP routes, request/response semantics, error behavior, and the WooCommerce contract. |
 | [doc/OPERATIONS.md](../doc/OPERATIONS.md) | Documents setup, settings, rebuilds, activation, recovery, data review, diagnostics, and troubleshooting. |
 | [doc/FILE_REFERENCE.md](../doc/FILE_REFERENCE.md) | Maps each maintained repository file to a one-line purpose and lists generated artifact roles. |
+| [doc/SECURITY.md](../doc/SECURITY.md) | Defines trust boundaries, input validation, safe SQL/process/path handling, model trust, and sensitive-data rules. |
+| [doc/LIMITATIONS_AND_ROADMAP.md](../doc/LIMITATIONS_AND_ROADMAP.md) | Records current limits, prioritized enhancements, scaling stages, and evidence required for future changes. |
 
 ## Generated files and directories
 

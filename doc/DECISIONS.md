@@ -42,6 +42,10 @@ release distribution and writable-event ownership concerns. These require measur
 capacity and an explicit design change. No admin dashboard, authentication layer,
 or public-network deployment is implemented in this repository.
 
+Future implementation stages and scaling gates are recorded in
+[limitations and roadmap](LIMITATIONS_AND_ROADMAP.md); cross-cutting development
+rules are in [AGENTS.md](../AGENTS.md) and [security guidance](SECURITY.md).
+
 ## Changing a decision
 
 Record the concrete requirement, source modules affected, compatibility/rebuild

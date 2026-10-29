@@ -1,7 +1,8 @@
 # Developer handoff
 
 This guide describes the current source tree after removal of the feedback feature.
-It is the starting point for a developer resuming implementation.
+It is the starting point for a developer resuming implementation. Coding agents
+start with [AGENTS.md](../AGENTS.md) and [WORKFLOW.md](../WORKFLOW.md).
 
 ## Reading order
 
@@ -10,6 +11,8 @@ It is the starting point for a developer resuming implementation.
 3. [API](API.md): inspect the client contract and provisional-selection rules.
 4. [Operations](OPERATIONS.md): build, run, update, diagnose, and recover the service.
 5. [File reference](FILE_REFERENCE.md): find the implementation or test to change.
+6. [Security](SECURITY.md): preserve validation and data-handling boundaries.
+7. [Limitations and roadmap](LIMITATIONS_AND_ROADMAP.md): distinguish current constraints from proposed scaling work.
 
 ## Current status
 
@@ -54,6 +57,9 @@ updates. Use `category-matcher inspect` for the selected installation.
 Paths without a prefix above are relative to `src/category_matcher/`.
 
 ## Work that remains
+
+See the [limitations, enhancements, and scaling roadmap](LIMITATIONS_AND_ROADMAP.md)
+for proposed stages and completion evidence.
 
 - Review development/calibration labels and collect an independent reviewed holdout
   before enabling semantic auto-acceptance; existing AI drafts do not meet that requirement.
