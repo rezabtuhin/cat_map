@@ -1,0 +1,59 @@
+{
+  "format_version": 1,
+  "models": {
+    "embedding": {
+      "name": "Xenova/multilingual-e5-small",
+      "revision": "761b726dd34fb83930e26aab4e9ac3899aa1fa78",
+      "directory": "multilingual-e5-small",
+      "files": {
+        "config.json": {
+          "size": 658,
+          "sha256": "cb99455288675345e1a4f411438d5d0adbba5fbd3a67ea4fb03c015433b996c1"
+        },
+        "tokenizer.json": {
+          "size": 17082730,
+          "sha256": "0b44a9d7b51c3c62626640cda0e2c2f70fdacdc25bbbd68038369d14ebdf4c39"
+        },
+        "tokenizer_config.json": {
+          "size": 443,
+          "sha256": "a1d6bc8734a6f635dc158508bef000f8e2e5a759c7d92f984b2c86e5ff53425b"
+        },
+        "special_tokens_map.json": {
+          "size": 167,
+          "sha256": "d05497f1da52c5e09554c0cd874037a083e1dc1b9cfd48034d1c717f1afc07a7"
+        },
+        "onnx/model_int8.onnx": {
+          "size": 118054593,
+          "sha256": "4d24e2bc01a447951524466ef533e52944bf48509e6552810bcee1a2711cb02c"
+        }
+      }
+    },
+    "ranking": {
+      "name": "onnx-community/multilingual-MiniLMv2-L6-mnli-xnli-ONNX",
+      "revision": "ca5daf3d11b6c4b3143b1f4602a2edfb64c3ad7e",
+      "directory": "multilingual-nli",
+      "files": {
+        "config.json": {
+          "size": 989,
+          "sha256": "3ebbbdf3c3803649b49715fd169207c0f42c4250dfea5dd304b1d8b8f745852a"
+        },
+        "tokenizer.json": {
+          "size": 17082832,
+          "sha256": "d0091a328b3441d754e481db5a390d7f3b8dabc6016869fd13ba350d23ddc4cd"
+        },
+        "tokenizer_config.json": {
+          "size": 1286,
+          "sha256": "329b7d21f02c6c6c9d358733b03a34a89cd8e4fe36998869a6ab824b98e9bf9d"
+        },
+        "special_tokens_map.json": {
+          "size": 964,
+          "sha256": "8c785abebea9ae3257b61681b4e6fd8365ceafde980c21970d001e834cf10835"
+        },
+        "onnx/model_int8.onnx": {
+          "size": 107415176,
+          "sha256": "55614f3c7da74184742eaa0006b978744437aa91de9ba4913db42f94d7844a8f"
+        }
+      }
+    }
+  }
+}

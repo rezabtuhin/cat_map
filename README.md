@@ -24,6 +24,24 @@ API documentation: `http://127.0.0.1:8000/docs`.
 Readiness: `http://127.0.0.1:8000/health/ready`.
 Stop the server with **Ctrl+C**; Ctrl+Z keeps its port and artifact lock occupied.
 
+## Prepare multilingual ONNX models
+
+Developers can automatically download the proposed multilingual model files:
+
+```bash
+uv run --frozen python scripts/prepare_onnx_models.py --download
+```
+
+The command fetches only the five required files per model into
+`models/multilingual-e5-small/` and `models/multilingual-nli/`. It verifies pinned
+revisions, sizes, and SHA-256 checksums from `config/onnx_model_pins.json`, reuses
+verified local files, and refuses to overwrite mismatched files. Omit `--download`
+for offline file verification. Weights remain Git-ignored; only the pins and script
+belong in Git. See [operations](doc/OPERATIONS.md#multilingual-onnx-model-preparation).
+
+This prepares model assets only. The current API still uses the English PyTorch
+models; multilingual ONNX inference and compatible bundles are not implemented yet.
+
 ## Match a category
 
 ```bash

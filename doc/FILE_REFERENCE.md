@@ -26,6 +26,7 @@ of enumerating their installation-specific internal files. Paths are repository-
 | File | Purpose |
 |---|---|
 | [config/model_pins.json](../config/model_pins.json) | Pins immutable embedding/ranking model revisions and download metadata. |
+| [config/onnx_model_pins.json](../config/onnx_model_pins.json) | Pins the proposed multilingual INT8 repositories and exact file sizes/SHA-256 checksums. |
 | [config/category_ranking.json](../config/category_ranking.json) | Selects the NLI ranking model, pair templates, candidate budget, and rank-fusion settings. |
 
 ## Matching and supporting modules
@@ -78,6 +79,7 @@ of enumerating their installation-specific internal files. Paths are repository-
 | [scripts/benchmark_api.py](../scripts/benchmark_api.py) | Starts an isolated API and compares a fresh CLI reference while measuring HTTP latency and overload behavior. |
 | [scripts/experiment_quantized_reranker.py](../scripts/experiment_quantized_reranker.py) | Evaluates or benchmarks an explicit reranker CPU profile without changing the active bundle. |
 | [scripts/prepare_models.py](../scripts/prepare_models.py) | Prepares exactly the configured model revisions from cache or an explicitly requested download. |
+| [scripts/prepare_onnx_models.py](../scripts/prepare_onnx_models.py) | Downloads missing multilingual ONNX assets on request and verifies pinned local files without changing the active API. |
 | [scripts/run_user_examples.py](../scripts/run_user_examples.py) | Compares retrieval-only and reranked results for the original five user category examples. |
 | [scripts/smoke_quantization.py](../scripts/smoke_quantization.py) | Checks pinned model/profile inference compatibility and output drift in isolation. |
 

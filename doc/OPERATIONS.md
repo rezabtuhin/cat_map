@@ -24,6 +24,33 @@ can take substantially longer than startup and needs additional temporary resour
 Bundle manifests currently contain installation-specific absolute model paths;
 on a different checkout/machine, prepare models and build locally.
 
+### Multilingual ONNX model preparation
+
+Run this once after cloning to fetch the proposed multilingual INT8 assets:
+
+```bash
+uv run --frozen python scripts/prepare_onnx_models.py --download
+```
+
+`config/onnx_model_pins.json` records both repository commits and the exact five-file
+allowlist per model, including sizes and SHA-256 hashes. The files are written
+directly into `models/multilingual-e5-small/` and `models/multilingual-nli/`, with
+the graph at `onnx/model_int8.onnx`. Hugging Face keeps small download metadata
+under each model directory; other numeric variants are not fetched. Verified
+files are reused without a network request, including manually placed files.
+Concurrent preparations are rejected using a separate file lease.
+
+Omit `--download` to verify existing files offline. Missing files fail with a clear
+message. A checksum/size mismatch also fails instead of replacing local data;
+inspect and preserve/move that file before retrying. When intentionally changing
+model pins, archive the previous model directories first and update the reviewed
+commits, complete file hashes, and sizes together. Keep recovery copies outside a
+storage-constrained deployment.
+
+The selected files total about 260 MB. Downloading assets does not implement ONNX inference,
+enable languages, activate a release, or prove the deployment's resource budget.
+The current `prepare_models.py` command and active API configuration are unchanged.
+
 ## Service configuration
 
 Flags override environment variables. Unknown `CATEGORY_MATCHER_API_*` names are

@@ -25,6 +25,7 @@ start with [AGENTS.md](../AGENTS.md) and [WORKFLOW.md](../WORKFLOW.md).
 | Feedback | Endpoint, handlers, storage accessors, and feedback-to-alias commands removed |
 | Database compatibility | Historical runtime migration 2 retained; runtime schema remains version 2 |
 | Accuracy | Human review and independent semantic acceptance qualification remain pending |
+| Multilingual ONNX | Pinned automatic asset preparation is available; runtime adapters and multilingual matching remain unimplemented |
 | Scaling | One local inference worker; multi-host deployment and additional vendors are deferred |
 
 Counts describe the inspected bundle, not a fixed requirement for future taxonomy
