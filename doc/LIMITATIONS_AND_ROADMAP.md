@@ -11,9 +11,9 @@ for the actual workload; a local test installation does not need every future co
 | Mapping accuracy | Reviewed calibration and independent holdout qualification remain pending; approximate rankings are not validated accuracy claims. | `data/google/`, `calibration.py`, `decision.py` |
 | Product meaning | Names such as Collections or recommendations need product context; placeholder labels stay unmapped without explicit useful context. | `query.py`, `matcher.py` |
 | Context safeguards | Rules address observed spelling, merchandising, ancestry, infant-apparel, and promotion failures; they are not a complete understanding of every product qualifier. | `query.py`, related regression tests |
-| Vendor/language coverage | Parser, executable routing, and matching identity support Google English; another vendor is not a drop-in text-file addition. | `taxonomy.py`, `api/schemas.py`, `matcher.py` |
+| Vendor/language coverage | Google English canonical taxonomy; multilingual model inputs with explicit enabled hints, but language-specific accuracy and mixed/transliterated input remain unqualified. Other vendors need adapters. | `taxonomy.py`, `languages.py`, `api/schemas.py`, `matcher.py` |
 | Inference throughput | One active inference and eight pending requests by default; queue size is configurable, but more queue capacity does not add compute capacity. | `api/service.py`, `api/settings.py` |
-| Resources | BGE embeddings and NLI reranking require resident CPU model memory; adding processes duplicates model/runtime state. | `encoder.py`, `reranker.py`, `api/server.py` |
+| Resources | INT8 ONNX E5 and NLI remain resident CPU models; two threads and bounded batches reduce configured work, but the 2 GB RAM/5 GB/2 vCPU target is not yet measured. Extra processes duplicate state. | `onnx_backend.py`, `encoder.py`, `reranker.py`, `api/server.py` |
 | Search size | Cosine distances are computed in SQL over scoped label/path vectors; there is no approximate nearest-neighbor index in the current implementation. | `storage.py` |
 | Caching/bulk work | Ancestor lookup caches exist, but there is no general result cache, batch-match HTTP contract, or durable bulk-job system. | `matcher.py`, `api/app.py` |
 | Timeouts | HTTP deadlines cannot cancel an active native model call; its slot remains occupied until completion. | `api/service.py` |

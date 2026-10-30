@@ -27,7 +27,7 @@ def parser() -> argparse.ArgumentParser:
     builder = commands.add_parser("build", help="Build a pinned offline taxonomy/vector bundle")
     builder.add_argument("--source", type=Path, default=Path("google_category_list.txt"))
     builder.add_argument("--aliases", type=Path, default=Path("data/google/aliases.jsonl"))
-    builder.add_argument("--model", type=Path, default=Path("models/embedding_model.json"))
+    builder.add_argument("--model", type=Path, default=Path("models/onnx_embedding_model.json"))
     builder.add_argument(
         "--ranking-profile", type=Path, default=Path("config/category_ranking.json")
     )
@@ -74,7 +74,7 @@ def parser() -> argparse.ArgumentParser:
     match.add_argument("--id", dest="category_id")
     match.add_argument("--parent", dest="parent_id")
     match.add_argument("--context", default="")
-    match.add_argument("--language", default="en")
+    match.add_argument("--language", default="auto")
     match.add_argument("--method", choices=METHODS, default="hybrid")
     match.add_argument("--limit", type=int, default=5)
     match.add_argument(

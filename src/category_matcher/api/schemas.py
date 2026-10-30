@@ -20,7 +20,10 @@ class MatchRequest(StrictModel):
     context: str | None = Field(default=None, max_length=1000)
     source_ancestors: list[str] = Field(default_factory=list, max_length=20)
     language: str = Field(
-        default="en", min_length=2, max_length=32, pattern=r"^[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$"
+        default="auto",
+        min_length=2,
+        max_length=32,
+        pattern=r"^(?:auto|[a-z]{2,3}(?:-[A-Za-z0-9]{2,8})*)$",
     )
     limit: int = Field(default=3, ge=1, le=10)
 
@@ -103,6 +106,7 @@ class TaxonomyInfo(StrictModel):
     taxonomy_version: str
     artifact_version: str
     languages: list[str]
+    input_languages: list[str] = Field(default_factory=lambda: ["en"])
     category_count: int
 
 

@@ -6,6 +6,51 @@ from category_matcher.domain import Category
 from category_matcher.normalization import exact_key, retrieval_terms, search_text
 
 INFANT_CUES = {"baby", "babies", "toddler", "toddlers", "infant", "infants", "newborn", "newborns"}
+INFANT_CUES |= {
+    "bébé",
+    "bébés",
+    "bebé",
+    "bebés",
+    "bebê",
+    "bebês",
+    "neonato",
+    "neonati",
+    "bayi",
+    "bebek",
+    "младенец",
+    "младенцы",
+    "رضع",
+    "شিশু",
+    "शिशु",
+}
+INFANT_SUBSTRINGS = {"婴儿", "婴幼儿", "嬰兒", "嬰幼兒", "ベビー", "幼児", "아기"}
+LOCALIZED_PLACEHOLDERS = {
+    "non classé",
+    "non classée",
+    "sans catégorie",
+    "non catégorisé",
+    "sin categoría",
+    "sin categorizar",
+    "sem categoria",
+    "senza categoria",
+    "nicht kategorisiert",
+    "ohne kategorie",
+    "tanpa kategori",
+    "kategorisiz",
+    "без категории",
+    "غير مصنف",
+    "غير مصنفة",
+    "بدون تصنيف",
+    "अवर्गीकृत",
+    "बिना श्रेणी",
+    "শ্রেণীবিহীন",
+    "অশ্রেণীবদ্ধ",
+    "未分类",
+    "未分類",
+    "未分类商品",
+    "未分類商品",
+    "미분류",
+}
 ATTRIBUTE_WORDS = {"eco", "friendly", "sustainable", "recycled", "recyclable", "ethical"}
 PLACEHOLDER_WORDS = {
     "uncategorized",
@@ -72,6 +117,28 @@ GENERIC_STORE_LABELS = {
     "favorites",
     "favourites",
 }
+GENERIC_STORE_LABELS |= {
+    "tous les produits",
+    "nouveautés",
+    "meilleures ventes",
+    "todos los productos",
+    "novedades",
+    "todos os produtos",
+    "tutti i prodotti",
+    "alle produkte",
+    "semua produk",
+    "tüm ürünler",
+    "все товары",
+    "جميع المنتجات",
+    "सभी उत्पाद",
+    "সব পণ্য",
+    "所有商品",
+    "全部商品",
+    "新品",
+    "系列",
+    "すべての商品",
+    "모든 상품",
+}
 AUDIENCE_WORDS = {
     "men",
     "mens",
@@ -91,6 +158,36 @@ AUDIENCE_WORDS = {
     "adults",
     "unisex",
     "s",
+}
+AUDIENCE_WORDS |= {
+    "hommes",
+    "femmes",
+    "hombres",
+    "mujeres",
+    "homens",
+    "mulheres",
+    "herren",
+    "damen",
+    "uomo",
+    "donna",
+    "pria",
+    "wanita",
+    "erkek",
+    "kadın",
+    "мужчины",
+    "женщины",
+    "رجال",
+    "نساء",
+    "पुरुष",
+    "महिला",
+    "পুরুষ",
+    "নারী",
+    "男士",
+    "女士",
+    "男性",
+    "女性",
+    "남성",
+    "여성",
 }
 STORE_QUALIFIERS = (
     ATTRIBUTE_WORDS
@@ -198,7 +295,9 @@ def unsupported_audience_ids(query: str, categories: dict[str, Category]) -> set
     This is deliberately limited to the observed baby/toddler apparel failure.
     It is not a general claim to understand every product qualifier.
     """
-    if set(re.findall(r"\w+", exact_key(query))) & INFANT_CUES:
+    if set(search_text(query).split()) & INFANT_CUES or any(
+        cue in exact_key(query) for cue in INFANT_SUBSTRINGS
+    ):
         return set()
     return {
         cid
@@ -219,6 +318,7 @@ def is_placeholder_label(text: str) -> bool:
     return (
         not normalized
         or normalized.isdecimal()
+        or normalized in LOCALIZED_PLACEHOLDERS
         or normalized
         in {
             "n a",

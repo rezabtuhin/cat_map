@@ -5,6 +5,8 @@ import json
 import math
 from pathlib import Path
 
+import numpy as np
+
 MODEL_NAME = "cross-encoder/ms-marco-MiniLM-L6-v2"
 NLI_MODEL = "cross-encoder/nli-deberta-v3-small"
 SUPPORTED_MODELS = (MODEL_NAME, "BAAI/bge-reranker-base", NLI_MODEL)
@@ -104,6 +106,13 @@ def load_profile(path: Path) -> dict:
 
 class CrossEncoderReranker:
     def __init__(self, model: dict):
+        self.metadata = model
+        if model.get("backend") == "onnx":
+            from category_matcher.onnx_backend import ONNXNLIPredictor
+
+            self.model = ONNXNLIPredictor(model)
+            self.aligned_parameter_copies = 0
+            return
         import torch
         from sentence_transformers import CrossEncoder
 
@@ -119,8 +128,6 @@ class CrossEncoderReranker:
         self.metadata = model
 
     def rank(self, query: str, candidates: list[dict]) -> list[dict]:
-        import torch
-
         if not candidates:
             return []
         original = candidates
@@ -137,19 +144,21 @@ class CrossEncoderReranker:
             ]
         else:
             pairs = [(query, f"Category: {c['label']}. Path: {c['path']}.") for c in candidates]
-        scores = self.model.predict(
-            pairs,
-            batch_size=8,
-            show_progress_bar=False,
-            activation_fn=torch.nn.Identity(),
-        )
+        options = {}
+        if self.metadata.get("backend") != "onnx":
+            import torch
+
+            options["activation_fn"] = torch.nn.Identity()
+        scores = self.model.predict(pairs, batch_size=8, show_progress_bar=False, **options)
         if entailment:
-            logits = torch.as_tensor(scores)
+            logits = np.asarray(scores, dtype=np.float32)
             if logits.ndim != 2 or logits.shape[1] != 3:
                 raise ValueError("Expected contradiction/entailment/neutral model outputs")
             index = self.metadata["entailment_index"]
             other = [i for i in range(3) if i != index]
-            scores = (logits[:, index] - torch.logsumexp(logits[:, other], dim=1)).numpy()
+            if type(index) is not int or not 0 <= index < 3 or not np.isfinite(logits).all():
+                raise ValueError("Invalid NLI entailment logits or label index")
+            scores = logits[:, index] - np.logaddexp(logits[:, other[0]], logits[:, other[1]])
         ranked = [
             {**candidate, "retrieval_rank": candidate["rank"], "reranker_score": float(score)}
             for candidate, score in zip(candidates, scores, strict=True)

@@ -79,6 +79,7 @@ class InferenceService:
         self.matcher = None
         self.categories = MappingProxyType({})
         self.artifact_version = self.taxonomy_version = None
+        self.input_languages = ("en",)
         self.policy_enabled = False
         self.pending = deque()
         self.active = None
@@ -102,6 +103,7 @@ class InferenceService:
             self.categories = MappingProxyType(dict(self.matcher.store.categories))
             self.artifact_version = self.matcher.manifest["artifact_version"]
             self.taxonomy_version = self.matcher.version
+            self.input_languages = tuple(self.matcher.manifest["model"].get("languages", ["en"]))
             self.policy_enabled = self.matcher.policy is not None
             if self.state == "starting":
                 self.state = "ready"

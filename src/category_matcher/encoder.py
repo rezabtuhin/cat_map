@@ -33,6 +33,13 @@ def download_model(cache: Path, revision: str = "main") -> dict:
 
 class BGEEncoder:
     def __init__(self, model: dict):
+        self.onnx = None
+        if model.get("backend") == "onnx":
+            from category_matcher.onnx_backend import ONNXEncoder
+
+            self.onnx = ONNXEncoder(model)
+            self.model = self.onnx.model
+            return
         os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
         import torch
         from sentence_transformers import SentenceTransformer
@@ -46,6 +53,8 @@ class BGEEncoder:
         self.instruction = model["query_instruction"]
 
     def encode_documents(self, texts: list[str], *, progress: bool = False) -> np.ndarray:
+        if self.onnx is not None:
+            return self.onnx.encode_documents(texts, progress=progress)
         return self.model.encode(
             texts,
             batch_size=16,
@@ -55,6 +64,8 @@ class BGEEncoder:
         ).astype(np.float32)
 
     def encode_queries(self, texts: list[str]) -> np.ndarray:
+        if self.onnx is not None:
+            return self.onnx.encode_queries(texts)
         return self.encode_documents([self.instruction + text for text in texts])
 
 

@@ -192,6 +192,7 @@ def create_app(settings: APISettings | None = None, *, matcher_factory=None) -> 
                 taxonomy_version=instance.taxonomy_version,
                 artifact_version=instance.artifact_version,
                 languages=["en"],
+                input_languages=list(instance.input_languages),
                 category_count=len(instance.categories),
             )
         ]

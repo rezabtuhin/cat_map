@@ -18,13 +18,14 @@ start with [AGENTS.md](../AGENTS.md) and [WORKFLOW.md](../WORKFLOW.md).
 
 | Area | Current implementation |
 |---|---|
-| Taxonomy | Google English; the inspected local bundle contains 5,582 records and 11,164 embedding rows |
+| Taxonomy | Google English canonical labels; 5,582 records and 11,164 label/path embedding rows |
 | Matching | Canonical/alias fast paths, scoped hybrid retrieval, local NLI reranking, and specificity safeguards |
 | Serving | Loopback FastAPI service, one inference thread, bounded pending queue, persistent match events |
 | Review | Source-bound dataset review tools and manually maintained approved aliases |
 | Feedback | Endpoint, handlers, storage accessors, and feedback-to-alias commands removed |
 | Database compatibility | Historical runtime migration 2 retained; runtime schema remains version 2 |
 | Accuracy | Human review and independent semantic acceptance qualification remain pending |
+| Multilingual ONNX | Pinned INT8 E5 retrieval and MiniLM NLI reranking; enabled language hints and Unicode handling; multilingual quality remains unqualified |
 | Scaling | One local inference worker; multi-host deployment and additional vendors are deferred |
 
 Counts describe the inspected bundle, not a fixed requirement for future taxonomy
@@ -67,8 +68,6 @@ for proposed stages and completion evidence.
   before claiming deployment capacity; old generated sprint reports were removed.
 - Decide the vendor/version registry and ingestion adapters before adding another
   taxonomy; the current parser, routes, configuration, and matching identity use Google.
-- The last full-repository lint check found two existing overlong strings in
-  `matcher.py`; re-check the current tree before treating this as outstanding.
 
 The previous user deferred automated execution and planned manual matching tests.
 No new runtime-test result is implied by these documents. Existing tests remain
