@@ -9,15 +9,15 @@ package. A global SQLite extension installation alone does not replace that depe
 
 ```bash
 uv sync --frozen
-uv run python scripts/prepare_models.py --download
+uv run python scripts/prepare_onnx_models.py --download
 uv run category-matcher build --activate
 uv run category-matcher-api
 ```
 
-Model preparation writes `models/embedding_model.json` and
-`models/nli_reranker_model.json` against downloaded snapshots. Omit `--download`
-when the pinned snapshots are already cached. Existing metadata must agree with
-the pins; the preparation script refuses incompatible metadata instead of overwriting it.
+Model preparation writes `models/onnx_embedding_model.json` and
+`models/onnx_nli_reranker_model.json` against verified local INT8 files. Omit
+`--download` when the pinned files are already present. Existing metadata must
+agree with the pins; preparation refuses incompatible metadata instead of overwriting it.
 
 Build embeds the complete source taxonomy and creates SQLite/BM25 artifacts. It
 can take substantially longer than startup and needs additional temporary resources.
@@ -26,7 +26,7 @@ on a different checkout/machine, prepare models and build locally.
 
 ### Multilingual ONNX model preparation
 
-Run this once after cloning to fetch the proposed multilingual INT8 assets:
+Run this once after cloning to fetch and prepare the multilingual INT8 assets:
 
 ```bash
 uv run --frozen python scripts/prepare_onnx_models.py --download
@@ -47,9 +47,32 @@ model pins, archive the previous model directories first and update the reviewed
 commits, complete file hashes, and sizes together. Keep recovery copies outside a
 storage-constrained deployment.
 
-The selected files total about 260 MB. Downloading assets does not implement ONNX inference,
-enable languages, activate a release, or prove the deployment's resource budget.
-The current `prepare_models.py` command and active API configuration are unchanged.
+The selected files total about 260 MB. Preparation writes the two ONNX descriptors;
+the default builder and ranking profile use them. Build a fresh bundle after an
+upgrade; previous 768-dimensional embeddings cannot be reused. Preparation alone
+does not activate a release or establish accuracy/resource capacity.
+
+### Lean deployment and legacy workflows
+
+Use `uv sync --frozen --no-dev` on a fresh production installation. PyTorch,
+Transformers, and SentenceTransformers belong to the optional `legacy` extra,
+not the default runtime. Use `uv sync --frozen --extra legacy` for legacy tools
+and the full existing test suite. The development installation may retain those
+packages and old weights for recovery; it is not a minimal deployment measurement.
+
+Build on the development/build machine and ship only the selected two model
+directories, their ONNX descriptors, the compatible bundle/release, and runtime
+dependencies. Snapshot paths currently remain installation-specific; use the same
+paths on the destination or prepare/build there. Do not patch manifests to relocate
+a release. Keep recovery models and backups separately rather than deleting them.
+Set retention/backup budgets for growing event databases and logs. The 2 GB RAM,
+5 GB storage, and 2 vCPU deployment target still needs startup/load measurements.
+
+To upgrade the local service, stop its existing API, prepare the verified assets,
+then run `category-matcher build --activate` and start the API. No qualified policy
+is copied from the old model generation. Rolling back to old bundles also requires
+their corresponding source/dependency environment; immutable releases are retained,
+but their old implementation fingerprints cannot pass under changed code.
 
 ## Service configuration
 
@@ -82,7 +105,8 @@ For a locally changed port, update the calling plugin's configured API URL as we
 
 The implementation fingerprint currently covers `domain.py`, `normalization.py`,
 `taxonomy.py`, `storage.py`, `retrieval.py`, `encoder.py`, `matcher.py`, `query.py`,
-`artifacts.py`, `decision.py`, and `reranker.py`. Even a formatting-only change to
+`artifacts.py`, `decision.py`, `reranker.py`, `model_assets.py`, `onnx_backend.py`,
+and `languages.py`. Even a formatting-only change to
 one of those files changes its hash. Inspect `implementation_fingerprint()` when
 changing build compatibility rules.
 

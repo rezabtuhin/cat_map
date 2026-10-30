@@ -26,8 +26,9 @@ files you loaded." Follow the shared workflow and security rules below.
 
 ## Project facts and invariants
 
-- Python 3.11, uv, FastAPI/Pydantic, local CPU models, SQLite with `sqlite-vec`.
-  Current executable taxonomy support is Google English; no public-network auth
+- Python 3.11, uv, FastAPI/Pydantic, pinned multilingual INT8 ONNX CPU models,
+  SQLite with `sqlite-vec`; PyTorch tools require the optional `legacy` extra.
+  Canonical taxonomy support is Google English, with multilingual input; no public-network auth
   or admin UI is implemented. Feedback capture/promotion was deliberately removed.
 - `matched` alone assigns `category`. A provisional candidate remains reviewable;
   preserve `provisional_category` / `requires_review` consistency. Scores are not

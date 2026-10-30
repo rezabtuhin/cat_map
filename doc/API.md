@@ -30,12 +30,24 @@ permits only loopback hosts.
 | `parent_category_id` | Optional canonical Google ID restricting the allowed subtree |
 | `context` | Optional useful product description, up to 1,000 characters |
 | `source_ancestors` | Optional store names, root to immediate parent; up to 20 nonblank labels, 300 characters per label, 1,000 total |
-| `language` | Defaults to `"en"`; a valid but unsupported language yields `unsupported_language` |
+| `language` | Defaults to `"auto"`; optional enabled language hint such as `"fr"`, `"bn"`, or `"zh-TW"`; unsupported explicit hints yield `unsupported_language` |
 | `limit` | Number of returned alternatives, 1–10, default 3; does not set the retrieval pool size |
 
 The Pydantic contract rejects unknown fields and incorrect types with 422. IDs are
 strings, and leading/trailing whitespace is trimmed on the text fields. Requests
 must use `Content-Type: application/json` and fit the configured body-size limit.
+
+`auto` passes the original multilingual text to the models; it does not run a
+separate language detector or guarantee recognition of every language. Initial
+enabled base hints are `ar`, `bn`, `de`, `en`, `es`, `fr`, `hi`, `id`, `it`, `ja`,
+`ko`, `pt`, `ru`, `tr`, and `zh`. Regional tags use the enabled base language.
+Mixed-language names are accepted. Quality across these languages remains unqualified.
+Unicode combining marks are preserved; lexical spelling/plural heuristics still
+primarily support English, while cross-lingual evidence comes from the models.
+
+`GET /v1/taxonomies` retains `languages: ["en"]` for canonical taxonomy labels and
+adds `input_languages` for the active model's enabled input hints. Responses keep
+canonical Google IDs and English paths. Clients need not translate taxonomy IDs.
 
 ### Category name only
 

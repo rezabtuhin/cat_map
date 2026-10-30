@@ -16,6 +16,7 @@ These decisions describe the implemented design, not a proposal for a larger pla
 | ADR-10 | Separate draft evaluation from reviewed holdout qualification | AI-authored labels and inspected real examples are useful development data but cannot establish independent accuracy; draft policies stay previews. | `datasets.py`, `evaluation.py`, `calibration.py`, `review.py` |
 | ADR-11 | Use atomic activation plus an API-held file lease | A resident matcher must not serve one release while activation selects another; API downtime is required for switching releases. Locking uses POSIX `fcntl`. | `bundles.py`, `api/service.py` |
 | ADR-12 | Retire feedback capture and promotion | The feature was removed at the user's request; old migrations retain checksum compatibility, while matching, event logging, and dataset review continue. | `api/app.py`, `runtime.py`, `migrations.py` |
+| ADR-13 | Default to pinned multilingual INT8 ONNX retrieval and NLI | Retains two-stage candidate evaluation while removing PyTorch from default serving dependencies. New tokenization, pooling, label ordering, embeddings, and artifact identity require rebuilding and separate language/resource qualification. | `model_assets.py`, `onnx_backend.py`, `languages.py`, `config/onnx_model_pins.json` |
 
 ## Constraints to preserve
 
@@ -25,7 +26,7 @@ These decisions describe the implemented design, not a proposal for a larger pla
   Source-derived selections remain provisional and conflicts remain explicit.
 - Runtime persistence must stay outside `artifacts/`. Never mutate active bundle
   files, release descriptors, model snapshots, or migration checksums in place.
-- HTTP timeouts bound waiting; they cannot interrupt a native PyTorch call already
+- HTTP timeouts bound waiting; they cannot interrupt a native model call already
   running. Releasing its execution slot early would violate the single-owner design.
 - API defaults use the artifact's ranking profile and a release-pinned qualified
   policy when present. Experimental CLI overrides must not silently alter API behavior.

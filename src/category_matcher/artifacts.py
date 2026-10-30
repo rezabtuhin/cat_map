@@ -40,6 +40,9 @@ def implementation_fingerprint() -> dict[str, str]:
         "artifacts.py",
         "decision.py",
         "reranker.py",
+        "model_assets.py",
+        "onnx_backend.py",
+        "languages.py",
     )
     return {name: digest(directory / name) for name in names}
 
@@ -71,7 +74,8 @@ def build(
     categories, audit = read_google_taxonomy(source)
     approved, inactive_aliases = read_aliases(aliases_path, {c.category_id for c in categories})
     model = json.loads(model_path.read_text())
-    model["query_instruction"] = RETRIEVAL_CONFIG["semantic_query_instruction"]
+    if model.get("backend") != "onnx":
+        model["query_instruction"] = RETRIEVAL_CONFIG["semantic_query_instruction"]
     if not isinstance(model.get("revision"), str) or len(model["revision"]) != 40:
         raise ValueError("Download and pin an immutable model revision before building")
     version = audit["source_sha256"][:16]
@@ -80,18 +84,15 @@ def build(
         from category_matcher.reranker import load_profile
 
         ranking_model = load_profile(ranking_profile)
-    packages = {
-        name: importlib.metadata.version(name)
-        for name in (
-            "bm25s",
-            "numpy",
-            "rapidfuzz",
-            "sentence-transformers",
-            "torch",
-            "sqlite-vec",
-            "transformers",
-        )
-    }
+    names = {"bm25s", "numpy", "rapidfuzz", "sqlite-vec", "scipy"}
+    for metadata in (model, ranking_model):
+        if metadata is not None:
+            names.update(
+                {"onnxruntime", "tokenizers"}
+                if metadata.get("backend") == "onnx"
+                else {"sentence-transformers", "torch", "transformers"}
+            )
+    packages = {name: importlib.metadata.version(name) for name in sorted(names)}
     identity = {
         "source_sha256": audit["source_sha256"],
         "aliases_sha256": digest(aliases_path),

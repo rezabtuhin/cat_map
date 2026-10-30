@@ -1,10 +1,9 @@
 """Conservative exact keys and broader retrieval text are intentionally separate."""
 
-import re
 import unicodedata
 
 NORMALIZATION_VERSION = "nfkc-casefold-ampersand-v1"
-RETRIEVAL_TEXT_VERSION = "english-light-plurals-content-words-v2"
+RETRIEVAL_TEXT_VERSION = "unicode-marks-ascii-light-plurals-v3"
 STOP_WORDS = set("a an the and or for of in on to with all general products goods used".split())
 
 
@@ -13,13 +12,23 @@ def exact_key(text: str) -> str:
 
 
 def search_text(text: str) -> str:
-    return " ".join(re.findall(r"\w+", exact_key(text), flags=re.UNICODE))
+    # Python's \w omits combining marks used inside Bangla, Hindi, and other scripts.
+    characters = (
+        character
+        if character == "_" or unicodedata.category(character)[0] in {"L", "N", "M"}
+        else " "
+        for character in exact_key(text)
+    )
+    return " ".join("".join(characters).split())
 
 
 def retrieval_terms(text: str) -> str:
     """Light plural folding for retrieval only; never an exact-match key."""
     words = []
     for word in search_text(text).split():
+        if not word.isascii():
+            words.append(word)
+            continue
         if word in STOP_WORDS:
             continue
         if len(word) > 4 and word.endswith("ies"):

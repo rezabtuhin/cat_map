@@ -12,7 +12,7 @@ files are not a security sandbox, an audit result, or a replacement for enforcem
 | Matching decisions | Canonical category records, scope checks, provisional separation | Only `matched` assigns a category; no invented IDs or automatic draft acceptance |
 | SQLite access | Bound values, foreign keys, short runtime transactions, separate taxonomy state | Parameterized values, validated identifiers, thread ownership, and rollback on failure |
 | Artifact loading | Source/implementation/package identity, file checksums, release/model inventory | Trusted acquisition, containment, immutable snapshots, and compatibility checks |
-| Models | Pinned revisions, local-only inference, remote model code disabled | Explicit downloads and safe model formats from trusted sources |
+| Models | Pinned INT8 ONNX graphs/tokenizers, five-file SHA-256 inventories, CPU-only local sessions; legacy remote model code disabled | Explicit downloads, validated paths/checksums, and trusted exports; keep cache metadata outside release inventories |
 | HTTP exposure | Loopback-only launcher; no application authentication | Keep local-only behavior until a separately implemented protected deployment path exists |
 | Review files | Source hashes and explicit reviewer declarations | Preserve provenance; a declared reviewer name is not an authenticated account |
 

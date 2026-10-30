@@ -10,6 +10,7 @@ from category_matcher.artifacts import load_manifest
 from category_matcher.decision import DecisionPolicy
 from category_matcher.domain import CandidateReranker, Hit, MatchResult
 from category_matcher.encoder import BGEEncoder
+from category_matcher.languages import language_supported
 from category_matcher.normalization import exact_key, retrieval_terms
 from category_matcher.query import (
     explicit_broad_category,
@@ -64,6 +65,8 @@ class Matcher:
 
     def close(self) -> None:
         self.store.close()
+        self.encoder = None
+        self.reranker = None
 
     def encode_queries(self, texts: list[str]) -> np.ndarray:
         if self.encoder is None:
@@ -201,7 +204,7 @@ class Matcher:
         method: str = "hybrid",
         category_id: str | None = None,
         parent_id: str | None = None,
-        language: str = "en",
+        language: str = "auto",
         context: str = "",
         source_ancestors: list[str] | None = None,
         query_vector: np.ndarray | None = None,
@@ -223,9 +226,9 @@ class Matcher:
         result = MatchResult(
             "provisional", "google", self.version, self.manifest["artifact_version"], method
         )
-        if language != "en":
+        if not language_supported(language, self.manifest["model"].get("languages", ["en"])):
             result.status = "unsupported_language"
-            result.reason_code = "english_only_prototype"
+            result.reason_code = "language_not_enabled_for_model"
             return result
         raw_text = text
         text, context_parts = (
@@ -265,7 +268,10 @@ class Matcher:
         if placeholder and not meaningful_context:
             result.status = "needs_clarification"
             result.reason_code = "placeholder_label_requires_product_context"
-            result.clarification = "Provide a product type or description; a default category name does not identify one."
+            result.clarification = (
+                "Provide a product type or description; "
+                "a default category name does not identify one."
+            )
             result.query_analysis["placeholder_label"] = {"retrieval_skipped": True}
             return result
         exact_ids = canonical & allowed
@@ -308,7 +314,10 @@ class Matcher:
             else:
                 result.status = "needs_clarification"
                 result.reason_code = analysis["reason"]
-                result.clarification = "Provide the product type; the store hierarchy is missing, ambiguous, or conflicting."
+                result.clarification = (
+                    "Provide the product type; "
+                    "the store hierarchy is missing, ambiguous, or conflicting."
+                )
             return result
         if placeholder and canonical_context and parent_id:
             result.reason_code = "explicit_product_context_provisional"

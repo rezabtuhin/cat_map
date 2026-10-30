@@ -25,8 +25,8 @@ of enumerating their installation-specific internal files. Paths are repository-
 
 | File | Purpose |
 |---|---|
-| [config/model_pins.json](../config/model_pins.json) | Pins immutable embedding/ranking model revisions and download metadata. |
-| [config/onnx_model_pins.json](../config/onnx_model_pins.json) | Pins the proposed multilingual INT8 repositories and exact file sizes/SHA-256 checksums. |
+| [config/model_pins.json](../config/model_pins.json) | Retains immutable PyTorch model pins for optional legacy preparation workflows. |
+| [config/onnx_model_pins.json](../config/onnx_model_pins.json) | Pins the default multilingual INT8 repositories and exact file sizes/SHA-256 checksums. |
 | [config/category_ranking.json](../config/category_ranking.json) | Selects the NLI ranking model, pair templates, candidate budget, and rank-fusion settings. |
 
 ## Matching and supporting modules
@@ -43,7 +43,10 @@ of enumerating their installation-specific internal files. Paths are repository-
 | [src/category_matcher/datasets.py](../src/category_matcher/datasets.py) | Loads JSONL datasets and checks review provenance, split overlap, and leakage constraints. |
 | [src/category_matcher/decision.py](../src/category_matcher/decision.py) | Validates version-bound policies and applies acceptance, abstention, or draft-preview rules. |
 | [src/category_matcher/domain.py](../src/category_matcher/domain.py) | Defines framework-independent category, hit, match-result, and reranker-interface records. |
-| [src/category_matcher/encoder.py](../src/category_matcher/encoder.py) | Loads pinned local BGE snapshots and encodes category documents and matching queries. |
+| [src/category_matcher/encoder.py](../src/category_matcher/encoder.py) | Dispatches encoding to pinned ONNX E5 or optional legacy BGE adapters. |
+| [src/category_matcher/model_assets.py](../src/category_matcher/model_assets.py) | Validates/downloads pinned files and generates separate immutable-compatible ONNX metadata. |
+| [src/category_matcher/onnx_backend.py](../src/category_matcher/onnx_backend.py) | Runs verified CPU ONNX graphs with local tokenizers, masked E5 pooling, and NLI logits. |
+| [src/category_matcher/languages.py](../src/category_matcher/languages.py) | Defines enabled language hints and validates auto/regional input tags. |
 | [src/category_matcher/evaluation.py](../src/category_matcher/evaluation.py) | Compares retrieval methods on labeled inputs while preserving provenance and per-example evidence. |
 | [src/category_matcher/matcher.py](../src/category_matcher/matcher.py) | Orchestrates safe lookups, context inheritance, retrieval, reranking, safeguards, and decision policy. |
 | [src/category_matcher/memory.py](../src/category_matcher/memory.py) | Collects native process memory observations with platform-aware accounting. |
@@ -78,8 +81,8 @@ of enumerating their installation-specific internal files. Paths are repository-
 | [scripts/api_client.py](../scripts/api_client.py) | Sends a category to the local match endpoint and prints its JSON response. |
 | [scripts/benchmark_api.py](../scripts/benchmark_api.py) | Starts an isolated API and compares a fresh CLI reference while measuring HTTP latency and overload behavior. |
 | [scripts/experiment_quantized_reranker.py](../scripts/experiment_quantized_reranker.py) | Evaluates or benchmarks an explicit reranker CPU profile without changing the active bundle. |
-| [scripts/prepare_models.py](../scripts/prepare_models.py) | Prepares exactly the configured model revisions from cache or an explicitly requested download. |
-| [scripts/prepare_onnx_models.py](../scripts/prepare_onnx_models.py) | Downloads missing multilingual ONNX assets on request and verifies pinned local files without changing the active API. |
+| [scripts/prepare_models.py](../scripts/prepare_models.py) | Retains optional legacy PyTorch snapshot preparation from immutable pins. |
+| [scripts/prepare_onnx_models.py](../scripts/prepare_onnx_models.py) | Verifies/fetches pinned ONNX assets and writes the default embedding/NLI descriptors without activating a release. |
 | [scripts/run_user_examples.py](../scripts/run_user_examples.py) | Compares retrieval-only and reranked results for the original five user category examples. |
 | [scripts/smoke_quantization.py](../scripts/smoke_quantization.py) | Checks pinned model/profile inference compatibility and output drift in isolation. |
 
@@ -121,6 +124,7 @@ of enumerating their installation-specific internal files. Paths are repository-
 | [tests/test_generic_hierarchy.py](../tests/test_generic_hierarchy.py) | Checks placeholder abstention and provisional inheritance from grounded, compatible store ancestors. |
 | [tests/test_matching.py](../tests/test_matching.py) | Covers canonical/alias lookup, context scope, retrieval branches, fusion, and generic-apparel safeguards. |
 | [tests/test_memory.py](../tests/test_memory.py) | Checks parsing and accounting of native process memory observations. |
+| [tests/test_onnx_backend.py](../tests/test_onnx_backend.py) | Covers E5 pooling/prefixes, NLI label order, file integrity/containment, language hints, and localized abstention with synthetic inputs. |
 | [tests/test_quantization.py](../tests/test_quantization.py) | Checks CPU profile validation, forward-output contracts, and packed tensor accounting. |
 | [tests/test_reranker.py](../tests/test_reranker.py) | Checks NLI scoring, rank fusion, revision-bound profiles, and CPU parameter alignment. |
 | [tests/test_review.py](../tests/test_review.py) | Checks source-bound human review import, tamper rejection, and unlabeled input capture. |
@@ -153,8 +157,10 @@ brackets vary by installation or release.
 
 | Path | Purpose |
 |---|---|
-| `models/embedding_model.json` | Records the pinned embedding revision, dimension, and local snapshot path. |
-| `models/nli_reranker_model.json` | Records the pinned NLI model revision, scoring profile, and local snapshot path. |
+| `models/onnx_embedding_model.json` | Records default E5 prefixes, pooling, dimension, language hints, and exact ONNX asset hashes. |
+| `models/onnx_nli_reranker_model.json` | Records default NLI label ordering, CPU settings, language hints, and asset hashes. |
+| `models/multilingual-e5-small/`, `models/multilingual-nli/` | Store the five pinned local files per INT8 model and small Hugging Face download metadata. |
+| `models/embedding_model.json`, `models/nli_reranker_model.json` | Retain legacy PyTorch model descriptions for compatible recovery/development workflows. |
 | `models/hub/` | Caches downloaded model/tokenizer snapshots and their backing files. |
 | `artifacts/google/active.json` | Selects the artifact, immutable release, and previous release. |
 | `artifacts/google/.service.lock` | Coordinates API residency with activation/rollback through file leases. |

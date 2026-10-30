@@ -58,7 +58,7 @@ policy, non-exact retrieval remains provisional. Conservative literal canonical
 wrappers can also return `matched` through the context/broad-category shortcuts.
 
 1. **Validate:** normalize exact keys separately from retrieval text, enforce input
-   limits and English support, and resolve explicit IDs and parent constraints.
+   limits and enabled language hints, and resolve explicit IDs and parent constraints.
 2. **Guard placeholders:** a name such as `Uncategorized` has no product meaning
    without explicit useful context and returns clarification before neural retrieval.
 3. **Look up known names:** accept an unambiguous canonical label/path or approved
@@ -82,19 +82,27 @@ These are current source defaults, pinned into each built manifest:
 
 | Setting | Value |
 |---|---|
-| Embedding model | `BAAI/bge-base-en-v1.5`, 768 dimensions |
-| Ranking model | `cross-encoder/nli-deberta-v3-small` |
+| Embedding model | `Xenova/multilingual-e5-small`, INT8 ONNX, 384 dimensions |
+| Ranking model | `onnx-community/multilingual-MiniLMv2-L6-mnli-xnli-ONNX`, INT8 |
 | Retrieval budgets | BM25 100, semantic 100, fuzzy 50 |
 | Retrieval fusion | Constant 10; weights BM25 1, fuzzy 1, semantic 5 |
 | Fused pool | Up to 200, then up to 5 additional parents |
-| NLI candidate budget | First 100 candidates |
+| NLI candidate budget | First 20 candidates; one pair per inference batch |
 | NLI fusion | Weight 3, rank constant 10 |
 | Pair templates | `The product category is {query}.` / `The product category is {label}.` |
 
-`config/model_pins.json` pins downloads. `config/category_ranking.json` overrides
-ranking templates and limits when building. `retrieval.py` pins the effective
-semantic query instruction to an empty prefix; downloaded model metadata alone
-does not determine runtime encoding. The active manifest is the runtime authority.
+`config/onnx_model_pins.json` pins exact downloads. Preparation writes separate ONNX
+metadata, including file hashes, two CPU threads, and enabled input languages.
+`config/category_ranking.json` overrides ranking templates and limits when building.
+E5 applies `query: ` / `passage: ` prefixes, masked mean pooling, and L2 normalization.
+The NLI adapter reads entailment at index 0, unlike the retained legacy DeBERTa
+adapter's index 1. The active manifest is the runtime authority.
+
+`onnx_backend.py` loads only verified local graph bytes on CPU, with direct Rust
+tokenizers and NumPy postprocessing. Default inference does not load PyTorch or
+SentenceTransformers. ONNX release inventories include only the five pinned files;
+mutable Hugging Face download metadata is excluded. Legacy tools require the
+optional `legacy` dependency extra and separately built compatible bundles.
 
 ## Scoring mechanics
 

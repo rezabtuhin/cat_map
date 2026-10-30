@@ -82,6 +82,15 @@ def model_inventory(manifest):
     ):
         if metadata is None:
             continue
+        if metadata.get("backend") == "onnx":
+            from category_matcher.onnx_backend import verified_model_files
+
+            inventory[role] = {
+                "name": metadata["name"],
+                "revision": metadata["revision"],
+                "files": verified_model_files(metadata),
+            }
+            continue
         revision = metadata.get("revision")
         if not isinstance(revision, str) or len(revision) != 40:
             raise ValueError("Model must use an immutable revision")
